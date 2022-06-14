@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bdbe91fa-b40c-4286-9548-33994a09d0f5" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/laporan/laporan_pin.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/laporan/penjualan/paket_barang.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/berita/kategoriBerita.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/barang_binary.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/indexProductClaim.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/paket_binary.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/cardSatus.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/filter.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/list/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/list/src/ekspedisi.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/list/src/info.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/list/src/produk.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/list/src/tagihan.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/skeleton/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/skeleton/src/ekspedisi.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/skeleton/src/info.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/skeleton/src/produk.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/skeleton/src/tagihan.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/binary/src/skeleton_list.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/investasi/kategori.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/pengguna/indexUserLevel.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/pengguna/indexUserList.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/reward/indexReward.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/masterdata/reward/indexRewardClaim.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/modals/laporan/detail_laporan_paket_barang.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/modals/laporan/pin/form_generate_pin.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/berita/form_kategori_berita.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/binary/form_adjusment.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/binary/form_barang_binary.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/binary/form_paket_binary.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/pengguna/form_user_level.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/reward/form_reward.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/print/layout.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/print/print.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/print/print_laporan_penjualan.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/setting/kurir/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/setting/website/benefit/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/setting/website/footer/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/setting/website/header/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/setting/website/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/setting/website/plan/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/setting/website/pricing/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/App/setting/website/tambahan/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/common/ButtonActionTableCommon.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/common/HeaderGeneralCommon.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/common/SelectCommon.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/common/TableCommon.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/laporan/report_pin.action.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/masterdata/berita/kategori_berita.action.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/masterdata/binary/barang_binary.action.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/masterdata/binary/kategori_binary.action.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/masterdata/binary/paket_binary.action.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/masterdata/investasi/kategori.action.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/masterdata/reward/reward.action.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/actions/setting/kurir.action.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/laporan/report_pin.reducer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/masterdata/berita/kategori_berita.reducer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/masterdata/binary/barang_binary.reducer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/masterdata/binary/kategori_binary.reducer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/masterdata/binary/paket_binary.reducer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/masterdata/investasi/kategori_investasi.reducer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/redux/reducers/masterdata/reward/reward.reducer.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/App/kategori/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/App/masterdata/indexUserLevel.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/App/masterdata/indexUserList.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/App/modals/masterdata/user_level/form_user_level.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/App/modals/pin/generate_pin_modal.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/App/pin/index.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/Dashboard/Dashboard.js" afterPath="$PROJECT_DIR$/src/components/App/Dashboard/Dashboard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/ewallet/indexDeposit.js" afterPath="$PROJECT_DIR$/src/components/App/ewallet/indexDeposit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/ewallet/indexPenarikan.js" afterPath="$PROJECT_DIR$/src/components/App/ewallet/indexPenarikan.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/laporan/penjualan/tiket.js" afterPath="$PROJECT_DIR$/src/components/App/laporan/penjualan/tiket.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/laporan/transaksi_member.js" afterPath="$PROJECT_DIR$/src/components/App/laporan/transaksi_member.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/masterdata/member/index.js" afterPath="$PROJECT_DIR$/src/components/App/masterdata/member/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/laporan/detail_report_transaksi_member.js" afterPath="$PROJECT_DIR$/src/components/App/modals/laporan/detail_report_transaksi_member.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_alamat.js" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_alamat.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_bank.js" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_bank.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_invesment.js" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_invesment.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/masterdata/member/form_member_bank.js" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/member/form_member_bank.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/modals/setting/bank.modal.js" afterPath="$PROJECT_DIR$/src/components/App/modals/setting/bank.modal.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/setting/bank/index.js" afterPath="$PROJECT_DIR$/src/components/App/setting/bank/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/setting/umum/alokasi/index.js" afterPath="$PROJECT_DIR$/src/components/App/setting/umum/alokasi/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/App/setting/umum/general/index.js" afterPath="$PROJECT_DIR$/src/components/App/setting/umum/general/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Routes/Routes.js" afterPath="$PROJECT_DIR$/src/components/Routes/Routes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/common/notfound.js" afterPath="$PROJECT_DIR$/src/components/common/notfound.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/helper.js" afterPath="$PROJECT_DIR$/src/helper.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/_constants.js" afterPath="$PROJECT_DIR$/src/redux/actions/_constants.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/dashboard/dashboard.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/dashboard/dashboard.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/ewallet/deposit.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/ewallet/deposit.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/ewallet/penarikan.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/ewallet/penarikan.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/kategori/kategori.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/kategori/kategori.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/laporan/laporan_penjualan.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/laporan/laporan_penjualan.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/laporan/report_barang.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/laporan/report_barang.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/laporan/report_reward.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/laporan/report_reward.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/laporan/report_transaksi_member.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/laporan/report_transaksi_member.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/masterdata/member.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/masterdata/member.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/masterdata/user_level.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/masterdata/user_level.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/masterdata/user_list.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/masterdata/user_list.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/setting/bank.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/setting/bank.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/actions/setting/general.action.js" afterPath="$PROJECT_DIR$/src/redux/actions/setting/general.action.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/handle_http.js" afterPath="$PROJECT_DIR$/src/redux/handle_http.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/reducers/index.js" afterPath="$PROJECT_DIR$/src/redux/reducers/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/reducers/laporan/bonus.reducer.js" afterPath="$PROJECT_DIR$/src/redux/reducers/laporan/bonus.reducer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/reducers/laporan/report_barang.reducer.js" afterPath="$PROJECT_DIR$/src/redux/reducers/laporan/report_barang.reducer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/reducers/masterdata/bank.reducer.js" afterPath="$PROJECT_DIR$/src/redux/reducers/masterdata/bank.reducer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/redux/reducers/setting/kurir.reducer.js" afterPath="$PROJECT_DIR$/src/redux/reducers/setting/kurir.reducer.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/App/konten/berita/index.js" afterPath="$PROJECT_DIR$/src/components/App/masterdata/berita/indexBerita.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/App/modals/kategori/form_kategori.js" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/investasi/form_kategori_investasi.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/App/modals/konten/berita/form_berita.js" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/berita/form_berita.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/App/modals/masterdata/user_list/form_user_list.js" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/pengguna/form_user_list.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/App/modals/paket/form_paket.js" afterPath="$PROJECT_DIR$/src/components/App/modals/masterdata/investasi/form_paket_investasi.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/components/App/paket/daftar_paket.js" afterPath="$PROJECT_DIR$/src/components/App/masterdata/investasi/paket.js" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/App/setting/umum/alokasi/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="20" column="9" lean-forward="false" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+                <element signature="n#!!block;n#getDerivedStateFromProps#0;n#Index#0" expanded="false" />
+                <element signature="n#!!block;n#handleTypeOtp#0;n#Index#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_constants.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/redux/actions/_constants.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="22" column="34" lean-forward="true" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>label</find>
+      <find>menu-collasped</find>
+      <find>input</find>
+      <find>modal</find>
+      <find>bold</find>
+      <find>btn-warning</find>
+      <find>tr</find>
+      <find>defaul</find>
+      <find>default</find>
+      <find>.dropdown-menu</find>
+      <find>claim</find>
+      <find>penju</find>
+      <find>red</find>
+      <find>href</find>
+      <find>Default</find>
+      <find>getStyles</find>
+      <find>.css-1wa3eu0-placeholder</find>
+      <find>form-control</find>
+      <find>place</find>
+      <find>status</find>
+      <find>setLoadingExcel</find>
+      <find>isLoadingExcel</find>
+      <find>ranges</find>
+      <find>showCustomRangeLabel</find>
+      <find>template</find>
+      <find>maxSpan</find>
+      <find>local</find>
+      <find>console</find>
+      <find>charge_wd</find>
+      <find>min_wd</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/public/style.css" />
+        <option value="$PROJECT_DIR$/src/Preloader.js" />
+        <option value="$PROJECT_DIR$/src/components/common/thirdMenu.js" />
+        <option value="$PROJECT_DIR$/src/redux/reducers/masterdata/bank.reducer.js" />
+        <option value="$PROJECT_DIR$/src/redux/actions/masterdata/bank.action.js" />
+        <option value="$PROJECT_DIR$/src/redux/actions/masterdata/alamat.action.js" />
+        <option value="$PROJECT_DIR$/src/redux/reducers/masterdata/alamat.reducer.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_transaksi.js" />
+        <option value="$PROJECT_DIR$/src/components/common/oneMenu.js" />
+        <option value="$PROJECT_DIR$/src/components/common/File64.js" />
+        <option value="$PROJECT_DIR$/src/redux/actions/kategori/kategori.action.js" />
+        <option value="$PROJECT_DIR$/src/components/App/Dashboard/src/charts.js" />
+        <option value="$PROJECT_DIR$/src/components/App/Dashboard/src/Cards.js" />
+        <option value="$PROJECT_DIR$/src/components/App/Auth/Login/Login.js" />
+        <option value="$PROJECT_DIR$/src/redux/reducers/setting/bank.reducer.js" />
+        <option value="$PROJECT_DIR$/src/redux/reducers/index.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/laporan/form_penarikan_bonus.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_alamat.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_bank.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/pin/generate_pin.js" />
+        <option value="$PROJECT_DIR$/src/components/Routes/Routes.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/setting/bank.modal.js" />
+        <option value="$PROJECT_DIR$/src/redux/actions/ewallet/saldo.action.js" />
+        <option value="$PROJECT_DIR$/src/components/Layout/index.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/laporan/detail_laporan_saldo.js" />
+        <option value="$PROJECT_DIR$/src/components/App/Dashboard/Dashboard.js" />
+        <option value="$PROJECT_DIR$/src/utils/setAuthToken.js" />
+        <option value="$PROJECT_DIR$/src/components/App/Dashboard/src/Filter.js" />
+        <option value="$PROJECT_DIR$/src/components/App/konten/indexBerita.js" />
+        <option value="$PROJECT_DIR$/src/components/App/masterdata/indexUserList.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/konten/berita/form_berita.js" />
+        <option value="$PROJECT_DIR$/src/components/App/setting/bank/index.js" />
+        <option value="$PROJECT_DIR$/src/components/App/pin/index.js" />
+        <option value="$PROJECT_DIR$/src/components/App/masterdata/indexUserLevel.js" />
+        <option value="$PROJECT_DIR$/src/components/Layout/header.js" />
+        <option value="$PROJECT_DIR$/src/components/Layout/sideMenu.js" />
+        <option value="$PROJECT_DIR$/src/components/common/twoMenu.js" />
+        <option value="$PROJECT_DIR$/src/components/common/threeMenu.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/masterdata/user_list/form_user_list.js" />
+        <option value="$PROJECT_DIR$/src/components/App/ewallet/indexPenarikan.js" />
+        <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_invesment.js" />
+        <option value="$PROJECT_DIR$/src/components/App/ewallet/indexDeposit.js" />
+        <option value="$PROJECT_DIR$/src/redux/reducers/masterdata/member.reducer.js" />
+        <option value="$PROJECT_DIR$/src/redux/actions/masterdata/member.action.js" />
+        <option value="$PROJECT_DIR$/src/components/App/masterdata/member/index.js" />
+        <option value="$PROJECT_DIR$/src/components/App/modals/masterdata/user_level/form_user_level.js" />
+        <option value="$PROJECT_DIR$/src/components/App/laporan/indexSaldo.js" />
+        <option value="$PROJECT_DIR$/src/helper.js" />
+        <option value="$PROJECT_DIR$/src/components/App/setting/umum/alokasi/index.js" />
+        <option value="$PROJECT_DIR$/src/redux/actions/_constants.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="569" />
+    <option name="y" value="93" />
+    <option name="width" value="697" />
+    <option name="height" value="735" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>ECMAScript 6 migration aidsJavaScript</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>HTML</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>Spelling</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>JSUnresolvedFunction</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="prowara-bo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="prowara-bo" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="prowara-bo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="prowara-bo" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="prowara-bo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="prowara-bo" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="redux" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="prowara-bo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="prowara-bo" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="redux" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="actions" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="SearchEverywhereHistoryKey" value="default.png&#9;FILE&#9;file://E:/NETINDO/web/prowara-bo/src/assets/default.png&#10;claim&#9;null&#9;null" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bdbe91fa-b40c-4286-9548-33994a09d0f5" name="Default" comment="" />
+      <created>1616997066733</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1616997066733</updated>
+      <workItem from="1616997068161" duration="23995000" />
+      <workItem from="1617079877104" duration="3525000" />
+      <workItem from="1617171918782" duration="19068000" />
+      <workItem from="1617192905771" duration="4169000" />
+      <workItem from="1617201146305" duration="17320000" />
+      <workItem from="1617257013921" duration="18194000" />
+      <workItem from="1617310617162" duration="31145000" />
+      <workItem from="1617883732813" duration="166000" />
+      <workItem from="1647938835823" duration="2065000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="119647000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17975831" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25980392" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/generatePath.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/matchPath.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/MemoryRouter.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/Prompt.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/Redirect.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/Route.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/StaticRouter.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/Switch.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/generatePath.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/index.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/matchPath.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/MemoryRouter.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/Prompt.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/Redirect.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/Route.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/umd/react-router.min.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/node_modules/hoist-non-react-statics/index.d.ts" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/node_modules/hoist-non-react-statics/src/index.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/withRouter.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/Switch.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/StaticRouter.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/RouterContext.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-router/es/Router.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-select/src/index.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-select/src/styles.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-select/src/components/Menu.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-select/src/components/containers.js" />
+    <entry file="file://$PROJECT_DIR$/src/components/App/modals/konten/berita/form_berita.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/twoMenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="35" column="72" lean-forward="false" selection-start-line="35" selection-start-column="72" selection-end-line="35" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/threeMenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="25" column="43" lean-forward="false" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Layout/sideMenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="153" column="46" lean-forward="false" selection-start-line="153" selection-start-column="46" selection-end-line="153" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/modals/masterdata/user_list/form_user_list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="22" column="45" lean-forward="false" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/ewallet/indexPenarikan.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="92" column="26" lean-forward="true" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/ewallet/indexDeposit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="167" column="80" lean-forward="false" selection-start-line="167" selection-start-column="80" selection-end-line="167" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="412" column="41" lean-forward="true" selection-start-line="412" selection-start-column="24" selection-end-line="412" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/reducers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="26" column="10" lean-forward="true" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/modals/masterdata/user_level/form_user_level.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="59" column="9" lean-forward="false" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/masterdata/member/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2314">
+          <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-bootstrap-daterangepicker/dist/bundle.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/bootstrap-daterangepicker/daterangepicker.js" />
+    <entry file="file://$PROJECT_DIR$/src/components/App/laporan/indexSaldo.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/moment/moment.d.ts" />
+    <entry file="file://$PROJECT_DIR$/node_modules/react-js-pagination/dist/Pagination.js" />
+    <entry file="file://$PROJECT_DIR$/src/helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="221" column="16" lean-forward="false" selection-start-line="221" selection-start-column="16" selection-end-line="221" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/reducers/masterdata/member.reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13">
+          <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/modals/masterdata/member/detail_invesment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="103" column="12" lean-forward="false" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/masterdata/member.action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13">
+          <caret line="145" column="25" lean-forward="false" selection-start-line="145" selection-start-column="25" selection-end-line="145" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/App/setting/umum/alokasi/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="20" column="9" lean-forward="false" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="n#!!block;n#getDerivedStateFromProps#0;n#Index#0" expanded="false" />
+            <element signature="n#!!block;n#handleTypeOtp#0;n#Index#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/redux/actions/_constants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="22" column="34" lean-forward="true" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
