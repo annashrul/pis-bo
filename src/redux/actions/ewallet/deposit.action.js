@@ -32,7 +32,8 @@ export const getExcelDeposit = (where = "") => {
     if (where !== "") url += `?${where}`;
     handleGet(url, (res) => {
       dispatch(setDataExcel(res));
-      if (res.result.length === 0) Swal.fire("Informasi", "Data Tidak Tersedia", "info");
+      if (res.result.length === 0)
+        Swal.fire("Informasi", "Data Tidak Tersedia", "info");
     });
   };
 };

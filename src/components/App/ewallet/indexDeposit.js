@@ -1,10 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Layout from "components/Layout";
-import { toCurrency, myDate, toExcel, toRp, generateNo, noData, isEmptyOrUndefined, swallOption, DEFAULT_WHERE, getFetchWhere, getPeriode } from "../../../helper";
+import {
+  toCurrency,
+  myDate,
+  toExcel,
+  toRp,
+  generateNo,
+  noData,
+  isEmptyOrUndefined,
+  swallOption,
+  DEFAULT_WHERE,
+  getFetchWhere,
+  getPeriode,
+} from "../../../helper";
 import { ModalToggle, ModalType } from "../../../redux/actions/modal.action";
 import moment from "moment";
-import { getDeposit, getExcelDeposit, postDeposit } from "../../../redux/actions/ewallet/deposit.action";
+import {
+  getDeposit,
+  getExcelDeposit,
+  postDeposit,
+} from "../../../redux/actions/ewallet/deposit.action";
 import * as Swal from "sweetalert2";
 import { getConfigWallet } from "../../../redux/actions/ewallet/config_wallet.action";
 import HeaderGeneralCommon from "../../common/HeaderGeneralCommon";
@@ -44,7 +60,11 @@ class IndexDeposit extends Component {
       let where = getFetchWhere(res, page);
       let periode = getPeriode(where.split("&"));
       let getDate = periode.split("-");
-      let state = { where_data: where, dateFrom: moment(getDate[0]).format("yyyy-MM-DD"), dateTo: moment(getDate[1]).format("yyyy-MM-DD") };
+      let state = {
+        where_data: where,
+        dateFrom: moment(getDate[0]).format("yyyy-MM-DD"),
+        dateTo: moment(getDate[1]).format("yyyy-MM-DD"),
+      };
       this.setState(state);
       this.props.dispatch(getDeposit(where));
     }
@@ -68,7 +88,9 @@ class IndexDeposit extends Component {
         let content = [];
         let total = 0;
         props.dataExcel.data.forEach((v) => {
-          let konv = parseInt(v.amount, 10) * parseInt(this.props.configWallet.konversi_poin, 10);
+          let konv =
+            parseInt(v.amount, 10) *
+            parseInt(this.props.configWallet.konversi_poin, 10);
           total = total + konv;
           let status = "";
           if (v.status === 0) {
@@ -80,12 +102,32 @@ class IndexDeposit extends Component {
           if (v.status === 2) {
             status = "Gagal";
           }
-          content.push([v.kd_trx, v.fullname, v.downline, v.acc_name, v.acc_no, konv, parseInt(v.unique_code, 10), status, myDate(v.created_at)]);
+          content.push([
+            v.kd_trx,
+            v.fullname,
+            v.downline,
+            v.acc_name,
+            v.acc_no,
+            konv,
+            parseInt(v.unique_code, 10),
+            status,
+            myDate(v.created_at),
+          ]);
         });
         toExcel(
           "LAPORAN DEPOSIT",
           `${this.state.dateFrom} - ${this.state.dateTo}`,
-          ["KODE TRANSAKSI", "NAMA", "DOWNLINE", "BANK TUJUAN", "NO REKENING", "JUMLAH", "KODE UNIK", "STATUS", "TANGGAL"],
+          [
+            "KODE TRANSAKSI",
+            "NAMA",
+            "DOWNLINE",
+            "BANK TUJUAN",
+            "NO REKENING",
+            "JUMLAH",
+            "KODE UNIK",
+            "STATUS",
+            "TANGGAL",
+          ],
           content,
           [[""], [""], ["TOTAL", "", "", "", "", total]]
         );
@@ -114,16 +156,21 @@ class IndexDeposit extends Component {
     });
   }
   handleApproval(id, status) {
-    swallOption(`anda yakin akan ${status === 1 ? "menerima" : "membatalkan"} deposit ini ??`, () => {
-      let parsedata = { status: status };
-      this.props.dispatch(postDeposit(parsedata, btoa(id)));
-    });
+    swallOption(
+      `anda yakin akan ${
+        status === 1 ? "menerima" : "membatalkan"
+      } deposit ini ??`,
+      () => {
+        let parsedata = { status: status };
+        this.props.dispatch(postDeposit(parsedata, btoa(id)));
+      }
+    );
   }
 
   render() {
     let totAmountPoint = 0;
     let totAmountRp = 0;
-    const { pagination,  data} = this.props;
+    const { pagination, data } = this.props;
 
     const head = [
       { label: "No", width: "1%", rowSpan: 2, className: "text-center" },
@@ -155,7 +202,9 @@ class IndexDeposit extends Component {
           otherData={this.state.status_data}
           other={this.state.status}
           otherState="status"
-          callbackExport={() => this.printDocumentXLsx(pagination.per_page * pagination.last_page)}
+          callbackExport={() =>
+            this.printDocumentXLsx(pagination.per_page * pagination.last_page)
+          }
         />
         <TableCommon
           head={head}
@@ -176,26 +225,46 @@ class IndexDeposit extends Component {
                     totAmountRp = totAmountRp + parseInt(nomRp);
                     let status = "";
                     if (v.status === 0) {
-                      status = <span className={"badge badge-warning"}>Pending</span>;
+                      status = (
+                        <span className={"badge badge-warning"}>Pending</span>
+                      );
                     }
                     if (v.status === 1) {
-                      status = <span className={"badge badge-success"}>Sukses</span>;
+                      status = (
+                        <span className={"badge badge-success"}>Sukses</span>
+                      );
                     }
                     if (v.status === 2) {
-                      status = <span className={"badge badge-danger"}>Gagal</span>;
+                      status = (
+                        <span className={"badge badge-danger"}>Gagal</span>
+                      );
                     }
                     return (
                       <tr key={i}>
-                        <td className="middle nowrap text-center">{generateNo(i, pagination.current_page)}</td>
                         <td className="middle nowrap text-center">
-                   
-                          <button style={{ marginRight: "5px" }} className={"btn btn-primary"} disabled={v.status === 1 || v.status === 2} onClick={(e) => this.handleApproval(v.kd_trx, 1)}>
+                          {generateNo(i, pagination.current_page)}
+                        </td>
+                        <td className="middle nowrap text-center">
+                          <button
+                            style={{ marginRight: "5px" }}
+                            className={"btn btn-primary"}
+                            disabled={v.status === 1 || v.status === 2}
+                            onClick={(e) => this.handleApproval(v.kd_trx, 1)}
+                          >
                             <i className={"fa fa-check"} />
                           </button>
-                          <button style={{ marginRight: "5px" }} className={"btn btn-primary"} disabled={v.status === 1 || v.status === 2} onClick={(e) => this.handleApproval(v.kd_trx, 2)}>
+                          <button
+                            style={{ marginRight: "5px" }}
+                            className={"btn btn-primary"}
+                            disabled={v.status === 1 || v.status === 2}
+                            onClick={(e) => this.handleApproval(v.kd_trx, 2)}
+                          >
                             <i className={"fa fa-close"} />
                           </button>
-                          <button className={"btn btn-primary"} onClick={(e) => this.handlePaymentSlip(i)}>
+                          <button
+                            className={"btn btn-primary"}
+                            onClick={(e) => this.handlePaymentSlip(i)}
+                          >
                             <i className={"fa fa-image"} />
                           </button>
                         </td>
@@ -208,10 +277,15 @@ class IndexDeposit extends Component {
                             {v.bank_name} ({v.acc_no})
                           </div>
                         </td>
-                        <td className="middle nowrap text-right poin"> {toCurrency(`${v.amount}`)}</td>
+                        <td className="middle nowrap text-right poin">
+                          {" "}
+                          {toCurrency(`${v.amount}`)}
+                        </td>
                         <td className="middle nowrap">{v.unique_code}</td>
                         <td className="middle nowrap">{status}</td>
-                        <td className="middle nowrap">{myDate(v.created_at)}</td>
+                        <td className="middle nowrap">
+                          {myDate(v.created_at)}
+                        </td>
                       </tr>
                     );
                   })
@@ -221,8 +295,16 @@ class IndexDeposit extends Component {
           footer={[
             {
               data: [
-                { colSpan: 5, label: "Total perhalaman", className: "text-left" },
-                { colSpan: 1, label: toRp(totAmountRp), className: `text-right txtGreen` },
+                {
+                  colSpan: 5,
+                  label: "Total perhalaman",
+                  className: "text-left",
+                },
+                {
+                  colSpan: 1,
+                  label: toRp(totAmountRp),
+                  className: `text-right txtGreen`,
+                },
                 { colSpan: 3, label: "" },
               ],
             },

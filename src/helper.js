@@ -36,12 +36,13 @@ export const menu = () => {
     {
       id: 0,
       label: "member",
-      path: "/member",
+      path: "/materdata/member",
       isChecked: false,
       isToggle: false,
       sub: undefined,
       icons: "fa fa-user-o",
     },
+
     {
       id: 20,
       label: "pengguna",
@@ -53,7 +54,7 @@ export const menu = () => {
         {
           id: 21,
           label: "list",
-          path: "/masterdata/pengguna/list",
+          path: "/masterdata/pengguna",
           parent: "pengguna",
           isChecked: false,
         },
@@ -66,111 +67,30 @@ export const menu = () => {
         },
       ],
     },
-    {
-      id: 30,
-      label: "pin",
-      path: "/laporan/pin",
-      isChecked: false,
-      isToggle: false,
-      sub: undefined,
-      icons: "fa fa-vcard",
-    },
-    {
-      id: 40,
-      label: "order",
-      path: "/masterdata/binary/paket/order",
-      isChecked: false,
-      isToggle: false,
-      sub: undefined,
-      icons: "fa fa-shopping-bag",
-    },
-    {
-      id: 50,
-      label: "klaim reward",
-      path: "/masterdata/reward/claim",
-      isChecked: false,
-      isToggle: false,
-      sub: undefined,
-      icons: "fa fa-trophy",
-    },
-    {
-      id: 60,
-      label: "klaim produk",
-      path: "/product/claim",
-      isChecked: false,
-      isToggle: false,
-      sub: undefined,
-      icons: "fa fa-diamond",
-    },
 
     {
-      id: 300,
-      label: "master data",
+      id: 500,
+      label: "paket",
       path: "",
       isChecked: false,
       isToggle: false,
-      icons: "fa fa-list",
+      icons: "fa fa-credit-card",
       sub: [
         {
-          id: 301,
-          label: "Kemitraan",
-          path: "",
-          parent: "masterdata",
+          id: 501,
+          label: "list",
+          path: "/masterdata/paket",
+          parent: "paket",
           isChecked: false,
-          sub: [
-            {
-              id: 302,
-              label: "paket",
-              path: "/masterdata/investasi/paket",
-              parent: "Kemitraan",
-              isChecked: false,
-              sub: undefined,
-            },
-            {
-              id: 303,
-              label: "kategori",
-              path: "/masterdata/investasi/kategori",
-              parent: "Kemitraan",
-              isChecked: false,
-              sub: undefined,
-            },
-          ],
         },
         {
-          id: 311,
-          label: "produk",
-          path: "",
-          parent: "masterdata",
+          id: 502,
+          label: "kategori",
+          path: "/masterdata/paket/kategori",
+          parent: "paket",
           isChecked: false,
-          sub: [
-            {
-              id: 312,
-              label: "paket",
-              path: "/masterdata/binary/paket",
-              parent: "binary",
-              isChecked: false,
-              sub: undefined,
-            },
-            {
-              id: 313,
-              label: "barang",
-              path: "/masterdata/binary/barang",
-              parent: "binary",
-              isChecked: false,
-              sub: undefined,
-            },
-          ],
-        },
-        {
-          id: 334,
-          label: "reward",
-          path: "/masterdata/reward",
-          parent: "masterdata",
-          isChecked: false,
-          sub: undefined,
         },
       ],
-      otherSub: true,
     },
 
     {
@@ -202,14 +122,13 @@ export const menu = () => {
       id: 350,
       label: "berita",
       path: "",
-      parent: "masterdata",
       isChecked: false,
       icons: "fa fa-newspaper-o",
       sub: [
         {
           id: 351,
           label: "list",
-          path: "/masterdata/berita/list",
+          path: "/masterdata/berita",
           parent: "berita",
           isChecked: false,
           sub: undefined,
@@ -235,42 +154,16 @@ export const menu = () => {
         {
           id: 401,
           label: "transaksi",
-          path: "/laporan/member",
+          path: "/laporan/transaksi/member",
           parent: "laporan",
           isChecked: false,
         },
         {
-          id: 402,
+          id: 401,
           label: "penjualan",
-          path: "",
+          path: "/laporan/transaksi/penjualan",
           parent: "laporan",
           isChecked: false,
-          sub: [
-            {
-              id: 403,
-              label: "paket",
-              path: "/laporan/paket",
-              parent: "penjualan",
-              isChecked: false,
-              sub: undefined,
-            },
-            {
-              id: 404,
-              label: "tiket",
-              path: "/laporan/tiket",
-              parent: "penjualan",
-              isChecked: false,
-              sub: undefined,
-            },
-            {
-              id: 404,
-              label: "paket barang",
-              path: "/laporan/paket_barang",
-              parent: "penjualan",
-              isChecked: false,
-              sub: undefined,
-            },
-          ],
         },
       ],
       otherSub: true,
@@ -357,7 +250,9 @@ export const toDate = (val, type = "/", isTime = false) => {
   if (isTime) {
     return moment(val).format("hh:mm:ss");
   }
-  return type === "/" ? moment(val).format("DD/MM/YYYY") : moment(val).format("YYYY-MM-DD");
+  return type === "/"
+    ? moment(val).format("DD/MM/YYYY")
+    : moment(val).format("YYYY-MM-DD");
 };
 
 export const setStorage = (key, val) => {
@@ -372,25 +267,48 @@ export const rmStorage = (key) => {
 };
 
 export const isEmptyOrUndefined = (val, col, isShowError = true) => {
-  if (val === "" || val === undefined || val === null || val === "null" || val === "undefined" || val === 0 || val === "0") {
+  if (
+    val === "" ||
+    val === undefined ||
+    val === null ||
+    val === "null" ||
+    val === "undefined" ||
+    val === 0 ||
+    val === "0"
+  ) {
     return false;
   }
   return true;
 };
 
-export const dateRange = (onApply, value, isActive = "", isShow = true, isLabel = true) => {
+export const dateRange = (
+  onApply,
+  value,
+  isActive = "",
+  isShow = true,
+  isLabel = true
+) => {
   return (
     <div className={`form-group ${!isShow && "none"}`}>
-      <label style={{ display: isLabel || isLabel === undefined ? "block" : "none" }}> Periode </label>
+      <label
+        style={{ display: isLabel || isLabel === undefined ? "block" : "none" }}
+      >
+        {" "}
+        Periode{" "}
+      </label>
       <DateRangePicker
         ranges={rangeDate}
         alwaysShowCalendars={true}
         autoUpdateInput={true}
         onShow={(event, picker) => {
           if (isEmptyOrUndefined(isActive)) {
-            let rmActiveDefault = document.querySelector(`.ranges>ul>li[data-range-key="Hari Ini"]`);
+            let rmActiveDefault = document.querySelector(
+              `.ranges>ul>li[data-range-key="Hari Ini"]`
+            );
             rmActiveDefault.classList.remove("active");
-            let setActive = document.querySelector(`.ranges>ul>li[data-range-key="` + isActive + `"]`);
+            let setActive = document.querySelector(
+              `.ranges>ul>li[data-range-key="` + isActive + `"]`
+            );
             setActive.classList.add("active");
           }
         }}
@@ -400,7 +318,13 @@ export const dateRange = (onApply, value, isActive = "", isShow = true, isLabel 
           onApply(firstDate, lastDate, picker.chosenLabel || "");
         }}
       >
-        <input readOnly={true} type="text" className={`form-control`} name="date" value={value} />
+        <input
+          readOnly={true}
+          type="text"
+          className={`form-control`}
+          name="date"
+          value={value}
+        />
       </DateRangePicker>
     </div>
   );
@@ -447,9 +371,17 @@ export const statusOrder = (type, status, iswhite = false) => {
   if (type === "dollar") {
     return !iswhite ? (status ? dollarY : dollar) : dollarWhite;
   } else if (type === "packing") {
-    return !iswhite ? (status ? pack_deliveryY : pack_delivery) : pack_deliveryWhite;
+    return !iswhite
+      ? status
+        ? pack_deliveryY
+        : pack_delivery
+      : pack_deliveryWhite;
   } else if (type === "delivered") {
-    return !iswhite ? (status ? pack_deliveredY : pack_delivered) : pack_deliveredWhite;
+    return !iswhite
+      ? status
+        ? pack_deliveredY
+        : pack_delivered
+      : pack_deliveredWhite;
   } else if (type === "truck") {
     return !iswhite ? (status ? truckY : truck) : truckWhite;
   } else if (type === "confirm") {
@@ -490,7 +422,10 @@ export const noData = (colSpan = 1) => {
   return (
     <tr>
       <td colSpan={colSpan} className="middle text-center">
-        <span className="badge badge-warning" style={{ fontSize: "18px", padding: "10px" }}>
+        <span
+          className="badge badge-warning"
+          style={{ fontSize: "18px", padding: "10px" }}
+        >
           Data tidak tersedia
         </span>
       </td>
@@ -501,7 +436,13 @@ export const noData = (colSpan = 1) => {
 export const myDate = (val) => {
   return moment(val).locale("id").format("DD/MM/YYYY");
 };
-export const toExcel = (title = "", periode = "", head = [], content = [], foot = []) => {
+export const toExcel = (
+  title = "",
+  periode = "",
+  head = [],
+  content = [],
+  foot = []
+) => {
   let header = [[title.toUpperCase()], [`PERIODE : ${periode}`], [""], head];
   let footer = foot;
   let body = header.concat(content);
@@ -525,7 +466,9 @@ export const toExcel = (title = "", periode = "", head = [], content = [], foot 
 
   let wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, title.toUpperCase());
-  let exportFileName = `${title.replaceAll(" ", "_").toUpperCase()}_${moment(new Date()).format("YYYYMMDDHHMMss")}.xlsx`;
+  let exportFileName = `${title.replaceAll(" ", "_").toUpperCase()}_${moment(
+    new Date()
+  ).format("YYYYMMDDHHMMss")}.xlsx`;
   XLSX.writeFile(wb, exportFileName, { type: "file", bookType: "xlsx" });
   return;
 };
@@ -546,7 +489,13 @@ export const noImage = () => {
 };
 export const copyTxt = (txt) => {
   return (
-    <CopyToClipboard text={txt} style={{ cursor: "copy" }} onCopy={() => ToastQ.fire({ icon: "success", title: `${txt} has been copied.` })}>
+    <CopyToClipboard
+      text={txt}
+      style={{ cursor: "copy" }}
+      onCopy={() =>
+        ToastQ.fire({ icon: "success", title: `${txt} has been copied.` })
+      }
+    >
       <span>
         <i className="fa fa-copy" style={{ color: "green" }} /> {txt}{" "}
       </span>
@@ -554,7 +503,7 @@ export const copyTxt = (txt) => {
   );
 };
 
-export const toCurrency = (angka) => {
+export const toCurrency = (angka, isRp = true) => {
   if (angka === undefined) return 0;
   const number_string = angka;
   const split = String(number_string).split(".");
@@ -569,7 +518,7 @@ export const toCurrency = (angka) => {
   }
 
   rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
-  return "Rp "+ rupiah;
+  return isRp ? "Rp " + rupiah : rupiah;
 };
 export const stringifyFormData = (fd) => {
   const data = {};
@@ -628,7 +577,10 @@ export const toRp = (angka) => {
   } else {
     numbers = angka;
   }
-  var number_string = numbers === "" || numbers === undefined ? String(0.0) : numbers.toString().replace(/,|\D/g, ""),
+  var number_string =
+      numbers === "" || numbers === undefined
+        ? String(0.0)
+        : numbers.toString().replace(/,|\D/g, ""),
     split = number_string.split("."),
     sisa = split[0].length % 3,
     rupiah = split[0].substr(0, sisa),
@@ -641,7 +593,10 @@ export const toRp = (angka) => {
   }
 
   rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
-  rupiah = parseFloat(angka) < 0 ? "-" + rupiah.replace(/^0+/, "") : rupiah.replace(/^0+/, "");
+  rupiah =
+    parseFloat(angka) < 0
+      ? "-" + rupiah.replace(/^0+/, "")
+      : rupiah.replace(/^0+/, "");
   return rupiah;
 };
 
@@ -669,7 +624,11 @@ export const statusQ = (txt) => {
   }
 };
 export const getMargin = (hrg_jual, hrg_beli) => {
-  return (((parseInt(hrg_jual, 10) - parseInt(hrg_beli, 10)) / parseInt(hrg_beli, 10)) * 100).toFixed(2);
+  return (
+    ((parseInt(hrg_jual, 10) - parseInt(hrg_beli, 10)) /
+      parseInt(hrg_beli, 10)) *
+    100
+  ).toFixed(2);
 };
 
 export const rmHtml = (str) => {
@@ -686,11 +645,20 @@ export const rangeDate = {
   "7 Hari Terakhir": [moment().subtract(6, "days"), moment()],
   "30 Hari Terakhir": [moment().subtract(29, "days"), moment()],
   "Minggu Ini": [moment().startOf("isoWeek"), moment().endOf("isoWeek")],
-  "Minggu Lalu": [moment().subtract(1, "weeks").startOf("isoWeek"), moment().subtract(1, "weeks").endOf("isoWeek")],
+  "Minggu Lalu": [
+    moment().subtract(1, "weeks").startOf("isoWeek"),
+    moment().subtract(1, "weeks").endOf("isoWeek"),
+  ],
   "Bulan Ini": [moment().startOf("month"), moment().endOf("month")],
-  "Bulan Lalu": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
+  "Bulan Lalu": [
+    moment().subtract(1, "month").startOf("month"),
+    moment().subtract(1, "month").endOf("month"),
+  ],
   "Tahun Ini": [moment().startOf("year"), moment().endOf("year")],
-  "Tahun Lalu": [moment().subtract(1, "year").startOf("year"), moment().subtract(1, "year").endOf("year")],
+  "Tahun Lalu": [
+    moment().subtract(1, "year").startOf("year"),
+    moment().subtract(1, "year").endOf("year"),
+  ],
 };
 
 class Paginationq extends Component {

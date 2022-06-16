@@ -1,9 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Layout from "components/Layout";
-import { DEFAULT_WHERE, generateNo, getFetchWhere, getPeriode, noData, toCurrency, toExcel } from "../../../helper";
+import {
+  DEFAULT_WHERE,
+  generateNo,
+  getFetchWhere,
+  getPeriode,
+  noData,
+  toCurrency,
+  toExcel,
+} from "../../../helper";
 import moment from "moment";
-import { getDataReportTransaksi, getDetailReportTransaksi, getExcelReportTransaksi } from "../../../redux/actions/laporan/report_transaksi_member.action";
+import {
+  getDataReportTransaksi,
+  getDetailReportTransaksi,
+  getExcelReportTransaksi,
+} from "../../../redux/actions/laporan/report_transaksi_member.action";
 import DetailReportTransaksiMember from "../modals/laporan/detail_report_transaksi_member";
 import HeaderGeneralCommon from "../../common/HeaderGeneralCommon";
 import ButtonActionTableCommon from "../../common/ButtonActionTableCommon";
@@ -44,26 +56,50 @@ class LaporanTransaksiMember extends Component {
       if (props.dataExcel.data.length > 0) {
         let content = [];
         props.dataExcel.data.forEach((v, i) => {
-          content.push([v.fullname, parseFloat(v.saldo_awal).toFixed(2), parseFloat(v.trx_in).toFixed(2), parseFloat(v.trx_out).toFixed(2), parseFloat(v.saldo_akhir).toFixed(2)]);
+          content.push([
+            v.fullname,
+            parseFloat(v.saldo_awal).toFixed(2),
+            parseFloat(v.trx_in).toFixed(2),
+            parseFloat(v.trx_out).toFixed(2),
+            parseFloat(v.saldo_akhir).toFixed(2),
+          ]);
         });
-        toExcel("LAPORAN TRASANSAKSI MEMBER", `${this.state.dateFrom} - ${this.state.dateTo}`, ["NAMA", "SALDO AWAL", "SALDO MASUK", "SALDO KELUAR", "SALDO AKHIR"], content, [
-          [""],
-          [""],
+        toExcel(
+          "LAPORAN TRASANSAKSI MEMBER",
+          `${this.state.dateFrom} - ${this.state.dateTo}`,
+          ["NAMA", "SALDO AWAL", "SALDO MASUK", "SALDO KELUAR", "SALDO AKHIR"],
+          content,
           [
-            "TOTAL",
-            props.dataExcel.summary === undefined ? 0 : parseFloat(props.dataExcel.summary.saldo_awal).toFixed(2),
-            props.dataExcel.summary === undefined ? 0 : parseFloat(props.dataExcel.summary.trx_in).toFixed(2),
-            props.dataExcel.summary === undefined ? 0 : parseFloat(props.dataExcel.summary.trx_out).toFixed(2),
-            props.dataExcel.summary === undefined ? 0 : parseFloat(props.dataExcel.summary.saldo_akhir).toFixed(2),
-          ],
-        ]);
+            [""],
+            [""],
+            [
+              "TOTAL",
+              props.dataExcel.summary === undefined
+                ? 0
+                : parseFloat(props.dataExcel.summary.saldo_awal).toFixed(2),
+              props.dataExcel.summary === undefined
+                ? 0
+                : parseFloat(props.dataExcel.summary.trx_in).toFixed(2),
+              props.dataExcel.summary === undefined
+                ? 0
+                : parseFloat(props.dataExcel.summary.trx_out).toFixed(2),
+              props.dataExcel.summary === undefined
+                ? 0
+                : parseFloat(props.dataExcel.summary.saldo_akhir).toFixed(2),
+            ],
+          ]
+        );
       }
     }
   }
   printDocumentXLsx = (e, param) => {
     e.preventDefault();
     let where = `perpage=${param}&datefrom=${this.state.dateFrom}&dateto=${this.state.dateTo}`;
-    if (this.state.any !== null && this.state.any !== undefined && this.state.any !== "") {
+    if (
+      this.state.any !== null &&
+      this.state.any !== undefined &&
+      this.state.any !== ""
+    ) {
       where += `&q=${this.state.any}`;
     }
 
@@ -100,7 +136,7 @@ class LaporanTransaksiMember extends Component {
     let totSaldoAkhir = 0;
     let totTrxIn = 0;
     let totTrxOut = 0;
-    const { total, per_page, last_page, current_page, data, summary } = this.props.data;
+    const { pagination, data } = this.props;
 
     const head = [
       { label: "No", width: "1%", rowSpan: 2, className: "text-center" },
@@ -124,18 +160,20 @@ class LaporanTransaksiMember extends Component {
             this.setState();
           }}
           isPeriode={true}
-          pathName="laporanDeposit"
-          callbackExport={() => this.printDocumentXLsx(per_page * last_page)}
+          pathName="laporanTransaksiMember"
+          callbackExport={() =>
+            this.printDocumentXLsx(pagination.per_page * pagination.last_page)
+          }
         />
         <TableCommon
           head={head}
           rowSpan={rowSpan}
           meta={{
-            total: total,
-            current_page: current_page,
-            per_page: per_page,
+            total: pagination.total,
+            current_page: pagination.current_page,
+            per_page: pagination.per_page,
           }}
-          current_page={current_page}
+          current_page={pagination.current_page}
           callbackPage={this.handlePageChange.bind(this)}
           renderRow={
             typeof data === "object"
@@ -148,7 +186,9 @@ class LaporanTransaksiMember extends Component {
                     totTrxOut = totTrxOut + parseFloat(v.trx_out);
                     return (
                       <tr key={i}>
-                        <td className="middle nowrap text-center">{generateNo(i, current_page)}</td>
+                        <td className="middle nowrap text-center">
+                          {generateNo(i, pagination.current_page)}
+                        </td>
                         <td className="middle nowrap text-center">
                           <ButtonActionTableCommon
                             action={[{ label: "Detail" }]}
@@ -158,10 +198,20 @@ class LaporanTransaksiMember extends Component {
                           />
                         </td>
                         <td className="middle nowrap">{v.fullname}</td>
-                        <td className={"middle nowrap text-right poin"}>{toCurrency(`${parseFloat(v.saldo_awal).toFixed(2)}`)}</td>
-                        <td className={"middle nowrap text-right poin"}>{toCurrency(`${parseFloat(v.trx_in).toFixed(2)}`)}</td>
-                        <td className={"middle nowrap text-right poin"}>{toCurrency(`${parseFloat(v.trx_out).toFixed(2)}`)}</td>
-                        <td className={"middle nowrap text-right poin"}>{toCurrency(`${parseFloat(v.saldo_akhir).toFixed(2)}`)}</td>
+                        <td className={"middle nowrap text-right poin"}>
+                          {toCurrency(`${parseFloat(v.saldo_awal).toFixed(2)}`)}
+                        </td>
+                        <td className={"middle nowrap text-right poin"}>
+                          {toCurrency(`${parseFloat(v.trx_in).toFixed(2)}`)}
+                        </td>
+                        <td className={"middle nowrap text-right poin"}>
+                          {toCurrency(`${parseFloat(v.trx_out).toFixed(2)}`)}
+                        </td>
+                        <td className={"middle nowrap text-right poin"}>
+                          {toCurrency(
+                            `${parseFloat(v.saldo_akhir).toFixed(2)}`
+                          )}
+                        </td>
                       </tr>
                     );
                   })
@@ -171,152 +221,38 @@ class LaporanTransaksiMember extends Component {
           footer={[
             {
               data: [
-                { colSpan: 3, label: "Total perhalaman", className: "text-left" },
-                { colSpan: 1, label: toCurrency(`${totSaldoAwal.toFixed(2)}`), className: `text-right poin` },
-                { colSpan: 1, label: toCurrency(`${totTrxIn.toFixed(2)}`), className: `text-right poin` },
-                { colSpan: 1, label: toCurrency(`${totTrxOut.toFixed(2)}`), className: `text-right poin` },
-                { colSpan: 1, label: toCurrency(`${totSaldoAkhir.toFixed(2)}`), className: `text-right poin` },
-              ],
-            },
-            {
-              data: [
-                { colSpan: 3, label: "Total keseluruhan", className: "text-left" },
+                {
+                  colSpan: 3,
+                  label: "Total perhalaman",
+                  className: "text-left",
+                },
                 {
                   colSpan: 1,
-                  label: summary === undefined ? "0.00 Poin" : parseInt(summary.saldo_awal, 10) === 0 ? "0.00 Poin" : toCurrency(`${parseFloat(summary.saldo_awal).toFixed(2)}`),
+                  label: toCurrency(`${totSaldoAwal.toFixed(2)}`),
                   className: `text-right poin`,
                 },
                 {
                   colSpan: 1,
-                  label: summary === undefined ? "0.00 Poin" : parseInt(summary.trx_in, 10) === 0 ? "0.00 Poin" : toCurrency(`${parseFloat(summary.trx_in).toFixed(2)}`),
+                  label: toCurrency(`${totTrxIn.toFixed(2)}`),
                   className: `text-right poin`,
                 },
                 {
                   colSpan: 1,
-                  label: summary === undefined ? "0.00 Poin" : parseInt(summary.trx_out, 10) === 0 ? "0.00 Poin" : toCurrency(`${parseFloat(summary.trx_out).toFixed(2)}`),
+                  label: toCurrency(`${totTrxOut.toFixed(2)}`),
                   className: `text-right poin`,
                 },
                 {
                   colSpan: 1,
-                  label: summary === undefined ? "0.00 Poin" : parseInt(summary.saldo_akhir, 10) === 0 ? "0.00 Poin" : toCurrency(`${parseFloat(summary.saldo_akhir).toFixed(2)}`),
+                  label: toCurrency(`${totSaldoAkhir.toFixed(2)}`),
                   className: `text-right poin`,
                 },
               ],
             },
           ]}
         />
-        {/* <div style={{ overflowX: "auto" }}>
-          <table className="table table-bordered">
-            <thead className="thead-dark">
-              <tr>
-                <th rowSpan="2" style={columnStyle}>
-                  NO
-                </th>
-                <th rowSpan="2" style={columnStyle}>
-                  #
-                </th>
-                <th rowSpan="2" style={columnStyle}>
-                  NAMA
-                </th>
-                <th colSpan="4" style={columnStyle}>
-                  SALDO
-                </th>
-              </tr>
-              <tr>
-                <th style={columnStyle}>AWAL</th>
-                <th style={columnStyle}>MASUK</th>
-                <th style={columnStyle}>KELUAR</th>
-                <th style={columnStyle}>AKHIR</th>
-              </tr>
-            </thead>
-            <tbody>
-              {typeof data === "object" ? (
-                data.length > 0 ? (
-                  data.map((v, i) => {
-                    totPlafon = totPlafon + parseFloat(v.plafon);
-                    totSaldoAwal = totSaldoAwal + parseFloat(v.saldo_awal);
-                    totSaldoAkhir = totSaldoAkhir + parseFloat(v.saldo_akhir);
-                    totTrxIn = totTrxIn + parseFloat(v.trx_in);
-                    totTrxOut = totTrxOut + parseFloat(v.trx_out);
-                    return (
-                      <tr key={i}>
-                        <td style={columnStyle}>{i + 1 + 10 * (parseInt(current_page, 10) - 1)}</td>
-                        <td style={columnStyle}>
-                          <button className={"btn btn-primary"} onClick={(e) => this.handleDetail(e, v.id, v.fullname)}>
-                            <i className={"fa fa-eye"} />
-                          </button>
-                        </td>
-
-                        <td style={columnStyle}>{v.fullname}</td>
-                        <td className={"poin"} style={numStyle}>
-                          {toCurrency(`${parseFloat(v.saldo_awal).toFixed(2)}`)}
-                        </td>
-                        <td className={"poin"} style={numStyle}>
-                          {toCurrency(`${parseFloat(v.trx_in).toFixed(2)}`)}
-                        </td>
-                        <td className={"poin"} style={numStyle}>
-                          {toCurrency(`${parseFloat(v.trx_out).toFixed(2)}`)}
-                        </td>
-                        <td className={"poin"} style={numStyle}>
-                          {toCurrency(`${parseFloat(v.saldo_akhir).toFixed(2)}`)}
-                        </td>
-                      </tr>
-                    );
-                  })
-                ) : (
-                  <tr>
-                    <td colSpan={9} style={columnStyle}>
-                      <img alt={"-"} src={`${NOTIF_ALERT.NO_DATA}`} />
-                    </td>
-                  </tr>
-                )
-              ) : (
-                <tr>
-                  <td colSpan={9} style={columnStyle}>
-                    <img alt={"-"} src={`${NOTIF_ALERT.NO_DATA}`} />
-                  </td>
-                </tr>
-              )}
-            </tbody>
-            <tfoot className="bgWithOpacity">
-              <tr>
-                <th colSpan={3}>TOTAL PERHALAMAN</th>
-                <th className={"poin"} style={numStyle}>
-                  {toCurrency(`${totSaldoAwal.toFixed(2)}`)}
-                </th>
-                <th className={"poin"} style={numStyle}>
-                  {toCurrency(`${totTrxIn.toFixed(2)}`)}
-                </th>
-                <th className={"poin"} style={numStyle}>
-                  {toCurrency(`${totTrxOut.toFixed(2)}`)}
-                </th>
-                <th className={"poin"} style={numStyle}>
-                  {toCurrency(`${totSaldoAkhir.toFixed(2)}`)}
-                </th>
-              </tr>
-
-              <tr>
-                <th colSpan={3}>TOTAL KESELURUHAN</th>
-                <th className={"poin"} style={numStyle}>
-                  {summary === undefined ? "0 Poin" : parseInt(summary.saldo_awal, 10) === 0 ? "0 Poin" : toCurrency(`${parseFloat(summary.saldo_awal).toFixed(2)}`)}
-                </th>
-                <th className={"poin"} style={numStyle}>
-                  {summary === undefined ? "0 Poin" : parseInt(summary.trx_in, 10) === 0 ? "0 Poin" : toCurrency(`${parseFloat(summary.trx_in).toFixed(2)}`)}
-                </th>
-                <th className={"poin"} style={numStyle}>
-                  {summary === undefined ? "0 Poin" : parseInt(summary.trx_out, 10) === 0 ? "0 Poin" : toCurrency(`${parseFloat(summary.trx_out).toFixed(2)}`)}
-                </th>
-                <th className={"poin"} style={numStyle}>
-                  {summary === undefined ? "0 Poin" : parseInt(summary.saldo_akhir, 10) === 0 ? "0 Poin" : toCurrency(`${parseFloat(summary.saldo_akhir).toFixed(2)}`)}
-                </th>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-        <div style={{ marginTop: "20px", marginBottom: "20px", float: "right" }}>
-          <Paginationq current_page={current_page} per_page={per_page} total={total} callback={this.handlePage} />
-        </div> */}
-        {this.props.isOpen === true ? <DetailReportTransaksiMember detail={this.state.detail} /> : null}
+        {this.props.isOpen === true ? (
+          <DetailReportTransaksiMember detail={this.state.detail} />
+        ) : null}
       </Layout>
     );
   }
@@ -327,6 +263,7 @@ const mapStateToProps = (state) => {
     isLoadingExcel: state.reportTransaksiMemberReducer.isLoadingExcel,
     isOpen: state.modalReducer,
     data: state.reportTransaksiMemberReducer.data,
+    pagination: state.reportTransaksiMemberReducer.pagination,
     dataExcel: state.reportTransaksiMemberReducer.excel,
     kategori: state.kategoriReducer.data,
   };

@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Layout from "components/Layout";
 import moment from "moment";
-import { deleteKategoriBerita, fetchKategoriBerita } from "../../../../redux/actions/masterdata/berita/kategori_berita.action";
 import TableCommon from "../../../common/TableCommon";
 import HeaderGeneralCommon from "../../../common/HeaderGeneralCommon";
 import FormKategoriBerita from "../../modals/masterdata/berita/form_kategori_berita";
 import { ModalToggle, ModalType } from "../../../../redux/actions/modal.action";
+import {
+  fetchKategori,
+  deleteKategori,
+} from "../../../../redux/actions/kategori/kategori.action";
 
 moment.locale("id"); // en
 
@@ -24,9 +27,9 @@ class KategoriBerita extends Component {
   }
   handleGet(res, page) {
     if (res !== undefined) {
-      let whereLocal = `page=${page}${res}`;
+      let whereLocal = `berita?page=${page}${res}`;
       this.setState({ where: whereLocal });
-      this.props.dispatch(fetchKategoriBerita(whereLocal));
+      this.props.dispatch(fetchKategori(whereLocal));
     }
   }
   handlePageChange(pageNumber) {
@@ -39,8 +42,8 @@ class KategoriBerita extends Component {
     } else {
       this.setState({
         detail: {
-          id: this.props.data.data[e].id,
-          title: this.props.data.data[e].title,
+          id: this.props.data[e].id,
+          title: this.props.data[e].title,
           where: this.state.where,
         },
       });
@@ -50,7 +53,7 @@ class KategoriBerita extends Component {
   }
 
   render() {
-    const { total, per_page, current_page, data } = this.props.data;
+    const { pagination, data } = this.props;
     return (
       <Layout page={`Kategori berita`}>
         <HeaderGeneralCommon
@@ -63,30 +66,31 @@ class KategoriBerita extends Component {
         />
 
         <TableCommon
-          head={[{ label: "No", className: "text-center", width: "1%" }, { label: "#", className: "text-center", width: "1%" }, { label: "Nama" }, { label: "Tanggal", width: "1%" }]}
+          head={[
+            { label: "No", className: "text-center", width: "1%" },
+            { label: "#", className: "text-center", width: "1%" },
+            { label: "Nama" },
+            { label: "Tanggal", width: "1%" },
+          ]}
           meta={{
-            total: total,
-            current_page: current_page,
-            per_page: per_page,
+            total: pagination.total,
+            current_page: pagination.current_page,
+            per_page: pagination.per_page,
           }}
           body={typeof data === "object" && data}
           label={[{ label: "title" }, { label: "created_at", date: true }]}
-          current_page={current_page}
+          current_page={pagination.current_page}
           action={[{ label: "Edit" }, { label: "Hapus" }]}
           callback={(e, index) => {
             if (e === 0) this.handleModal(index);
             if (e === 1)
-              this.props.dispatch(
-                deleteKategoriBerita({
-                  total: data.length,
-                  id: data[index].id,
-                  where: this.state.where,
-                })
-              );
+              this.props.dispatch(deleteKategori(data[index].id, "berita"));
           }}
           callbackPage={this.handlePageChange.bind(this)}
         />
-        {this.props.isOpen === true ? <FormKategoriBerita detail={this.state.detail} /> : null}
+        {this.props.isOpen === true ? (
+          <FormKategoriBerita detail={this.state.detail} />
+        ) : null}
       </Layout>
     );
   }
@@ -94,7 +98,8 @@ class KategoriBerita extends Component {
 const mapStateToProps = (state) => {
   return {
     isOpen: state.modalReducer,
-    data: state.kategoriBeritaReducer.data,
+    data: state.kategoriReducer.data,
+    pagination: state.kategoriReducer.pagination,
   };
 };
 

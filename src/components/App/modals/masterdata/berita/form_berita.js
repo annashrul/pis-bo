@@ -8,7 +8,10 @@ import Select from "react-select";
 import { fetchKategori } from "../../../../../redux/actions/kategori/kategori.action";
 import File64 from "../../../../common/File64";
 import CKEditor from "react-ckeditor-component";
-import { postContent, putContent } from "../../../../../redux/actions/konten/konten.action";
+import {
+  postContent,
+  putContent,
+} from "../../../../../redux/actions/konten/konten.action";
 
 class FormBerita extends Component {
   constructor(props) {
@@ -16,7 +19,7 @@ class FormBerita extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.toggle = this.toggle.bind(this);
-    this.handleChangeKategori = this.handleChangeKategori.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
     this.handleChangeImage = this.handleChangeImage.bind(this);
     this.updateContent = this.updateContent.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,15 +31,21 @@ class FormBerita extends Component {
       caption: "",
       type: 0,
       id_category: "",
+      status: 1,
+      data_status: [
+        { label: "Aktif", value: 1 },
+        { label: "Tidak Aktif", value: 0 },
+      ],
       data_kategori: [],
     };
   }
 
   getProps(props) {
-    if (props.kategori.data !== undefined) {
-      if (props.kategori.data.length > 0) {
+    console.log("props", props);
+    if (props.kategori !== undefined) {
+      if (props.kategori.length > 0) {
         let dataKategori = [];
-        props.kategori.data.forEach((v, i) => {
+        props.kategori.forEach((v, i) => {
           dataKategori.push({ value: v.id, label: v.title });
           return;
         });
@@ -44,13 +53,14 @@ class FormBerita extends Component {
       }
     }
     if (props.detail.id !== "") {
+      console.log(this.props.detail);
       this.setState({
         caption: props.detail.caption,
         id_category: props.detail.id_category,
         title: props.detail.title,
-        video: props.detail.video,
+        status: props.detail.status,
       });
-      this.handleChangeKategori({
+      this.handleSelect("id_category", {
         value: props.detail.id_category,
         label: props.detail.category,
       });
@@ -72,9 +82,8 @@ class FormBerita extends Component {
     this.setState({
       title: "",
       picture: "-",
-      video: "-",
+      status: "-",
       caption: "",
-      type: 0,
       id_category: "",
       data_kategori: [],
     });
@@ -87,9 +96,9 @@ class FormBerita extends Component {
     }
   }
 
-  handleChangeKategori(val) {
+  handleSelect(state, val) {
     this.setState({
-      id_category: val.value,
+      [state]: val.value,
     });
   }
 
@@ -116,8 +125,7 @@ class FormBerita extends Component {
     });
   }
 
-  onBlur(evt) {
-  }
+  onBlur(evt) {}
 
   afterPaste(evt) {}
 
@@ -126,9 +134,8 @@ class FormBerita extends Component {
     let parsedata = {
       title: this.state.title,
       picture: this.state.picture,
-      video: this.state.video,
+      status: this.state.status,
       caption: this.state.caption,
-      type: 0,
       id_category: this.state.id_category,
     };
     if (parsedata["title"] === "") {
@@ -147,7 +154,9 @@ class FormBerita extends Component {
     if (this.props.detail.id === "") {
       this.props.dispatch(postContent(parsedata, "berita"));
     } else {
-      this.props.dispatch(putContent(this.props.detail.id, parsedata, "berita"));
+      this.props.dispatch(
+        putContent(this.props.detail.id, parsedata, "berita")
+      );
     }
     if (this.props.isError === true) {
       this.clearState();
@@ -155,14 +164,25 @@ class FormBerita extends Component {
   }
   render() {
     return (
-      <WrapperModal isOpen={this.props.isOpen && this.props.type === "formBerita"} size="md">
-        <ModalHeader toggle={this.toggle}>{this.props.detail.id === "" ? "Tambah" : "Ubah"} Berita</ModalHeader>
+      <WrapperModal
+        isOpen={this.props.isOpen && this.props.type === "formBerita"}
+        size="lg"
+      >
+        <ModalHeader toggle={this.toggle}>
+          {this.props.detail.id === "" ? "Tambah" : "Ubah"} Berita
+        </ModalHeader>
         <ModalBody>
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-6">
               <div className="form-group">
                 <label>Judul</label>
-                <input type="text" className={"form-control"} name={"title"} value={this.state.title} onChange={this.handleChange} />
+                <input
+                  type="text"
+                  className={"form-control"}
+                  name={"title"}
+                  value={this.state.title}
+                  onChange={this.handleChange}
+                />
               </div>
               <div className="form-group">
                 <label>Kategori</label>
@@ -170,7 +190,7 @@ class FormBerita extends Component {
                   <Select
                     options={this.state.data_kategori}
                     placeholder="==== Pilih Kategori ===="
-                    onChange={this.handleChangeKategori}
+                    onChange={(e) => this.handleSelect("id_category", e)}
                     value={this.state.data_kategori.find((op) => {
                       return op.value === this.state.id_category;
                     })}
@@ -178,13 +198,27 @@ class FormBerita extends Component {
                 }
               </div>
               <div className="form-group">
-                <label>Link Video</label>
-                <input type="text" className={"form-control"} name={"video"} value={this.state.video} onChange={this.handleChange} />
+                <label>Status</label>
+                {
+                  <Select
+                    options={this.state.data_status}
+                    onChange={(e) => this.handleSelect("status", e)}
+                    value={this.state.data_status.find((op) => {
+                      return op.value === this.state.status;
+                    })}
+                  />
+                }
               </div>
-
               <div className="form-group">
                 <label htmlFor="inputState" className="col-form-label">
-                  Gambar {this.props.detail.id !== "" ? <small style={{ color: "red" }}>kosongkan bila tidak akan diubah</small> : ""}
+                  Gambar{" "}
+                  {this.props.detail.id !== "" ? (
+                    <small style={{ color: "red" }}>
+                      kosongkan bila tidak akan diubah
+                    </small>
+                  ) : (
+                    ""
+                  )}
                 </label>
                 <br />
                 <File64
@@ -201,6 +235,8 @@ class FormBerita extends Component {
                   }}
                 />
               </div>
+            </div>
+            <div className="col-md-6">
               <CKEditor
                 activeClass="p10"
                 content={this.state.caption}
@@ -215,11 +251,20 @@ class FormBerita extends Component {
         </ModalBody>
         <ModalFooter>
           <div className="form-group" style={{ textAlign: "right" }}>
-            <button style={{ color: "white" }} type="button" className="btn btn-warning mb-2 mr-2" onClick={this.toggle}>
+            <button
+              style={{ color: "white" }}
+              type="button"
+              className="btn btn-warning mb-2 mr-2"
+              onClick={this.toggle}
+            >
               <i className="ti-close" />
               Keluar
             </button>
-            <button type="submit" className="btn btn-primary mb-2 mr-2" onClick={this.handleSubmit}>
+            <button
+              type="submit"
+              className="btn btn-primary mb-2 mr-2"
+              onClick={this.handleSubmit}
+            >
               <i className="ti-save" />
               {!this.props.isLoadingPost ? "Simpan" : "Loading ......"}
             </button>

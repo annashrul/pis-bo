@@ -1,67 +1,58 @@
-import { DEPOSIT } from "../../actions/_constants";
+import { REPORT_TRANSAKSI_MEMBER } from "../../actions/_constants";
 
 const initialState = {
   isLoading: true,
   isLoadingDetail: true,
   isLoadingPost: false,
   isLoadingExcel: false,
-
   isError: false,
   status: "",
   msg: "",
   data: [],
-  pagination: [],
   edit: [],
   detail: [],
   excel: [],
+  pagination: [],
+  paginationDetail: [],
 };
 
-export const depositReducer = (state = initialState, action) => {
+export const reportTransaksiMemberReducer = (state = initialState, action) => {
   switch (action.type) {
-    case DEPOSIT.SUCCESS:
+    case REPORT_TRANSAKSI_MEMBER.SUCCESS:
       return Object.assign({}, state, {
-        status: action.data.meta.status,
-        msg: action.data.meta.msg,
+        status: action.data.status,
+        msg: action.data.msg,
         data: action.data.data,
         pagination: action.data.pagination,
       });
-    case DEPOSIT.EXCEL:
+
+    case REPORT_TRANSAKSI_MEMBER.DETAIL:
       return Object.assign({}, state, {
-        status: action.data.meta.status,
-        msg: action.data.meta.msg,
+        detail: action.data.data,
+        paginationDetail: action.data.pagination,
+      });
+    case REPORT_TRANSAKSI_MEMBER.EXCEL:
+      return Object.assign({}, state, {
         excel: action.data.data,
       });
 
-    case DEPOSIT.DETAIL:
-      return Object.assign({}, state, {
-        detail: action.data.data,
-      });
-    case DEPOSIT.FAILED:
-      return Object.assign({}, state, {
-        status: action.data.meta.status,
-        msg: action.data.meta.msg,
-        data: action.data.data,
-      });
-    case DEPOSIT.LOADING:
+    case REPORT_TRANSAKSI_MEMBER.LOADING:
       return Object.assign({}, state, {
         isLoading: action.load,
       });
-    case DEPOSIT.LOADING_EXCEL:
+    case REPORT_TRANSAKSI_MEMBER.LOADING_EXCEL:
       return Object.assign({}, state, {
         isLoadingExcel: action.load,
       });
-    case DEPOSIT.LOADING_DETAIL:
+    case REPORT_TRANSAKSI_MEMBER.LOADING_DETAIL:
       return Object.assign({}, state, {
         isLoadingDetail: action.load,
       });
-    case DEPOSIT.LOADING_POST:
+    case REPORT_TRANSAKSI_MEMBER.LOADING_POST:
       return Object.assign({}, state, {
         isLoadingPost: action.load,
       });
-    case DEPOSIT.IS_ERROR:
-      return Object.assign({}, state, {
-        isError: action.load,
-      });
+
     default:
       return state;
   }

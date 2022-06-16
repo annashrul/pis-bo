@@ -5,10 +5,12 @@ import Switch from "react-switch";
 import { ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { ModalToggle } from "../../../../../redux/actions/modal.action";
 import { menu, ToastQ } from "../../../../../helper";
-import { postUserLevel, putUserLevel } from "../../../../../redux/actions/masterdata/user_level.action";
+import {
+  postUserLevel,
+  putUserLevel,
+} from "../../../../../redux/actions/masterdata/user_level.action";
 
 class FormUserLevel extends Component {
-  //MENU ACCESS MASTERDATA = 0-9
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -32,8 +34,11 @@ class FormUserLevel extends Component {
 
   getProps(param) {
     if (param.detail.id !== "") {
-      this.setState({ lvl: param.detail.val.level, menu: param.detail.val.access_level });
-      // this.setState({ lvl: param.detail.val.level, menu: this.state.menu });
+      // this.setState({
+      //   lvl: param.detail.val.level,
+      //   menu: param.detail.val.access_level,
+      // });
+      this.setState({ lvl: param.detail.val.level, menu: this.state.menu });
     } else {
       // this.clearState();
     }
@@ -103,14 +108,25 @@ class FormUserLevel extends Component {
   render() {
     const { menu, lvl } = this.state;
     return (
-      <WrapperModal isOpen={this.props.isOpen && this.props.type === "formUserLevel"} size="lg">
-        <ModalHeader toggle={this.toggle}>{this.props.detail.id === "" ? "Tambah" : "Ubah"} akses</ModalHeader>
+      <WrapperModal
+        isOpen={this.props.isOpen && this.props.type === "formUserLevel"}
+        size="lg"
+      >
+        <ModalHeader toggle={this.toggle}>
+          {this.props.detail.id === "" ? "Tambah" : "Ubah"} akses
+        </ModalHeader>
         <ModalBody>
           <div className="row">
             <div className="col-12">
               <div className="form-group">
                 <label> Nama Akses </label>
-                <input type="text" className="form-control" name="lvl" value={lvl} onChange={(e) => this.handleChange(e)} />
+                <input
+                  type="text"
+                  className="form-control"
+                  name="lvl"
+                  value={lvl}
+                  onChange={(e) => this.handleChange(e)}
+                />
               </div>
             </div>
 
@@ -118,41 +134,49 @@ class FormUserLevel extends Component {
               return val.sub === undefined ? (
                 <div style={{ zoom: "80%" }} className="col-md-12" key={key}>
                   <div className="form-group">
-                    <label htmlFor="">
-                      <b style={{ color: "white", letterSpacing: "2px" }}>{val.label.replace("_", " ").toUpperCase()}</b>
-                    </label>
+                    <label htmlFor="">{val.label.replace("_", " ")}</label>
                     <br />
-                    <Switch onChange={(e) => this.handleAllChecked(e, val.id)} checked={val.isChecked} />
+                    <Switch
+                      onChange={(e) => this.handleAllChecked(e, val.id)}
+                      checked={val.isChecked}
+                    />
                   </div>
+                  <hr style={{ borderColor: "white" }} />
                 </div>
               ) : (
                 <div style={{ zoom: "80%" }} className="col-md-12" key={key}>
                   <div className="form-group">
-                    <label htmlFor="">
-                      <b style={{ color: "white", letterSpacing: "2px" }}>{val.label.replace("_", " ").toUpperCase()}</b>
-                    </label>
+                    <label htmlFor="">{val.label.replace("_", " ")}</label>
                     <br />
-                    <Switch onChange={(e) => this.handleAllChecked(e, val.id)} checked={val.isChecked} />
+                    <Switch
+                      onChange={(e) => this.handleAllChecked(e, val.id)}
+                      checked={val.isChecked}
+                    />
                   </div>
                   <div className="row">
                     {val.sub.map((row, idx) => {
                       return (
-                        <div className={`${row.sub !== undefined ? "col-md-12" : "col-md-3"}`} key={idx} style={{ marginLeft: "9px" }}>
+                        <div
+                          className={`${
+                            row.sub !== undefined ? "col-md-12" : "col-md-3"
+                          }`}
+                          key={idx}
+                          style={{
+                            marginLeft: "0px",
+                          }}
+                        >
                           <div className="form-group">
                             <label htmlFor="">
-                              <b
-                                style={{
-                                  color: "#D4AF37",
-                                  letterSpacing: "2px",
-                                }}
-                              >
-                                {row.label.replace("_", " ").toUpperCase()}
-                              </b>
+                              {row.label.replace("_", " ")}
                             </label>
                             <br />
-                            <Switch onChange={(e) => this.handleAllChecked(e, row.id)} checked={row.isChecked} />
+                            <Switch
+                              onChange={(e) => this.handleAllChecked(e, row.id)}
+                              checked={row.isChecked}
+                            />
                           </div>
-                          <div className="row" style={{ marginLeft: "3px" }}>
+
+                          <div className="row" style={{ marginLeft: "0px" }}>
                             {(() => {
                               let child = [];
                               if (row.sub !== undefined) {
@@ -161,17 +185,15 @@ class FormUserLevel extends Component {
                                     <div className="col-md-3" key={i}>
                                       <div className="form-group">
                                         <label htmlFor="">
-                                          <b
-                                            style={{
-                                              color: "orange",
-                                              letterSpacing: "2px",
-                                            }}
-                                          >
-                                            {res.label.replace("_", " ").toUpperCase()}
-                                          </b>
+                                          {res.label.replace("_", " ")}
                                         </label>
                                         <br />
-                                        <Switch onChange={(e) => this.handleAllChecked(e, res.id)} checked={res.isChecked} />
+                                        <Switch
+                                          onChange={(e) =>
+                                            this.handleAllChecked(e, res.id)
+                                          }
+                                          checked={res.isChecked}
+                                        />
                                       </div>
                                     </div>
                                   );
@@ -184,6 +206,7 @@ class FormUserLevel extends Component {
                       );
                     })}
                   </div>
+                  <hr style={{ borderColor: "white" }} />
                 </div>
               );
             })}
@@ -191,10 +214,19 @@ class FormUserLevel extends Component {
         </ModalBody>
         <ModalFooter>
           <div className="form-group" style={{ textAlign: "right" }}>
-            <button style={{ color: "white" }} type="button" className="btn btn-warning mb-2 mr-2" onClick={this.toggle}>
+            <button
+              style={{ color: "white" }}
+              type="button"
+              className="btn btn-warning mb-2 mr-2"
+              onClick={this.toggle}
+            >
               <i className="ti-close" /> Keluar
             </button>
-            <button type="submit" className="btn btn-primary mb-2 mr-2" onClick={this.handleSubmit}>
+            <button
+              type="submit"
+              className="btn btn-primary mb-2 mr-2"
+              onClick={this.handleSubmit}
+            >
               <i className="ti-save" /> Simpan
             </button>
           </div>

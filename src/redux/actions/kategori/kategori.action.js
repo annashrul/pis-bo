@@ -2,7 +2,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { KATEGORI, HEADERS, NOTIF_ALERT } from "../_constants";
 import { ModalToggle } from "../modal.action";
-import { handleGet } from "../../handle_http";
+import {
+  handleDelete,
+  handleGet,
+  handlePost,
+  handlePut,
+} from "../../handle_http";
 
 export function setLoading(load) {
   return {
@@ -50,9 +55,12 @@ export function setDataFailed(data = []) {
   };
 }
 
-export const fetchKategori = (where) => {
+export const fetchKategori = (where = "") => {
   return (dispatch) => {
-    let url = `category/${where}`.toLocaleLowerCase();
+    let url = `category/list/`.toLocaleLowerCase();
+    if (where !== "") {
+      url += where;
+    }
     handleGet(url, (res) => {
       dispatch(setData(res));
     });
@@ -61,148 +69,24 @@ export const fetchKategori = (where) => {
 
 export const postKategori = (data, param) => {
   return (dispatch) => {
-    dispatch(setLoadingPost(true));
-    dispatch(setIsError(false));
-    const url = HEADERS.URL + `category`;
-    axios
-      .post(url, data)
-      .then(function (response) {
-        const data = response.data;
-        if (data.status === "success") {
-          Swal.fire({
-            title: "Success",
-            icon: "success",
-            text: NOTIF_ALERT.SUCCESS,
-          });
-          dispatch(ModalToggle(false));
-
-          dispatch(setIsError(true));
-          dispatch(fetchKategori(`${param}?page=1`));
-        } else {
-          Swal.fire({
-            title: "failed",
-            icon: "error",
-            text: NOTIF_ALERT.FAILED,
-          });
-          dispatch(ModalToggle(true));
-
-          dispatch(setIsError(false));
-        }
-        dispatch(setLoadingPost(false));
-      })
-      .catch(function (error) {
-        dispatch(setLoadingPost(false));
-        dispatch(setIsError(false));
-        if (error.message === "Network Error") {
-          Swal.fire("Network Failed!.", "Please check your connection", "error");
-        } else {
-          Swal.fire({
-            title: "failed",
-            icon: "error",
-            text: error.response.data.msg,
-          });
-
-          if (error.response) {
-          }
-        }
-      });
+    handlePost(`category`, data, (res, msg, status) => {
+      dispatch(ModalToggle(false));
+      dispatch(fetchKategori(`${param}?page=1`));
+    });
   };
 };
 
 export const putKategori = (id, data, param) => {
   return (dispatch) => {
-    dispatch(setLoadingPost(true));
-    dispatch(setIsError(false));
-    const url = HEADERS.URL + `category/${id}`;
-    axios
-      .put(url, data)
-      .then(function (response) {
-        const data = response.data;
-        if (data.status === "success") {
-          Swal.fire({
-            title: "Success",
-            icon: "success",
-            text: NOTIF_ALERT.SUCCESS,
-          });
-          dispatch(setIsError(true));
-          dispatch(fetchKategori(`${param}?page=1`));
-          dispatch(ModalToggle(false));
-        } else {
-          Swal.fire({
-            title: "failed",
-            icon: "error",
-            text: NOTIF_ALERT.FAILED,
-          });
-          dispatch(setIsError(false));
-          dispatch(ModalToggle(true));
-        }
-        dispatch(setLoadingPost(false));
-      })
-      .catch(function (error) {
-        dispatch(setLoadingPost(false));
-        dispatch(setIsError(false));
-        if (error.message === "Network Error") {
-          Swal.fire("Network Failed!.", "Please check your connection", "error");
-        } else {
-          Swal.fire({
-            title: "failed",
-            icon: "error",
-            text: error.response.data.msg,
-          });
-
-          if (error.response) {
-          }
-        }
-      });
+    handlePut(`category/${id}`, data, (res, msg, status) => {
+      dispatch(ModalToggle(false));
+      dispatch(fetchKategori(`${param}?page=1`));
+    });
   };
 };
 
 export const deleteKategori = (id, param) => async (dispatch) => {
-  Swal.fire({
-    title: "Tunggu sebentar.",
-    html: NOTIF_ALERT.CHECKING,
-    onBeforeOpen: () => {
-      Swal.showLoading();
-    },
-    onClose: () => {},
+  handleDelete(`category/${id}`, () => {
+    dispatch(fetchKategori(`${param}?page=1`));
   });
-
-  axios
-    .delete(HEADERS.URL + `category/${id}`)
-    .then((response) => {
-      setTimeout(function () {
-        Swal.close();
-        const data = response.data;
-        if (data.status === "success") {
-          Swal.fire({
-            title: "Success",
-            icon: "success",
-            text: NOTIF_ALERT.SUCCESS,
-          });
-        } else {
-          Swal.fire({
-            title: "failed",
-            icon: "error",
-            text: NOTIF_ALERT.FAILED,
-          });
-        }
-        dispatch(setLoading(false));
-        dispatch(fetchKategori(`${param}?page=1`));
-      }, 800);
-    })
-    .catch((error) => {
-      Swal.close();
-      dispatch(setLoading(false));
-      if (error.message === "Network Error") {
-        Swal.fire("Network Failed!.", "Please check your connection", "error");
-      } else {
-        Swal.fire({
-          title: "failed",
-          icon: "error",
-          text: error.response.data.msg,
-        });
-        if (error.response) {
-        }
-      }
-    });
 };

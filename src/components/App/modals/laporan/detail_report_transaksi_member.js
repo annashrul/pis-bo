@@ -6,14 +6,18 @@ import { ModalToggle } from "../../../../redux/actions/modal.action";
 import { getDetailReportTransaksi } from "../../../../redux/actions/laporan/report_transaksi_member.action";
 import moment from "moment";
 import { NOTIF_ALERT } from "../../../../redux/actions/_constants";
-import Paginationq, { toCurrency } from "../../../../helper";
+import Paginationq, {
+  generateNo,
+  noData,
+  toCurrency,
+  toDate,
+} from "../../../../helper";
+import TableCommon from "../../../common/TableCommon";
 
 class DetailReportTransaksiMember extends Component {
-  //MENU ACCESS MASTERDATA = 0-9
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.handlePage = this.handlePage.bind(this);
   }
 
   toggle = (e) => {
@@ -22,107 +26,98 @@ class DetailReportTransaksiMember extends Component {
     this.props.dispatch(ModalToggle(bool));
   };
 
-  handlePage(num) {
-    this.props.dispatch(getDetailReportTransaksi(`page=${num}&${this.props.detail.where}`));
+  handlePageChange(num) {
+    this.props.dispatch(
+      getDetailReportTransaksi(`page=${num}&${this.props.detail.where}`)
+    );
   }
 
   render() {
-    const { total, per_page, current_page, data, summary } = this.props.data;
+    let totalTrxInPerPage = 0;
+    let totalTrxOutPerPage = 0;
+    const { data, paginationDetail } = this.props;
+    const rowSpan = [
+      { label: "Kode", className: "text-center", width: "1%" },
+      { label: "Masuk", className: "text-center", width: "1%" },
+      { label: "Keluar", className: "text-center", width: "1%" },
+    ];
+    const head = [
+      { label: "No", width: "1%", className: "text-center", rowSpan: 2 },
+      { label: "Transaksi", width: "1%", colSpan: 3 },
+      { label: "Catatan", rowSpan: 2 },
+      { label: "Tanggal", rowSpan: 2, width: "1%" },
+    ];
     return (
-      <WrapperModal isOpen={this.props.isOpen && this.props.type === "detailReportTransaksiMember"} size="lg">
-        <ModalHeader toggle={this.toggle}>Laporan Transaksi {this.props.detail.nama}</ModalHeader>
+      <WrapperModal
+        isOpen={
+          this.props.isOpen && this.props.type === "detailReportTransaksiMember"
+        }
+        size="lg"
+      >
+        <ModalHeader toggle={this.toggle}>
+          Laporan Transaksi {this.props.detail.nama}
+        </ModalHeader>
         <ModalBody>
-          <div className="row">
-            {typeof data === "object" ? (
-              data.length > 0 ? (
-                data.map((v, i) => {
-                  return (
-                    <div className="col-md-12 col-sm-12 col-lg-12" key={i}>
-                      <div className="rounded mb-2 bgWithOpacity" style={{ borderLeft: "8px solid #333" }}>
-                        <div className="p-3">
-                          <div className="media">
-                            <div className="media-body text-center mr-2" style={{ maxWidth: "100px", minWidth: "100px" }}>
-                              <h5 className="mb-1 text-muted text-white">{moment(v.created_at).format("HH:MM")}</h5>
-                              <p className="mb-0 text-muted text-white">{moment(v.created_at).format("YYYY-DD-MM")}</p>
-                            </div>
-                            <div className="media-body text-left" style={{ marginLeft: "20px" }}>
-                              <p className="mb-2 text-mute text-white">{v.note}</p>
-                              <h6 className="mb-1 text-white">{v.kd_trx}</h6>
-                            </div>
-                            <div className="media-body text-left ml-1" style={{ maxWidth: "200px", minWidth: "200px" }}>
-                              <h6 className="mb-1 text-success">+ {toCurrency(v.trx_in)}</h6>
-                              <h6 className="mb-1 text-danger">- {toCurrency(v.trx_out)}</h6>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })
-              ) : (
-                <div className={"col-md-12 text-center"}>
-                  <img src={NOTIF_ALERT.NO_DATA} style={{ verticalAlign: "middle" }} alt="" />
-                </div>
-              )
-            ) : (
-              <div className={"col-md-12 text-center"}>
-                <img src={NOTIF_ALERT.NO_DATA} style={{ verticalAlign: "middle" }} alt="" />
-              </div>
-            )}
-          </div>
-
-          <div className="row">
-            <div className="col-md-12">
+          <TableCommon
+            rowSpan={rowSpan}
+            head={head}
+            meta={{
+              total: paginationDetail.total,
+              current_page: paginationDetail.current_page,
+              per_page: paginationDetail.per_page,
+            }}
+            current_page={paginationDetail.current_page}
+            callbackPage={this.handlePageChange.bind(this)}
+            renderRow={
+              typeof data === "object"
+                ? data.length > 0
+                  ? data.map((v, i) => {
+                      totalTrxInPerPage += parseFloat(v.trx_in);
+                      totalTrxOutPerPage += parseFloat(v.trx_out);
+                      return (
+                        <tr key={i}>
+                          <td className="middle nowrap text-center">
+                            {generateNo(i, paginationDetail.current_page)}
+                          </td>
+                          <td className="middle nowrap">{v.kd_trx}</td>
+                          <td className={"middle nowrap text-right poin"}>
+                            {toCurrency(`${parseFloat(v.trx_in).toFixed(2)}`)}
+                          </td>
+                          <td className={"middle nowrap text-right poin"}>
+                            {toCurrency(`${parseFloat(v.trx_out).toFixed(2)}`)}
+                          </td>
+                          <td className="middle nowrap">{v.note}</td>
+                          <td className="middle nowrap">
+                            {toDate(v.created_at)}
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : noData(head.length)
+                : noData(head.length)
+            }
+            footer={[
               {
-                <div
-                  style={{
-                    marginTop: "20px",
-                    marginBottom: "20px",
-                    float: "left",
-                  }}
-                >
-                  <h5>Ringkasan</h5>
-                  <div className="table-responsive">
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th>Saldo Awal</th>
-                          <td>:</td>
-                          <td className={"poin"}>{summary === undefined ? 0 : toCurrency(`${summary.saldo_awal}`)}</td>
-                        </tr>
-                        <tr>
-                          <th>Saldo Masuk</th>
-                          <td>:</td>
-                          <td className={"poin"}>{summary === undefined ? 0 : toCurrency(`${summary.trx_in}`)}</td>
-                        </tr>
-                        <tr>
-                          <th>Saldo Keluar</th>
-                          <td>:</td>
-                          <td className={"poin"}>{summary === undefined ? 0 : toCurrency(`${summary.trx_out}`)}</td>
-                        </tr>
-                        <tr>
-                          <th>Saldo saat ini</th>
-                          <td>:</td>
-                          <td className={"poin"}>{summary === undefined ? 0 : toCurrency(`${parseInt(summary.saldo_awal, 10) + parseInt(summary.trx_in, 10) - parseInt(summary.trx_out, 10)}`)}</td>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
-                </div>
-              }
-
-              <div
-                style={{
-                  padding: "20px",
-                  marginTop: "20px",
-                  marginBottom: "20px",
-                  float: "right",
-                }}
-              >
-                <Paginationq current_page={current_page} per_page={per_page} total={total} callback={this.handlePage} />
-              </div>
-            </div>
-          </div>
+                data: [
+                  {
+                    colSpan: 2,
+                    label: "Total perhalaman",
+                    className: "text-left",
+                  },
+                  {
+                    colSpan: 1,
+                    label: toCurrency(totalTrxInPerPage.toFixed(2)),
+                    className: "text-right poin",
+                  },
+                  {
+                    colSpan: 1,
+                    label: toCurrency(totalTrxOutPerPage.toFixed(2)),
+                    className: "text-right poin",
+                  },
+                ],
+              },
+            ]}
+          />
         </ModalBody>
       </WrapperModal>
     );
@@ -134,6 +129,7 @@ const mapStateToProps = (state) => {
     isOpen: state.modalReducer,
     type: state.modalTypeReducer,
     data: state.reportTransaksiMemberReducer.detail,
+    paginationDetail: state.reportTransaksiMemberReducer.paginationDetail,
     isLoading: state.reportTransaksiMemberReducer.isLoadingDetail,
   };
 };

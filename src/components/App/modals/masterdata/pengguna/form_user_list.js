@@ -4,7 +4,10 @@ import connect from "react-redux/es/connect/connect";
 import { ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { ModalToggle } from "../../../../../redux/actions/modal.action";
 import { isEmptyOrUndefined, ToastQ } from "../../../../../helper";
-import { postUserList, putUserList } from "../../../../../redux/actions/masterdata/user_list.action";
+import {
+  postUserList,
+  putUserList,
+} from "../../../../../redux/actions/masterdata/user_list.action";
 import Preloader from "../../../../../Preloader";
 import SelectCommon from "../../../../common/SelectCommon";
 
@@ -43,10 +46,11 @@ class FormUserList extends Component {
   }
   getProps(props) {
     let state = {};
-    if (props.dataLevel.data !== undefined) {
-      if (props.dataLevel.data.length > 0) {
+    console.log(props);
+    if (props.dataLevel !== undefined) {
+      if (props.dataLevel.length > 0) {
         let data = [];
-        props.dataLevel.data.forEach((v, i) => {
+        props.dataLevel.forEach((v, i) => {
           data.push({ value: v.id, label: v.level });
         });
         Object.assign(state, { level_data: data });
@@ -124,6 +128,8 @@ class FormUserList extends Component {
       return;
     }
 
+    delete parseData["conf_password"];
+
     if (this.props.detail.id === "") {
       this.props.dispatch(postUserList(parseData, this.props.detail.where));
     } else {
@@ -144,35 +150,83 @@ class FormUserList extends Component {
 
   render() {
     return (
-      <WrapperModal isOpen={this.props.isOpen && this.props.type === "formUserList"} size="md">
-        <ModalHeader toggle={this.toggle}>{this.props.detail.id !== "" ? `Ubah Pengguna` : `Tambah Pengguna`}</ModalHeader>
+      <WrapperModal
+        isOpen={this.props.isOpen && this.props.type === "formUserList"}
+        size="md"
+      >
+        <ModalHeader toggle={this.toggle}>
+          {this.props.detail.id !== "" ? `Ubah Pengguna` : `Tambah Pengguna`}
+        </ModalHeader>
         {this.props.isLoadingPost ? <Preloader /> : null}
 
         <ModalBody>
           <div className="form-group">
             <label>Nama</label>
-            <input type="text" className="form-control" name="name" value={this.state.name} onChange={this.handleChange} />
+            <input
+              type="text"
+              className="form-control"
+              name="name"
+              value={this.state.name}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
             <label>Username</label>
-            <input readOnly={this.props.detail.id !== ""} type="text" className="form-control" name="username" value={this.state.username} onChange={this.handleChange} />
+            <input
+              readOnly={this.props.detail.id !== ""}
+              type="text"
+              className="form-control"
+              name="username"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
             <label>
               Password
-              <small>{this.props.detail.id !== "" ? " (  kosongkan jika tidak akan diubah )" : ""}</small>
+              <small>
+                {this.props.detail.id !== ""
+                  ? " (  kosongkan jika tidak akan diubah )"
+                  : ""}
+              </small>
             </label>
-            <input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleChange} />
+            <input
+              type="password"
+              className="form-control"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
           </div>
           <div className="form-group">
             <label>
               Konfirmasi Password
-              <small>{this.props.detail.id !== "" ? " (  kosongkan jika tidak akan diubah )" : ""}</small>
+              <small>
+                {this.props.detail.id !== ""
+                  ? " (  kosongkan jika tidak akan diubah )"
+                  : ""}
+              </small>
             </label>
-            <input type="password" className="form-control" name="conf_password" value={this.state.conf_password} onChange={this.handleChange} />
+            <input
+              type="password"
+              className="form-control"
+              name="conf_password"
+              value={this.state.conf_password}
+              onChange={this.handleChange}
+            />
           </div>
-          <SelectCommon label="Akses" options={this.state.level_data} dataEdit={this.state.level} callback={(res) => this.handleSelect("level", res)} />
-          <SelectCommon label="Status" options={this.state.status_data} dataEdit={this.state.status} callback={(res) => this.handleSelect("status", res)} />
+          <SelectCommon
+            label="Akses"
+            options={this.state.level_data}
+            dataEdit={this.state.level}
+            callback={(res) => this.handleSelect("level", res)}
+          />
+          <SelectCommon
+            label="Status"
+            options={this.state.status_data}
+            dataEdit={this.state.status}
+            callback={(res) => this.handleSelect("status", res)}
+          />
 
           {/* <div className="form-group">
             <label>Akses</label>
@@ -199,11 +253,20 @@ class FormUserList extends Component {
         </ModalBody>
         <ModalFooter>
           <div className="form-group" style={{ textAlign: "right" }}>
-            <button style={{ color: "white" }} type="button" className="btn btn-warning mb-2 mr-2" onClick={this.toggle}>
+            <button
+              style={{ color: "white" }}
+              type="button"
+              className="btn btn-warning mb-2 mr-2"
+              onClick={this.toggle}
+            >
               <i className="ti-close" />
               Keluar
             </button>
-            <button type="submit" className="btn btn-primary mb-2" onClick={this.handleSubmit}>
+            <button
+              type="submit"
+              className="btn btn-primary mb-2"
+              onClick={this.handleSubmit}
+            >
               <i className="ti-save" /> Simpan
             </button>
           </div>

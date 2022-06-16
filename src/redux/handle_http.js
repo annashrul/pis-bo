@@ -56,7 +56,7 @@ export const handlePost = (url, data, callback) => {
       setTimeout(function () {
         loading(false);
         const datum = response.data;
-        if (datum.status === "success") {
+        if (datum.meta.status === "success") {
           swal(NOTIF_ALERT.SUCCESS);
           callback(datum, datum.msg, true);
         } else {
@@ -81,7 +81,7 @@ export const handlePut = async (url, data, callback) => {
       setTimeout(function () {
         loading(false);
         const datum = response.data;
-        if (datum.status === "success") {
+        if (datum.meta.status === "success") {
           swal(NOTIF_ALERT.SUCCESS);
           callback(datum, datum.msg, true);
         } else {
@@ -106,7 +106,7 @@ export const handleDelete = async (url, callback) => {
         setTimeout(function () {
           loading(false);
           const datum = response.data;
-          if (datum.status === "success") {
+          if (datum.meta.status === "success") {
             swal(NOTIF_ALERT.SUCCESS);
             callback();
           } else {
@@ -128,14 +128,19 @@ export const handleGetExport = (url, callback, download) => {
   download("loading");
   Axios.get(HEADERS.URL + url, {
     onDownloadProgress: (progressEvent) => {
-      let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+      let percentCompleted = Math.round(
+        (progressEvent.loaded * 100) / progressEvent.total
+      );
       Nprogress.set(percentCompleted / 100);
       download(percentCompleted);
     },
   })
     .then(function (response) {
       console.log("response helper http", response.data.result.data);
-      if (response.data.result.data !== undefined && response.data.result.data.length > 0) {
+      if (
+        response.data.result.data !== undefined &&
+        response.data.result.data.length > 0
+      ) {
         callback(response);
       } else {
         swal("Data tidak tersedia");

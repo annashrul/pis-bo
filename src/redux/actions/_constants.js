@@ -20,8 +20,8 @@ export const NOTIF_ALERT = {
 };
 
 export const HEADERS = {
-  // URL: "https://api.prowara.id/",
-  URL: "http://localhost:6706/",
+  URL: "https://api.prowara.id/",
+  // URL: "http://localhost:6706/",
   TOKEN:
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwY2RiN2M5OC0wNWNmLTQ4NDgtOGM3Yy0yZTFiYTczZGUwNmYiLCJpYXQiOjE1NzAxNzM0ODYsImV4cCI6MTU3MDc3ODI4Nn0.1NiWtt2luG83am8FJSvWpL5p35Oxd8GSJJTwhFmAdgw",
   REQ: "backoffice",
@@ -79,57 +79,11 @@ export const SITE = {
 };
 
 /****************
- KATEGORI INVESTASI
- *****************/
-let prefKategoriInvestasi = "KATEGORI_INVESTASI";
-export const KATEGORI_INVESTASI = {
-  FETCH: `SET_DATA_${prefKategoriInvestasi}`,
-};
-/****************
- KATEGORI BINARY
- *****************/
-let prefKategoriBinary = "KATEGORI_BINARY";
-export const KATEGORI_BINARY = {
-  FETCH: `SET_DATA_${prefKategoriBinary}`,
-};
-/****************
- PAKET BINARY
- *****************/
-let prefPaketBinary = "PAKET_BINARY";
-export const PAKET_BINARY = {
-  FETCH: `SET_DATA_${prefPaketBinary}`,
-  DETAIL: `SET_DETAIL_${prefPaketBinary}`,
-};
-/****************
- BARANG BINARY
- *****************/
-let prefBarangBinary = "BARANG_BINARY";
-export const BARANG_BINARY = {
-  FETCH: `SET_DATA_${prefBarangBinary}`,
-  DETAIL: `SET_DETAIL_${prefBarangBinary}`,
-};
-/****************
  KATEGORI BERITA
  *****************/
 let prefKategoriBerita = "KATEGORI_BERITA";
 export const KATEGORI_BERITA = {
   FETCH: `SET_DATA_${prefKategoriBerita}`,
-};
-/****************
- LAPORAN PIN
- *****************/
-let prefLaporanPin = "LAPORAN_PIN";
-export const LAPORAN_PIN = {
-  FETCH: `SET_DATA_${prefLaporanPin}`,
-  FETCH_LOG_PIN: `SET_DATA_${prefLaporanPin}_LOG_PIN`,
-  DETAIL: `SET_DETAIL_${prefLaporanPin}`,
-};
-/****************
- LAPORAN PIN
- *****************/
-let prefReward = "REWARD";
-export const REWARD = {
-  FETCH: `SET_DATA_${prefReward}`,
 };
 
 /****************
@@ -138,12 +92,15 @@ export const REWARD = {
 let prefPaket = "PAKET";
 export const PAKET = {
   LOADING: `SET_${prefPaket}_LOADING`,
-  LOADING_POST: `SET_${prefPaket}_LOADING_POST`,
-  LOADING_DETAIL: `SET_${prefPaket}_LOADING_DETAIL`,
-  IS_ERROR: `SET_${prefPaket}_IS_ERROR`,
   SUCCESS: `SUCCESS_${prefPaket}`,
-  FAILED: `FAILED_${prefPaket}`,
-  DETAIL: `DETAIL_${prefPaket}`,
+};
+/****************
+ KATEGORI PAKET
+ *****************/
+let prefKategoriPaket = "KATEGORI_PAKET";
+export const KATEGORI_PAKET = {
+  LOADING: `SET_${prefKategoriPaket}_LOADING`,
+  SUCCESS: `SUCCESS_${prefKategoriPaket}`,
 };
 
 /****************
@@ -391,7 +348,7 @@ export const CONFIG_WALLET = {
 };
 
 /****************
-     REPORT_TRANSAKSI
+     REPORT_TRANSAKSI MEMBER
      *****************/
 let prefReportTransaksiMember = "REPORT_TRANSAKSI_MEMBER";
 export const REPORT_TRANSAKSI_MEMBER = {
@@ -405,6 +362,18 @@ export const REPORT_TRANSAKSI_MEMBER = {
   EDIT: `EDIT_${prefReportTransaksiMember}`,
   EXCEL: `EXCEL_${prefReportTransaksiMember}`,
   LOADING_EXCEL: `SET_${prefReportTransaksiMember}_LOADING_EXCEL`,
+};
+/****************
+     REPORT_TRANSAKSI PENJUALAN
+     *****************/
+let prefReportTransaksiPenjualan = "REPORT_TRANSAKSI_PENJUALAN";
+export const REPORT_TRANSAKSI_PENJUALAN = {
+  LOADING: `SET_${prefReportTransaksiPenjualan}_LOADING`,
+  LOADING_DETAIL: `SET_${prefReportTransaksiPenjualan}_LOADING_DETAIL`,
+  LOADING_EXCEL: `SET_${prefReportTransaksiPenjualan}_LOADING_EXCEL`,
+  SUCCESS: `SUCCESS_${prefReportTransaksiPenjualan}`,
+  DETAIL: `DETAIL_${prefReportTransaksiPenjualan}`,
+  EXCEL: `EXCEL_${prefReportTransaksiPenjualan}`,
 };
 
 /****************

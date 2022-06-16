@@ -2,7 +2,15 @@ import React, { Component } from "react";
 import connect from "react-redux/es/connect/connect";
 // import { CURRENT_DATE, dateRange, getStorage, setStorage, toDate, isEmptyOrUndefined } from "../../../../helper";
 import SelectCommon from "./SelectCommon";
-import { CURRENT_DATE, dateRange, getStorage, isEmptyOrUndefined, rmStorage, setStorage, toDate } from "../../helper";
+import {
+  CURRENT_DATE,
+  dateRange,
+  getStorage,
+  isEmptyOrUndefined,
+  rmStorage,
+  setStorage,
+  toDate,
+} from "../../helper";
 
 /**
  * callbackGet => void
@@ -27,7 +35,10 @@ class HeaderGeneralCommon extends Component {
     let state = {};
     if (props.columnData !== undefined && props.columnData.length > 0) {
       Object.assign(state, { column_data: props.columnData });
-      setStorage(`columnStorage${this.props.pathName}`, props.columnData[0].value);
+      setStorage(
+        `columnStorage${this.props.pathName}`,
+        props.columnData[0].value
+      );
     }
     if (props.otherData !== undefined && props.otherData.length > 0) {
       Object.assign(state, { other_data: props.otherData });
@@ -50,7 +61,9 @@ class HeaderGeneralCommon extends Component {
     let getDateTo = getStorage(`dateToStorage${path}`);
     let getColumn = getStorage(`columnStorage${path}`);
     let getAny = getStorage(`anyStorage${path}`);
-    let getOther = props.isOther ? getStorage(`${props.otherState}Storage${path}`) : "";
+    let getOther = props.isOther
+      ? getStorage(`${props.otherState}Storage${path}`)
+      : "";
     let where = ``;
     let state = {};
 
@@ -102,11 +115,13 @@ class HeaderGeneralCommon extends Component {
     console.log(state, res.value);
     this.setState({ [state]: res.value });
     if (this.props.isOther) {
-      if (state === this.props.otherState) setStorage(`${state}Storage${this.props.pathName}`, res.value);
+      if (state === this.props.otherState)
+        setStorage(`${state}Storage${this.props.pathName}`, res.value);
       this.setState({ other: res.value });
     }
 
-    if (state === "column") setStorage(`columnStorage${this.props.pathName}`, res.value);
+    if (state === "column")
+      setStorage(`columnStorage${this.props.pathName}`, res.value);
     this.handleService();
   }
 
@@ -116,7 +131,8 @@ class HeaderGeneralCommon extends Component {
     if (this.props.col) {
       col = this.props.col;
     }
-    const { dateFrom, dateTo, column, any, column_data, other_data, other } = this.state;
+    const { dateFrom, dateTo, column, any, column_data, other_data, other } =
+      this.state;
 
     return (
       <div className="row mb-10">
@@ -124,7 +140,10 @@ class HeaderGeneralCommon extends Component {
           <div className={`col-6 col-xs-6 ${col}`}>
             {dateRange(
               (first, last, isActive) => {
-                setStorage(`activeDateRangePickerStorage${props.pathName}`, isActive);
+                setStorage(
+                  `activeDateRangePickerStorage${props.pathName}`,
+                  isActive
+                );
                 setStorage(`dateFromStorage${props.pathName}`, first);
                 setStorage(`dateToStorage${props.pathName}`, last);
                 this.handleService();
@@ -136,12 +155,22 @@ class HeaderGeneralCommon extends Component {
         )}
         {this.props.isOther && (
           <div className={`col-6 col-xs-6 ${col}`}>
-            <SelectCommon label={this.props.otherName} options={other_data} callback={(res) => this.handleSelect(this.props.otherState, res)} dataEdit={other} />
+            <SelectCommon
+              label={this.props.otherName}
+              options={other_data}
+              callback={(res) => this.handleSelect(this.props.otherState, res)}
+              dataEdit={other}
+            />
           </div>
         )}
         {props.isColumn ? (
           <div className={`col-6 col-xs-6 ${col}`}>
-            <SelectCommon label="Kolom" options={column_data} callback={(res) => this.handleSelect("column", res)} dataEdit={column} />
+            <SelectCommon
+              label="Kolom"
+              options={column_data}
+              callback={(res) => this.handleSelect("column", res)}
+              dataEdit={column}
+            />
           </div>
         ) : null}
 
@@ -167,7 +196,13 @@ class HeaderGeneralCommon extends Component {
               {this.props.callbackSearch === "hide" ? (
                 ""
               ) : (
-                <button type="button" className="btn btn-primary mr-2" onClick={this.handleSearch}>
+                <button
+                  type="button"
+                  className={`btn btn-primary ${
+                    this.props.callbackExport === undefined && "mr-2"
+                  }`}
+                  onClick={this.handleSearch}
+                >
                   <i className="fa fa-search" />
                 </button>
               )}
@@ -178,9 +213,14 @@ class HeaderGeneralCommon extends Component {
                     e.preventDefault();
                     this.props.callbackAdd();
                   }}
-                  className="btn btn-primary mr-2"
+                  className={`btn btn-primary`}
                 >
-                  {this.props.callbackAddText === "" || this.props.callbackAddText === null || this.props.callbackAddText === undefined ? "" : this.props.callbackAddText} <i className="fa fa-plus" />
+                  {this.props.callbackAddText === "" ||
+                  this.props.callbackAddText === null ||
+                  this.props.callbackAddText === undefined
+                    ? ""
+                    : this.props.callbackAddText}{" "}
+                  <i className="fa fa-plus" />
                 </button>
               )}
               {this.props.callbackExport && (

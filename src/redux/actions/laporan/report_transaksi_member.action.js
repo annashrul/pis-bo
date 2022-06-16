@@ -50,8 +50,8 @@ export function setDataDetail(data = []) {
 
 export const getDataReportTransaksi = (where = "") => {
   return (dispatch) => {
-    let url = "transaction/history/member";
-    if (where !== "") url += `?${where}`;
+    let url = "transaction/report/member";
+    if (where !== "") url += `?${where}&perpage=10`;
     handleGet(url, (res) => {
       dispatch(setData(res));
     });
@@ -61,8 +61,8 @@ export const getDataReportTransaksi = (where = "") => {
 export const getDetailReportTransaksi = (where = "", isModal = false) => {
   return (dispatch) => {
     dispatch(setLoadingDetail(true));
-    let url = "transaction/history";
-    if (where !== "") url += `?${where}`;
+    let url = "transaction/report";
+    if (where !== "") url += `?${where}&perpage=10`;
     handleGet(url, (res) => {
       dispatch(setDataDetail(res));
       if (isModal) {
