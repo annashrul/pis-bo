@@ -31,7 +31,7 @@ const myState = {
   ],
 };
 
-class FormPaket extends Component {
+class FormMember extends Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -124,11 +124,11 @@ class FormPaket extends Component {
   render() {
     return (
       <WrapperModal
-        isOpen={this.props.isOpen && this.props.type === "formPaket"}
+        isOpen={this.props.isOpen && this.props.type === "formMember"}
         size="md"
       >
         <ModalHeader toggle={this.toggle}>
-          {this.props.detail.id !== "" ? `Ubah Paket` : `Tambah Paket`}
+          {this.props.detail.id !== "" ? `Ubah Member` : `Tambah Member`}
         </ModalHeader>
         <ModalBody>
           <div className="form-group">
@@ -241,4 +241,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(FormPaket);
+export default connect(mapStateToProps)(FormMember);

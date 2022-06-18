@@ -5,8 +5,8 @@ import Nprogress from "nprogress";
 import "nprogress/nprogress.css";
 import { swal, swallOption } from "../helper";
 
-const strNetworkError = "a network error occurred.";
-const strServerError = "a server error occurred.";
+const strNetworkError = "Terjadi Kesalahan Jaringan.";
+const strServerError = "Terjadi Kesalahan Jaringan.";
 
 export const loading = (isStatus = true, title = "Silahkan tunggu.") => {
   Swal.fire({

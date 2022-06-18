@@ -27,8 +27,10 @@ import truck from "assets/status/truck_y_non.svg";
 import confirmY from "assets/status/confirmation.svg";
 import confirmWhite from "assets/status/confirmation_white.svg";
 import confirm from "assets/status/confirmation_non.svg";
-export const CURRENT_DATE = moment(new Date()).format("yyyy-MM-DD");
+import { LinkMenu } from "./linkMenu";
+moment.locale("id");
 
+export const CURRENT_DATE = moment(new Date()).format("yyyy-MM-DD");
 export const DEFAULT_WHERE = `page=1&datefrom=${CURRENT_DATE}&dateto=${CURRENT_DATE}`;
 
 export const menu = () => {
@@ -36,7 +38,7 @@ export const menu = () => {
     {
       id: 0,
       label: "member",
-      path: "/materdata/member",
+      path: LinkMenu.indexMember,
       isChecked: false,
       isToggle: false,
       sub: undefined,
@@ -54,14 +56,14 @@ export const menu = () => {
         {
           id: 21,
           label: "list",
-          path: "/masterdata/pengguna",
+          path: LinkMenu.indexUser,
           parent: "pengguna",
           isChecked: false,
         },
         {
           id: 22,
           label: "akses",
-          path: "/masterdata/pengguna/akses",
+          path: LinkMenu.indexUserLevel,
           parent: "pengguna",
           isChecked: false,
         },
@@ -79,14 +81,14 @@ export const menu = () => {
         {
           id: 501,
           label: "list",
-          path: "/masterdata/paket",
+          path: LinkMenu.indexPaket,
           parent: "paket",
           isChecked: false,
         },
         {
           id: 502,
           label: "kategori",
-          path: "/masterdata/paket/kategori",
+          path: LinkMenu.indexKategoriPaket,
           parent: "paket",
           isChecked: false,
         },
@@ -104,14 +106,14 @@ export const menu = () => {
         {
           id: 11,
           label: "deposit",
-          path: "/ewallet/deposit",
+          path: LinkMenu.indexDeposit,
           parent: "e-wallet",
           isChecked: false,
         },
         {
           id: 12,
           label: "penarikan",
-          path: "/ewallet/penarikan",
+          path: LinkMenu.indexPenarikan,
           parent: "e-wallet",
           isChecked: false,
         },
@@ -128,7 +130,7 @@ export const menu = () => {
         {
           id: 351,
           label: "list",
-          path: "/masterdata/berita",
+          path: LinkMenu.indexBerita,
           parent: "berita",
           isChecked: false,
           sub: undefined,
@@ -136,7 +138,7 @@ export const menu = () => {
         {
           id: 352,
           label: "kategori",
-          path: "/masterdata/berita/kategori",
+          path: LinkMenu.indexKategoriBerita,
           parent: "berita",
           isChecked: false,
           sub: undefined,
@@ -154,14 +156,14 @@ export const menu = () => {
         {
           id: 401,
           label: "transaksi",
-          path: "/laporan/transaksi/member",
+          path: LinkMenu.indexLaporanMember,
           parent: "laporan",
           isChecked: false,
         },
         {
           id: 401,
           label: "penjualan",
-          path: "/laporan/transaksi/penjualan",
+          path: LinkMenu.indexLaporanPenjualan,
           parent: "laporan",
           isChecked: false,
         },
@@ -179,28 +181,28 @@ export const menu = () => {
         {
           id: 16,
           label: "umum",
-          path: "/pengaturan/umum",
+          path: LinkMenu.indexPengaturanUmum,
           parent: "pengaturan",
           isChecked: false,
         },
         {
           id: 17,
           label: "bank",
-          path: "/pengaturan/bank",
+          path: LinkMenu.indexPengaturanBank,
           parent: "pengaturan",
           isChecked: false,
         },
         {
           id: 18,
           label: "kurir",
-          path: "/pengaturan/kurir",
+          path: LinkMenu.indexPengaturanKurir,
           parent: "pengaturan",
           isChecked: false,
         },
         {
           id: 19,
           label: "landing",
-          path: "/pengaturan/landing",
+          path: LinkMenu.indexPengaturanLanding,
           parent: "pengaturan",
           isChecked: false,
         },
@@ -208,6 +210,20 @@ export const menu = () => {
       otherSub: true,
     },
   ];
+};
+
+export const compareObjectResAndState = (res, state) => {
+  let result = {};
+  Object.keys(res).forEach((val) => {
+    Object.keys(state).forEach((key) => {
+      if (val === key) {
+        Object.assign(result, { [key]: res[key] });
+      }
+    });
+  });
+  // console.log("response", result);
+  // console.log("state", state);
+  return result;
 };
 
 export const convertBase64 = (file) => {
@@ -246,7 +262,6 @@ export const getFetchWhere = (res, page = 1) => {
 };
 
 export const toDate = (val, type = "/", isTime = false) => {
-  moment.locale("id");
   if (isTime) {
     return moment(val).format("hh:mm:ss");
   }
@@ -272,9 +287,7 @@ export const isEmptyOrUndefined = (val, col, isShowError = true) => {
     val === undefined ||
     val === null ||
     val === "null" ||
-    val === "undefined" ||
-    val === 0 ||
-    val === "0"
+    val === "undefined"
   ) {
     return false;
   }
@@ -434,7 +447,7 @@ export const noData = (colSpan = 1) => {
 };
 
 export const myDate = (val) => {
-  return moment(val).locale("id").format("DD/MM/YYYY");
+  return moment(val).format("LLL");
 };
 export const toExcel = (
   title = "",

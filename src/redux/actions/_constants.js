@@ -118,40 +118,14 @@ export const KATEGORI = {
   DETAIL: `DETAIL_${prefKategori}`,
   EDIT: `EDIT_${prefKategori}`,
 };
-/****************
-     PIN
-     *****************/
-let prefPin = "PIN";
-export const PIN = {
-  LOADING: `SET_${prefPin}_LOADING`,
-  LOADING_POST: `SET_${prefPin}_LOADING_POST`,
-  IS_ERROR: `SET_${prefPin}_IS_ERROR`,
-  SUCCESS: `SUCCESS_${prefPin}`,
-  FAILED: `FAILED_${prefPin}`,
-  DETAIL: `DETAIL_${prefPin}`,
-  EDIT: `EDIT_${prefPin}`,
-};
+
 /****************
      MEMBER
      *****************/
 let prefMember = "MEMBER";
 export const MEMBER = {
   LOADING: `SET_${prefMember}_LOADING`,
-  LOADING_DETAIL: `SET_${prefMember}_LOADING_DETAIL`,
-  LOADING_POST: `SET_${prefMember}_LOADING_POST`,
-  IS_ERROR: `SET_${prefMember}_IS_ERROR`,
   SUCCESS: `SUCCESS_${prefMember}`,
-  APPROVAL: `APPROVAL_${prefMember}`,
-  FAILED: `FAILED_${prefMember}`,
-  DETAIL: `DETAIL_${prefMember}`,
-  EDIT: `EDIT_${prefMember}`,
-  LOADING_EXCEL: `SET_${prefMember}_LOADING_EXCEL`,
-  EXCEL: `EXCEL_${prefMember}`,
-  LOADING_INVESMENT: `SET_${prefMember}_LOADING_INVESMENT`,
-  DATA_INVESMENT: `DATA_INVESMENT_${prefMember}`,
-  SHOW_MODAL: `SHOW_MODAL_${prefMember}`,
-  LOADING_EXCEL_INVESMENT: `SET_${prefMember}_LOADING_EXCEL`,
-  EXCEL_INVESMENT: `EXCEL_INVESMENT_${prefMember}`,
 };
 
 /****************

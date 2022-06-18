@@ -24,7 +24,7 @@ export const getPaket = (where, isClear = false) => {
   return (dispatch) => {
     let url = "paket";
     if (where) {
-      url += `?${where}`;
+      url += `?${where}&perpage=10`;
     }
     handleGet(
       url,
