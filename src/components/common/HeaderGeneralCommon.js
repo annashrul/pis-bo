@@ -127,7 +127,7 @@ class HeaderGeneralCommon extends Component {
 
   render() {
     let props = this.props;
-    let col = "col-md-3";
+    let col = "col-md-6";
     if (this.props.col) {
       col = this.props.col;
     }
@@ -176,7 +176,7 @@ class HeaderGeneralCommon extends Component {
 
         <div className={`col-12 col-xs-12 ${col}`}>
           {this.props.callbackSearch === "hide" ? "" : <label>Cari</label>}
-          <div className="input-group">
+          <div className="input-group" style={{ marginTop: "-2px" }}>
             {this.props.callbackSearch === "hide" ? (
               ""
             ) : (

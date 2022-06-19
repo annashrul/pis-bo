@@ -75,7 +75,7 @@ export const getDetailReportTransaksi = (where = "", isModal = false) => {
 
 export const getExcelReportTransaksi = (where = "") => {
   return (dispatch) => {
-    let url = "transaction/history/member";
+    let url = "transaction/report/member";
     if (where !== "") url += `?${where}`;
     handleGet(url, (res) => {
       dispatch(setExcel(res));

@@ -121,20 +121,11 @@ class IndexMember extends Component {
                             action={[
                               { label: "Ubah Data Diri" },
                               { label: "Ubah Data Bank" },
-                              { label: "Hapus" },
                             ]}
                             callback={(e) => {
                               if (e === 0) this.handleModal(v, "formMember");
                               if (e === 1)
                                 this.handleModal(v, "formBankMember");
-                              if (e === 2)
-                                this.props.dispatch(
-                                  deleteMember({
-                                    total: data.length,
-                                    id: v.id,
-                                    where: where,
-                                  })
-                                );
                             }}
                           />
                         </td>

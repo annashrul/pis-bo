@@ -139,8 +139,8 @@ class IndexDeposit extends Component {
   handlePaymentSlip(param) {
     Swal.fire({
       title: "Bukti Transfer",
-      text: this.props.data.data[param].name,
-      imageUrl: this.props.data.data[param].payment_slip,
+      text: this.props.data[param].name,
+      imageUrl: this.props.data[param].payment_slip,
       imageAlt: "gambar tidak tersedia",
       showClass: { popup: "animate__animated animate__fadeInDown" },
       hideClass: { popup: "animate__animated animate__fadeOutUp" },

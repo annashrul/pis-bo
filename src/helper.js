@@ -155,7 +155,7 @@ export const menu = () => {
       sub: [
         {
           id: 401,
-          label: "transaksi",
+          label: "member",
           path: LinkMenu.indexLaporanMember,
           parent: "laporan",
           isChecked: false,
