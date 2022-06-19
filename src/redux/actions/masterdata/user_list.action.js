@@ -1,6 +1,11 @@
 import { USER_LIST } from "../_constants";
 import { ModalToggle } from "../modal.action";
-import { handleDelete, handleGet, handlePost, handlePut } from "../../handle_http";
+import {
+  handleDelete,
+  handleGet,
+  handlePost,
+  handlePut,
+} from "../../handle_http";
 
 export function setLoading(load) {
   return {
@@ -55,10 +60,10 @@ export function setDataFailed(data = []) {
   };
 }
 
-export const getUserList = (where) => {
+export const getUserList = (where = "") => {
   return (dispatch) => {
     let url = "user";
-    if (where) url += `?${where}`;
+    if (where !== "") url += `?${where}`;
     handleGet(url, (res) => {
       dispatch(setData(res));
     });

@@ -112,7 +112,6 @@ class HeaderGeneralCommon extends Component {
     this.setState({ any: e.target.value });
   }
   handleSelect(state, res) {
-    console.log(state, res.value);
     this.setState({ [state]: res.value });
     if (this.props.isOther) {
       if (state === this.props.otherState)
@@ -122,7 +121,8 @@ class HeaderGeneralCommon extends Component {
 
     if (state === "column")
       setStorage(`columnStorage${this.props.pathName}`, res.value);
-    this.handleService();
+
+    if (state !== "column") this.handleService();
   }
 
   render() {

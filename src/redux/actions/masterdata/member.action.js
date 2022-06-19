@@ -3,6 +3,7 @@ import { ModalToggle } from "../modal.action";
 import {
   handleDelete,
   handleGet,
+  handlePatch,
   handlePost,
   handlePut,
 } from "../../handle_http";
@@ -21,6 +22,18 @@ export function setData(data = []) {
     data,
   };
 }
+export function setLoadingDetail(load) {
+  return {
+    type: MEMBER.LOADING_DETAIL,
+    load,
+  };
+}
+export function setDataDetail(data = []) {
+  return {
+    type: MEMBER.SUCCESS_DETAIL,
+    data,
+  };
+}
 
 export const getMember = (where, isClear = false) => {
   return (dispatch) => {
@@ -28,13 +41,13 @@ export const getMember = (where, isClear = false) => {
     if (where) {
       url += `?${where}&perpage=10`;
     }
-    handleGet(
-      url,
-      (res) => {
-        dispatch(setData(res));
-      },
-      isClear
-    );
+    handleGet(url, (res) => dispatch(setData(res)), isClear);
+  };
+};
+export const getMemberDetail = (where) => {
+  return (dispatch) => {
+    let url = folder + "/get/" + where;
+    handleGet(url, (res) => dispatch(setDataDetail(res)));
   };
 };
 export const postMember = (data, where) => {
@@ -51,6 +64,17 @@ export const postMember = (data, where) => {
 export const putMember = (data, detail) => {
   return (dispatch) => {
     handlePut(`${folder}/${detail.id}`, data, (res, msg, status) => {
+      dispatch(getMember(detail.where));
+      if (status) {
+        dispatch(ModalToggle(false));
+      }
+    });
+  };
+};
+export const putBankMember = (data, detail, idBank) => {
+  return (dispatch) => {
+    console.log(`${folder}/bank/${idBank}`);
+    handlePatch(`${folder}/bank/${idBank}`, data, (res, msg, status) => {
       dispatch(getMember(detail.where));
       if (status) {
         dispatch(ModalToggle(false));

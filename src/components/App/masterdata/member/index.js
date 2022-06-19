@@ -15,8 +15,11 @@ import ButtonActionTableCommon from "../../../common/ButtonActionTableCommon";
 import {
   deleteMember,
   getMember,
+  getMemberDetail,
 } from "../../../../redux/actions/masterdata/member.action";
 import FormMember from "../../modals/masterdata/member/form_member";
+import FormBankMember from "../../modals/masterdata/member/form_bank_member";
+import { getGeneralBank } from "../../../../redux/actions/masterdata/bank.action";
 
 class IndexMember extends Component {
   constructor(props) {
@@ -25,6 +28,8 @@ class IndexMember extends Component {
       detail: {},
       any: "",
       where: "",
+      isModalFormMember: false,
+      isModalFormBankMember: false,
     };
     this.handleModal = this.handleModal.bind(this);
   }
@@ -44,18 +49,27 @@ class IndexMember extends Component {
     this.handleGet(this.state.any, pageNumber);
   }
 
-  handleModal(par) {
+  handleModal(par, type) {
+    const bool = !this.props.isOpen;
     let data = { id: "", where: this.state.where };
     if (par !== null) {
       Object.assign(data, { id: par.id });
       Object.assign(data, { val: par });
       this.setState({ detail: data });
-    } else {
-      this.setState({ detail: data });
     }
-    const bool = !this.props.isOpen;
+
+    if (type === "formMember") {
+      this.setState({ isModalFormMember: true, isModalFormBankMember: false });
+    } else {
+      this.props.dispatch(getMemberDetail(par.id));
+      this.props.dispatch(getGeneralBank());
+      this.setState({
+        isModalFormBankMember: true,
+        isModalFormMember: false,
+      });
+    }
     this.props.dispatch(ModalToggle(bool));
-    this.props.dispatch(ModalType("formMember"));
+    this.props.dispatch(ModalType(type));
   }
 
   render() {
@@ -77,14 +91,13 @@ class IndexMember extends Component {
     return (
       <Layout page={"Daftar Member"}>
         <HeaderGeneralCommon
+          col={"col-md-6"}
           pathName="daftarMember"
           callbackGet={(res) => {
             this.setState({ any: res });
             this.handleGet(res, 1);
           }}
-          callbackAdd={() => this.handleModal(null)}
         />
-
         <TableCommon
           head={head}
           meta={{
@@ -105,10 +118,16 @@ class IndexMember extends Component {
                         </td>
                         <td className="middle nowrap text-center">
                           <ButtonActionTableCommon
-                            action={[{ label: "Ubah" }, { label: "Hapus" }]}
+                            action={[
+                              { label: "Ubah Data Diri" },
+                              { label: "Ubah Data Bank" },
+                              { label: "Hapus" },
+                            ]}
                             callback={(e) => {
-                              if (e === 0) this.handleModal(v);
+                              if (e === 0) this.handleModal(v, "formMember");
                               if (e === 1)
+                                this.handleModal(v, "formBankMember");
+                              if (e === 2)
                                 this.props.dispatch(
                                   deleteMember({
                                     total: data.length,
@@ -119,7 +138,13 @@ class IndexMember extends Component {
                             }}
                           />
                         </td>
-                        <td className="middle nowrap">{v.fullname}</td>
+                        <td className="middle nowrap">
+                          <img
+                            src={v.foto}
+                            style={{ width: "20px", marginRight: "5px" }}
+                          />{" "}
+                          {v.fullname}
+                        </td>
                         <td className="middle nowrap">{v.mobile_no}</td>
                         <td className="middle nowrap">{v.referral}</td>
                         <td className="middle nowrap">
@@ -131,7 +156,11 @@ class IndexMember extends Component {
                           {toCurrency(parseFloat(v.saldo_pending).toFixed(0))}
                         </td>
                         <td className="middle nowrap text-center">
-                          {statusQ(v.status)}
+                          {v.status === 0
+                            ? "Belum Bayar"
+                            : v.status === 1
+                            ? "Aktif"
+                            : "Recycle"}
                         </td>
                         <td className="middle nowrap">
                           {myDate(v.recycle_date)}
@@ -146,7 +175,12 @@ class IndexMember extends Component {
               : noData(head.length)
           }
         />
-        {this.props.isOpen === true ? <FormMember detail={detail} /> : null}
+        {this.props.isOpen && this.state.isModalFormMember ? (
+          <FormMember detail={detail} />
+        ) : null}
+        {this.props.isOpen && this.state.isModalFormBankMember ? (
+          <FormBankMember detail={detail} />
+        ) : null}
       </Layout>
     );
   }

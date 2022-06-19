@@ -18,7 +18,7 @@ export const getDeposit = (where = "") => {
   return (dispatch) => {
     let url = "transaction/deposit";
     if (where !== "") {
-      url += `?${where}`;
+      url += `?${where}&perpage=10`;
     }
     handleGet(url, (res) => {
       dispatch(setData(res));

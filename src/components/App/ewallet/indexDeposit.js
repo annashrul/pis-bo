@@ -33,12 +33,10 @@ class IndexDeposit extends Component {
       detail: {},
       any: "",
       where_data: DEFAULT_WHERE,
-      dateFrom: moment(new Date()).format("yyyy-MM-DD"),
-      dateTo: moment(new Date()).format("yyyy-MM-DD"),
+
       kolom_data: [
         { value: "kd_trx", label: "kode transaksi" },
-        { value: "full_name", label: "nama" },
-        { value: "status", label: "Status" },
+        { value: "fullname", label: "nama" },
       ],
       kolom: "",
       status_data: [
@@ -54,18 +52,12 @@ class IndexDeposit extends Component {
     this.handleModal = this.handleModal.bind(this);
     this.handlePaymentSlip = this.handlePaymentSlip.bind(this);
     this.handleApproval = this.handleApproval.bind(this);
+    this.handleGet = this.handleGet.bind(this);
   }
   handleGet(res, page = 1) {
     if (res !== undefined) {
       let where = getFetchWhere(res, page);
-      let periode = getPeriode(where.split("&"));
-      let getDate = periode.split("-");
-      let state = {
-        where_data: where,
-        dateFrom: moment(getDate[0]).format("yyyy-MM-DD"),
-        dateTo: moment(getDate[1]).format("yyyy-MM-DD"),
-      };
-      this.setState(state);
+      this.setState({ where_data: where });
       this.props.dispatch(getDeposit(where));
     }
   }
@@ -74,7 +66,6 @@ class IndexDeposit extends Component {
   }
   componentWillMount() {
     this.props.dispatch(getConfigWallet());
-    this.handleGet(this.state.where_data, 1);
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.dataExcel.data !== this.props.dataExcel.data) {
@@ -188,6 +179,22 @@ class IndexDeposit extends Component {
     return (
       <Layout page={"Laporan Deposit"}>
         <HeaderGeneralCommon
+          isPeriode={true}
+          pathName="laporanDeposit"
+          col="col-md-3"
+          isOther={true}
+          isColumn={true}
+          otherName="status"
+          otherState="status"
+          otherData={this.state.status_data}
+          columnData={this.state.kolom_data}
+          callbackGet={(res) => this.handleGet(res)}
+          callbackExcel={() =>
+            this.printDocumentXLsx(pagination.per_page * pagination.last_page)
+          }
+        />
+
+        {/* <HeaderGeneralCommon
           col="col-md-3"
           callbackGet={(res) => {
             this.handleGet(res);
@@ -202,10 +209,10 @@ class IndexDeposit extends Component {
           otherData={this.state.status_data}
           other={this.state.status}
           otherState="status"
-          callbackExport={() =>
+          callbackExcel={() =>
             this.printDocumentXLsx(pagination.per_page * pagination.last_page)
           }
-        />
+        /> */}
         <TableCommon
           head={head}
           rowSpan={rowSpan}

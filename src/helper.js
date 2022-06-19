@@ -258,6 +258,8 @@ export const getFetchWhere = (res, page = 1) => {
   } else {
     where = `page=${1}&${toArray.join("&")}`;
   }
+  console.log("anying", page);
+
   return where;
 };
 

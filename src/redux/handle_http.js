@@ -97,6 +97,29 @@ export const handlePut = async (url, data, callback) => {
       }, 800);
     });
 };
+export const handlePatch = async (url, data, callback) => {
+  loading(true);
+  Axios.patch(HEADERS.URL + url, data)
+    .then(function (response) {
+      setTimeout(function () {
+        loading(false);
+        const datum = response.data;
+        if (datum.meta.status === "success") {
+          swal(NOTIF_ALERT.SUCCESS);
+          callback(datum, datum.msg, true);
+        } else {
+          swal(NOTIF_ALERT.FAILED);
+          callback(datum, datum.msg, false);
+        }
+      }, 800);
+    })
+    .catch(function (error) {
+      setTimeout(function () {
+        loading(false);
+        handleError(error);
+      }, 800);
+    });
+};
 
 export const handleDelete = async (url, callback) => {
   swallOption("Anda yakin akan menghapus data ini ?", async () => {

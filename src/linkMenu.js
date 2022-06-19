@@ -36,7 +36,7 @@ export const LinkMenu = {
 export const menuItem = [
   { link: LinkMenu.indexMember, component: IndexMember },
   { link: LinkMenu.indexUser, component: IndexUser },
-  { component: IndexUserLevel },
+  { link: LinkMenu.indexUserLevel, component: IndexUserLevel },
   { link: LinkMenu.indexPaket, component: IndexPaket },
   { link: LinkMenu.indexKategoriPaket, component: IndexKategoriPaket },
   { link: LinkMenu.indexBerita, component: IndexBerita },

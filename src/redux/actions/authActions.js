@@ -24,9 +24,10 @@ export const loginUser = (userData) => async (dispatch) => {
       setTimeout(function () {
         Swal.close();
         // save token to localStorage
-        const data=res.data.data;
+        const data = res.data.data;
         const token = data.token;
         localStorage.setItem("prowara", btoa(token));
+        console.log(data);
         store("sess", {
           id: data.id,
           token: token,
@@ -36,7 +37,6 @@ export const loginUser = (userData) => async (dispatch) => {
           level: data.level,
           access_level: data.access_level,
         });
-        // // Set token to Auth Header
         setAuthToken(token);
         // // decode token to set user data
         dispatch(setCurrentUser(data));

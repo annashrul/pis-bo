@@ -125,12 +125,14 @@ export const KATEGORI = {
 let prefMember = "MEMBER";
 export const MEMBER = {
   LOADING: `SET_${prefMember}_LOADING`,
+  LOADING_DETAIL: `SET_${prefMember}_LOADING_DETAIL`,
   SUCCESS: `SUCCESS_${prefMember}`,
+  SUCCESS_DETAIL: `SUCCESS_DETAIL_${prefMember}`,
 };
 
 /****************
      ALAMAT
-     *****************/
+*****************/
 let prefAlamat = "ALAMAT";
 export const ALAMAT = {
   LOADING_DETAIL: `SET_${prefAlamat}_LOADING_DETAIL`,
@@ -142,9 +144,8 @@ export const ALAMAT = {
      *****************/
 let prefBank = "BANK";
 export const BANK = {
-  LOADING_DETAIL: `SET_${prefBank}_LOADING_DETAIL`,
-  DETAIL: `DETAIL_${prefBank}`,
-  SHOW_MODAL: `SHOW_MODAL_${prefBank}`,
+  LOADING: `SET_${prefBank}_LOADING`,
+  SUCCESS: `SUCCESS_${prefBank}`,
 };
 /****************
      CONTENT

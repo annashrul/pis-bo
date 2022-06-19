@@ -1,9 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Layout from "components/Layout";
-import { toExcel, myDate, toRp, generateNo, noData, swallOption, getFetchWhere, DEFAULT_WHERE, getPeriode } from "../../../helper";
+import {
+  toExcel,
+  myDate,
+  toRp,
+  generateNo,
+  noData,
+  swallOption,
+  getFetchWhere,
+  DEFAULT_WHERE,
+  getPeriode,
+} from "../../../helper";
 import moment from "moment";
-import { getExcelPenarikan, getPenarikan, postPenarikan } from "../../../redux/actions/ewallet/penarikan.action";
+import {
+  getExcelPenarikan,
+  getPenarikan,
+  postPenarikan,
+} from "../../../redux/actions/ewallet/penarikan.action";
 import { getConfigWallet } from "../../../redux/actions/ewallet/config_wallet.action";
 import HeaderGeneralCommon from "../../common/HeaderGeneralCommon";
 import TableCommon from "../../common/TableCommon";
@@ -16,8 +30,6 @@ class IndexPenarikan extends Component {
       where_data: DEFAULT_WHERE,
       detail: {},
       any: "",
-      dateFrom: moment(new Date()).format("yyyy-MM-DD"),
-      dateTo: moment(new Date()).format("yyyy-MM-DD"),
       kolom_data: [
         { value: "kd_trx", label: "kode transaksi" },
         { value: "full_name", label: "nama" },
@@ -33,14 +45,12 @@ class IndexPenarikan extends Component {
       data: [],
     };
     this.handleApproval = this.handleApproval.bind(this);
+    this.handleGet = this.handleGet.bind(this);
   }
   handleGet(res, page = 1) {
     if (res !== undefined) {
       let where = getFetchWhere(res, page);
-      let periode = getPeriode(where.split("&"));
-      let getDate = periode.split("-");
-      let state = { where_data: where, dateFrom: getDate[0], dateTo: getDate[1] };
-      this.setState(state);
+      this.setState({ where_data: where });
       this.props.dispatch(getPenarikan(where));
     }
   }
@@ -53,10 +63,15 @@ class IndexPenarikan extends Component {
   }
   handleApproval(e, id, status) {
     e.preventDefault();
-    swallOption(`anda yakin akan ${status === 1 ? "menerima" : "membatalkan"} penarikan ini ??`, () => {
-      let parsedata = { status: status };
-      this.props.dispatch(postPenarikan(btoa(id),parsedata));
-    });
+    swallOption(
+      `anda yakin akan ${
+        status === 1 ? "menerima" : "membatalkan"
+      } penarikan ini ??`,
+      () => {
+        let parsedata = { status: status };
+        this.props.dispatch(postPenarikan(btoa(id), parsedata));
+      }
+    );
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.dataExcel.data !== this.props.dataExcel.data) {
@@ -82,12 +97,32 @@ class IndexPenarikan extends Component {
           if (v.status === 2) {
             status = "Gagal";
           }
-          content.push([v.kd_trx, v.fullname, v.bank_name, v.acc_name, v.acc_no, round(parseFloat(v.amount) * konv), parseFloat(v.charge) * konv, status, myDate(v.created_at)]);
+          content.push([
+            v.kd_trx,
+            v.fullname,
+            v.bank_name,
+            v.acc_name,
+            v.acc_no,
+            round(parseFloat(v.amount) * konv),
+            parseFloat(v.charge) * konv,
+            status,
+            myDate(v.created_at),
+          ]);
         });
         toExcel(
           "LAPORAN PENARIKAN",
           `${this.state.dateFrom} - ${this.state.dateTo}`,
-          ["KODE TRANSAKSI", "NAMA", "BANK", "ATAS NAMA", "NO REKENING", "JUMLAH", "BIAYA ADMIN", "STATUS", "TANGGAL"],
+          [
+            "KODE TRANSAKSI",
+            "NAMA",
+            "BANK",
+            "ATAS NAMA",
+            "NO REKENING",
+            "JUMLAH",
+            "BIAYA ADMIN",
+            "STATUS",
+            "TANGGAL",
+          ],
           content,
           [[""], [""], ["TOTAL", "", "", "", "", round(total)]]
         );
@@ -101,7 +136,7 @@ class IndexPenarikan extends Component {
     let totAmountPoint = 0;
     let totAmountRp = 0;
     const { pagination, data } = this.props;
-    const {total, per_page, last_page, current_page} = pagination
+    const { total, per_page, last_page, current_page } = pagination;
 
     const head = [
       { label: "No", width: "1%", className: "text-center" },
@@ -118,22 +153,21 @@ class IndexPenarikan extends Component {
     return (
       <Layout page={"Laporan Penarikan"}>
         <HeaderGeneralCommon
-          col="col-md-3"
-          callbackGet={(res) => {
-            this.handleGet(res);
-            this.setState();
-          }}
-          isColumn={true}
-          columnData={this.state.kolom_data}
           isPeriode={true}
           pathName="laporanPenarikan"
+          col="col-md-3"
           isOther={true}
+          isColumn={true}
           otherName="status"
-          otherData={this.state.status_data}
-          other={this.state.status}
           otherState="status"
-          callbackExport={() => this.printDocumentXLsx(per_page * last_page)}
+          otherData={this.state.status_data}
+          columnData={this.state.kolom_data}
+          callbackGet={(res) => this.handleGet(res)}
+          callbackExcel={() =>
+            this.printDocumentXLsx(pagination.per_page * pagination.last_page)
+          }
         />
+
         <TableCommon
           head={head}
           meta={{
@@ -166,12 +200,24 @@ class IndexPenarikan extends Component {
                     }
                     return (
                       <tr key={i}>
-                        <td className="middle nowrap text-center">{generateNo(i, current_page)}</td>
                         <td className="middle nowrap text-center">
-                          <button style={{ marginRight: "5px" }} className={"btn btn-primary"} disabled={v.status === 1 || v.status === 2} onClick={(e) => this.handleApproval(e, v.id, 1)}>
+                          {generateNo(i, current_page)}
+                        </td>
+                        <td className="middle nowrap text-center">
+                          <button
+                            style={{ marginRight: "5px" }}
+                            className={"btn btn-primary"}
+                            disabled={v.status === 1 || v.status === 2}
+                            onClick={(e) => this.handleApproval(e, v.id, 1)}
+                          >
                             <i className={"fa fa-check"} />
                           </button>
-                          <button style={{ marginRight: "5px" }} className={"btn btn-primary"} disabled={v.status === 1 || v.status === 2} onClick={(e) => this.handleApproval(e, v.id, 2)}>
+                          <button
+                            style={{ marginRight: "5px" }}
+                            className={"btn btn-primary"}
+                            disabled={v.status === 1 || v.status === 2}
+                            onClick={(e) => this.handleApproval(e, v.id, 2)}
+                          >
                             <i className={"fa fa-close"} />
                           </button>
                         </td>
@@ -184,13 +230,20 @@ class IndexPenarikan extends Component {
                             {v.bank_name} ({v.acc_no})
                           </div>
                         </td>
-                        <td className="middle nowrap text-right txtGreen"> {toRp(round(nomRp))}</td>
-                        <td className="middle nowrap text-right txtGreen">{toRp(round(v.charge))}</td>
+                        <td className="middle nowrap text-right txtGreen">
+                          {" "}
+                          {toRp(round(nomRp))}
+                        </td>
+                        <td className="middle nowrap text-right txtGreen">
+                          {toRp(round(v.charge))}
+                        </td>
                         <td className="middle nowrap">
                           {" "}
                           <span className={`span ${badge}`}>{txt}</span>
                         </td>
-                        <td className="middle nowrap">{myDate(v.created_at)}</td>
+                        <td className="middle nowrap">
+                          {myDate(v.created_at)}
+                        </td>
                       </tr>
                     );
                   })
@@ -200,8 +253,16 @@ class IndexPenarikan extends Component {
           footer={[
             {
               data: [
-                { colSpan: 5, label: "Total perhalaman", className: "text-left" },
-                { colSpan: 1, label: toRp(round(`${totAmountRp}`)), className: `text-right txtGreen` },
+                {
+                  colSpan: 5,
+                  label: "Total perhalaman",
+                  className: "text-left",
+                },
+                {
+                  colSpan: 1,
+                  label: toRp(round(`${totAmountRp}`)),
+                  className: `text-right txtGreen`,
+                },
                 { colSpan: 4, label: "" },
               ],
             },

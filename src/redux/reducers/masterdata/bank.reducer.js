@@ -1,32 +1,25 @@
-
-
-import {BANK} from "../../actions/_constants";
+import { BANK } from "../../actions/_constants";
 
 const initialState = {
-    isLoadingDetail: false,
-    isShowModal: false,
-    status: "",
-    msg: "",
-    data: [],
-}
+  isLoading: false,
+  data: [],
+  pagination: [],
+};
 
 export const bankReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case BANK.DETAIL:
-            return Object.assign({}, state, {
-                status: action.data.status,
-                msg: action.data.msg,
-                data: action.data.result,
-            });
-        case BANK.LOADING_DETAIL:
-            return Object.assign({}, state, {
-                isLoadingDetail: action.load
-            });
-        case BANK.SHOW_MODAL:
-            return Object.assign({}, state, {
-                isShowModal: action.load
-            });
-        default:
-            return state
-    }
-}
+  switch (action.type) {
+    case BANK.SUCCESS:
+      return Object.assign({}, state, {
+        status: action.data.status,
+        msg: action.data.msg,
+        data: action.data.data,
+        pagination: action.data.pagination,
+      });
+    case BANK.LOADING:
+      return Object.assign({}, state, {
+        isLoading: action.load,
+      });
+    default:
+      return state;
+  }
+};

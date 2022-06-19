@@ -13,7 +13,6 @@ import FormUserList from "../../modals/masterdata/pengguna/form_user_list";
 import HeaderGeneralCommon from "../../../common/HeaderGeneralCommon";
 import TableCommon from "../../../common/TableCommon";
 import ButtonActionTableCommon from "../../../common/ButtonActionTableCommon";
-import { getUserLevel } from "../../../../redux/actions/masterdata/user_level.action";
 import {
   deletePaket,
   getPaket,
@@ -64,6 +63,7 @@ class IndexPaket extends Component {
 
   render() {
     const { pagination, data } = this.props;
+    console.log("props", data);
     const { where, detail } = this.state;
     const head = [
       { label: "No", className: "text-center", width: "1%" },
@@ -120,7 +120,13 @@ class IndexPaket extends Component {
                             }}
                           />
                         </td>
-                        <td className="middle nowrap">{v.title}</td>
+                        <td className="middle nowrap">
+                          <img
+                            src={v.gambar}
+                            style={{ width: "20px", marginRight: "5px" }}
+                          />{" "}
+                          {v.title}
+                        </td>
                         <td className="middle nowrap">{v.category}</td>
                         <td className="middle nowrap text-right poin">
                           {toCurrency(v.price)}

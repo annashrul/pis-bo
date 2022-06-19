@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Layout from "components/Layout";
-import { generateNo, myDate, noData, statusQ } from "../../../../helper";
+import {
+  generateNo,
+  getFetchWhere,
+  myDate,
+  noData,
+  statusQ,
+} from "../../../../helper";
 import { ModalToggle, ModalType } from "../../../../redux/actions/modal.action";
 import FormUserList from "../../modals/masterdata/pengguna/form_user_list";
 import {
@@ -22,9 +28,7 @@ class IndexUserList extends Component {
       where: "",
     };
     this.handleModal = this.handleModal.bind(this);
-  }
-  componentWillMount() {
-    this.handleGet("", 1);
+    this.handleGet = this.handleGet.bind(this);
   }
 
   handleGet(res, page = 1) {
@@ -72,8 +76,7 @@ class IndexUserList extends Component {
         <HeaderGeneralCommon
           pathName="daftarPengguna"
           callbackGet={(res) => {
-            this.setState({ any: res });
-            this.handleGet(res, 1);
+            this.handleGet(res);
           }}
           callbackAdd={() => this.handleModal(null)}
         />
