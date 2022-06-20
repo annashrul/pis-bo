@@ -230,11 +230,11 @@ class IndexPenarikan extends Component {
                             {v.bank_name} ({v.acc_no})
                           </div>
                         </td>
-                        <td className="middle nowrap text-right txtGreen">
+                        <td className="middle nowrap text-right poin">
                           {" "}
                           {toRp(round(nomRp))}
                         </td>
-                        <td className="middle nowrap text-right txtGreen">
+                        <td className="middle nowrap text-right poin">
                           {toRp(round(v.charge))}
                         </td>
                         <td className="middle nowrap">
@@ -261,7 +261,7 @@ class IndexPenarikan extends Component {
                 {
                   colSpan: 1,
                   label: toRp(round(`${totAmountRp}`)),
-                  className: `text-right txtGreen`,
+                  className: `text-right poin`,
                 },
                 { colSpan: 4, label: "" },
               ],

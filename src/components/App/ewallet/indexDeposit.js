@@ -230,22 +230,21 @@ class IndexDeposit extends Component {
                     totAmountPoint = totAmountPoint + parseInt(v.amount);
                     let nomRp = parseInt(v.amount, 10);
                     totAmountRp = totAmountRp + parseInt(nomRp);
-                    let status = "";
+                    let badge = "";
+                    let txt = "";
                     if (v.status === 0) {
-                      status = (
-                        <span className={"badge badge-warning"}>Pending</span>
-                      );
+                      badge = "badge-warning";
+                      txt = "Pending";
                     }
                     if (v.status === 1) {
-                      status = (
-                        <span className={"badge badge-success"}>Sukses</span>
-                      );
+                      badge = "badge-success";
+                      txt = "Sukses";
                     }
                     if (v.status === 2) {
-                      status = (
-                        <span className={"badge badge-danger"}>Gagal</span>
-                      );
+                      badge = "badge-danger";
+                      txt = "Gagal";
                     }
+
                     return (
                       <tr key={i}>
                         <td className="middle nowrap text-center">
@@ -288,8 +287,13 @@ class IndexDeposit extends Component {
                           {" "}
                           {toCurrency(`${v.amount}`)}
                         </td>
-                        <td className="middle nowrap">{v.unique_code}</td>
-                        <td className="middle nowrap">{status}</td>
+                        <td className="middle nowrap text-right poin">
+                          {v.unique_code}
+                        </td>
+                        <td className="middle nowrap">
+                          {" "}
+                          <span className={`span ${badge}`}>{txt}</span>
+                        </td>
                         <td className="middle nowrap">
                           {myDate(v.created_at)}
                         </td>
@@ -310,7 +314,7 @@ class IndexDeposit extends Component {
                 {
                   colSpan: 1,
                   label: toRp(totAmountRp),
-                  className: `text-right txtGreen`,
+                  className: `text-right poin`,
                 },
                 { colSpan: 3, label: "" },
               ],

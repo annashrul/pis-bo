@@ -29,7 +29,11 @@ import confirmWhite from "assets/status/confirmation_white.svg";
 import confirm from "assets/status/confirmation_non.svg";
 import logo from "assets/logo.png";
 import { LinkMenu } from "./linkMenu";
-moment.locale("id");
+import localization from "moment/locale/id";
+
+export const dateIndo = (tgl) => {
+  return moment(tgl).locale("id", localization).format("LLL");
+};
 
 export const imgDefault = logo;
 export const CURRENT_DATE = moment(new Date()).format("yyyy-MM-DD");

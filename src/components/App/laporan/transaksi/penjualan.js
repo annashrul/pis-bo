@@ -11,6 +11,7 @@ import {
   toDate,
   toExcel,
   ToastQ,
+  dateIndo,
 } from "../../../../helper";
 import moment from "moment";
 import {
@@ -35,15 +36,17 @@ class LaporanTransaksiPenjualan extends Component {
       data: [],
       status_data: [
         { value: "", label: "semua status" },
-        { value: "0", label: "Belum Bayar" },
-        { value: "1", label: "Dikemas" },
-        { value: "2", label: "Dikirim" },
-        { value: "2", label: "Selesai" },
+        { value: "0", label: "Menunggu Pembayaran" },
+        { value: "1", label: "Diproses" },
+        { value: "2", label: "Berhasil" },
+        { value: "3", label: "Diterima" },
+        { value: "4", label: "Ditolak" },
       ],
       status: "",
       kolom_data: [
-        { value: "kd_trx", label: "kode transaksi" },
-        { value: "fullname", label: "nama" },
+        { value: "kd_trx", label: "Kode Transaksi" },
+        { value: "resi", label: "Resi" },
+        { value: "penerima", label: "Penerima" },
       ],
       kolom: "",
     };
@@ -168,8 +171,7 @@ class LaporanTransaksiPenjualan extends Component {
                           />
                         </td>
                         <td className="middle nowrap">
-                          {toDate(v.created_at)}&nbsp;
-                          {toDate(v.created_at, "/", true)}
+                          {dateIndo(v.created_at)}
                         </td>
                         <td className="middle nowrap">{v.status_st}</td>
                         <td className="middle nowrap">{v.kd_trx}</td>
@@ -202,7 +204,15 @@ class LaporanTransaksiPenjualan extends Component {
                         <td className="middle nowrap text-right poin">
                           {toCurrency(parseFloat(v.grand_total).toFixed(0))}
                         </td>
-                        <td className="middle nowrap">{v.main_address}</td>
+                        <td
+                          className="middle nowrap"
+                          dataToggle="tooltip"
+                          title={v.main_address}
+                        >
+                          {v.main_address.length > 20
+                            ? v.main_address.substr(0, 20) + "..."
+                            : v.main_address}
+                        </td>
                         <td className="middle nowrap">{v.fullname}</td>
 
                         <td className="middle nowrap">{v.metode_pembayaran}</td>
