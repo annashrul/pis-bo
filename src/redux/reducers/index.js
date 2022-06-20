@@ -7,6 +7,7 @@ import { siteReducer } from "./site.reducer";
 import { kategoriReducer } from "./kategori/kategori.reducer";
 import { memberReducer } from "./masterdata/member.reducer";
 import { alamatReducer } from "./masterdata/alamat.reducer";
+import { testimoniReducer } from "./masterdata/testimoni.reducer";
 import { paketReducer } from "./masterdata/paket.reducer";
 import { kategoriPaketReducer } from "./masterdata/kategori_paket.reducer";
 import { bankReducer } from "./masterdata/bank.reducer";
@@ -31,6 +32,7 @@ export default combineReducers({
   kategoriPaketReducer,
   memberReducer,
   alamatReducer,
+  testimoniReducer,
   bankReducer,
   userListReducer,
   userLevelReducer,

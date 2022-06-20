@@ -79,6 +79,14 @@ export const SITE = {
 };
 
 /****************
+ TESTIMONI
+ *****************/
+let prefTestimoni = "TESTIMONI";
+export const TESTIMONI = {
+  SUCCESS: `SUCCESS_${prefTestimoni}`,
+  LOADING: `LOADING_${prefTestimoni}`,
+};
+/****************
  KATEGORI BERITA
  *****************/
 let prefKategoriBerita = "KATEGORI_BERITA";

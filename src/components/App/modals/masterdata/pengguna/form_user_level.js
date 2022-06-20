@@ -4,7 +4,8 @@ import connect from "react-redux/es/connect/connect";
 import Switch from "react-switch";
 import { ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { ModalToggle } from "../../../../../redux/actions/modal.action";
-import { menu, ToastQ } from "../../../../../helper";
+import { ToastQ } from "../../../../../helper";
+import { menu } from "../../../../../linkMenu";
 import {
   postUserLevel,
   putUserLevel,
@@ -33,6 +34,7 @@ class FormUserLevel extends Component {
   }
 
   getProps(param) {
+    console.log(this.state.menu);
     if (param.detail.id !== "") {
       // this.setState({
       //   lvl: param.detail.val.level,
@@ -100,10 +102,11 @@ class FormUserLevel extends Component {
     }
     if (this.props.detail.id === "") {
       this.props.dispatch(postUserLevel(parseData, this.props.detail.where));
+      this.clearState();
     } else {
       this.props.dispatch(putUserLevel(parseData, this.props.detail));
+      this.clearState();
     }
-    this.clearState();
   }
   render() {
     const { menu, lvl } = this.state;
