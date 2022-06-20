@@ -308,14 +308,10 @@ export const KURIR = {
 /****************
      KURIR
      *****************/
-let mbank = "BANKS";
-export const BANKS = {
+let mbank = "BANK_PERUSAHAAN";
+export const BANK_PERUSAHAAN = {
   LOADING: `SET_${mbank}_LOADING`,
-  LOADING_STORE: `SET_${mbank}_LOADING_STORE`,
-  IS_ERROR: `SET_${mbank}_IS_ERROR`,
   SUCCESS: `SUCCESS_${mbank}`,
-  LISTBANK: `LISTBANK_${mbank}`,
-  FAILED: `FAILED_${mbank}`,
 };
 /****************
      CONFIG WALLET

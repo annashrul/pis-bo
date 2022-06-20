@@ -20,7 +20,7 @@ import { penarikanReducer } from "./ewallet/penarikan.reducer";
 import { reportTransaksiMemberReducer } from "./laporan/transaksi_member.reducer";
 import { reportTransaksiPenjualanReducer } from "./laporan/transaksi_penjualan.reducer";
 import { generalReducer } from "./setting/general.reducer";
-import { banksReducer } from "./setting/bank.reducer";
+import { bankPerusahaanReducer } from "./setting/bank.reducer";
 import { kurirReducer } from "./setting/kurir.reducer";
 
 export default combineReducers({
@@ -42,7 +42,7 @@ export default combineReducers({
   configWalletReducer,
   penarikanReducer,
   generalReducer,
-  banksReducer,
+  bankPerusahaanReducer,
   kurirReducer,
   reportTransaksiMemberReducer,
   reportTransaksiPenjualanReducer,

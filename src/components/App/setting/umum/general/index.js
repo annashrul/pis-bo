@@ -14,23 +14,12 @@ import Select from "react-select";
 import { getGeneralBank } from "../../../../../redux/actions/masterdata/bank.action";
 
 const myState = {
-  // otp_type: "",
-  // provider: "",
   min_wd: "",
   min_dp: "",
   charge_wd: "",
   bank_admin: "",
   wa_admin: "",
   msg_bonus: "",
-  // otp_type_data: [
-  //   { value: "single", label: "Single Provider" },
-  //   { value: "gabungan", label: "Gabungan" },
-  // ],
-  // provider_data: [
-  //   { value: "wa", label: "Whatsapp" },
-  //   { value: "sms", label: "SMS" },
-  // ],
-  // data_bank: [],
 };
 
 class Index extends Component {
@@ -48,17 +37,6 @@ class Index extends Component {
   }
   getProps(props) {
     if (props.res_general.length === undefined) {
-      // if (props.dataBank !== undefined) {
-      //   if (props.dataBank.length > 0) {
-      //     let dataBank = [];
-      //     props.dataBank.forEach((v, i) => {
-      //       dataBank.push({ value: v.id, label: v.name });
-      //       return;
-      //     });
-      //     this.setState({ data_bank: dataBank });
-      //   }
-      // }
-
       let state = {};
       Object.keys(props.res_general).map((val) => {
         Object.assign(state, { [val]: props.res_general[val] });

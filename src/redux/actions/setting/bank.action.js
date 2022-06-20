@@ -1,69 +1,76 @@
-import { BANKS } from "../_constants";
+import { BANK_PERUSAHAAN } from "../_constants";
 import { ModalToggle } from "../modal.action";
-import { handleGet, handlePut, handleDelete, handlePost } from "../../handle_http";
+import {
+  handleDelete,
+  handleGet,
+  handlePatch,
+  handlePost,
+  handlePut,
+} from "../../handle_http";
 
+const folder = "bank";
+
+export function setLoading(load) {
+  return {
+    type: BANK_PERUSAHAAN.LOADING,
+    load,
+  };
+}
 export function setData(data = []) {
   return {
-    type: BANKS.SUCCESS,
-    data,
-  };
-}
-export function setDataBank(data = []) {
-  return {
-    type: BANKS.LISTBANK,
+    type: BANK_PERUSAHAAN.SUCCESS,
     data,
   };
 }
 
-export const fetchDataBank = () => {
+export const getBankPerusahaan = (where) => {
   return (dispatch) => {
-    let url = "bank/data";
-    handleGet(url, (data) => {
-      dispatch(setDataBank(data));
-    });
-  };
-};
-
-export const getBankList = (where) => {
-  return (dispatch) => {
-    let url = "bank";
+    let url = folder;
     if (where) {
-      url += `?${where}`;
+      url += `?${where}&perpage=10`;
     }
-    handleGet(url, (data) => {
-      dispatch(setData(data));
-    });
+    handleGet(url, (res) => dispatch(setData(res)));
   };
 };
 
-export const postBank = (data, detail) => {
+export const postBankPerusahaan = (data, where) => {
   return (dispatch) => {
-    handlePost(`bank`, data, (res, msg, status) => {
+    handlePost(folder, data, (res, msg, status) => {
+      dispatch(getBankPerusahaan(where));
       if (status) {
-        dispatch(getBankList("page=1"));
-        dispatch(ModalToggle(false));
-      }
-    });
-  };
-};
-export const putBank = (data, detail) => {
-  return (dispatch) => {
-    handlePut(`bank/${detail.id}`, data, (res, msg, status) => {
-      if (status) {
-        dispatch(getBankList(detail.where));
         dispatch(ModalToggle(false));
       }
     });
   };
 };
 
-export const deleteBank = (data) => {
+export const putBankPerusahaan = (data, detail) => {
   return (dispatch) => {
-    handleDelete(`bank/${data.id}`, () => {
+    handlePut(`${folder}/${detail.id}`, data, (res, msg, status) => {
+      dispatch(getBankPerusahaan(detail.where));
+      if (status) {
+        dispatch(ModalToggle(false));
+      }
+    });
+  };
+};
+export const putBankBankPerusahaan = (data, detail) => {
+  return (dispatch) => {
+    handlePut(`${folder}/${detail.id}`, data, (res, msg, status) => {
+      dispatch(getBankPerusahaan(detail.where));
+      if (status) {
+        dispatch(ModalToggle(false));
+      }
+    });
+  };
+};
+export const deleteBankPerusahaan = (data) => {
+  return (dispatch) => {
+    handleDelete(`${folder}/${data.id}`, () => {
       if (data.total === 1) {
-        dispatch(getBankList("page=1"));
+        dispatch(getBankPerusahaan("page=1"));
       } else {
-        dispatch(getBankList(data.where));
+        dispatch(getBankPerusahaan(data.where));
       }
     });
   };
