@@ -279,12 +279,11 @@ export const noData = (colSpan = 1) => {
   return (
     <tr>
       <td colSpan={colSpan} className="middle text-center">
-        <span
+        {/* <span
           className="badge badge-warning"
           style={{ fontSize: "18px", padding: "10px" }}
-        >
-          Data tidak tersedia
-        </span>
+        ></span> */}
+        Data tidak tersedia
       </td>
     </tr>
   );

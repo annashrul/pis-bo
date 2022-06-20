@@ -37,12 +37,12 @@ class Dashboard extends Component {
               <Cards
                 classCols="col-md-6 col-xl-12 box-margin"
                 title="TOTAL MEMBER"
-                data={toCurrency(
+                data={`${toCurrency(
                   isNaN(data.total_member)
                     ? 0
                     : parseFloat(data.total_member).toFixed(0),
                   false
-                )}
+                )} Orang`}
                 icon="fa fa-users text-white"
               />
               <Cards

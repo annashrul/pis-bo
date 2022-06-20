@@ -30,6 +30,20 @@ class IndexMember extends Component {
       where: "",
       isModalFormMember: false,
       isModalFormBankMember: false,
+      status_data: [
+        { value: "", label: "semua status" },
+        { value: "0", label: "Belum Bayar" },
+        { value: "1", label: "Aktif" },
+        { value: "3", label: "Recycle" },
+      ],
+      status: "",
+      kolom_data: [
+        { value: "fullname", label: "Nama" },
+        { value: "mobile_no", label: "No Handphone" },
+        { value: "referral", label: "Referral" },
+        { value: "referral_sponsor", label: "Referral Sponsor" },
+      ],
+      kolom: "",
     };
     this.handleModal = this.handleModal.bind(this);
   }
@@ -78,6 +92,7 @@ class IndexMember extends Component {
     const head = [
       { label: "No", className: "text-center", width: "1%" },
       { label: "#", className: "text-center", width: "1%" },
+      { label: "Foto" },
       { label: "Nama" },
       { label: "No.Handphone", width: "1%" },
       { label: "Referral", width: "1%" },
@@ -91,12 +106,18 @@ class IndexMember extends Component {
     return (
       <Layout page={"Daftar Member"}>
         <HeaderGeneralCommon
-          col={"col-md-6"}
+          col={"col-md-4"}
           pathName="daftarMember"
           callbackGet={(res) => {
             this.setState({ any: res });
             this.handleGet(res, 1);
           }}
+          otherName="status"
+          otherState="status"
+          otherData={this.state.status_data}
+          isOther={true}
+          isColumn={true}
+          columnData={this.state.kolom_data}
         />
         <TableCommon
           head={head}
@@ -132,10 +153,14 @@ class IndexMember extends Component {
                         <td className="middle nowrap">
                           <img
                             src={v.foto}
-                            style={{ width: "20px", marginRight: "5px" }}
-                          />{" "}
-                          {v.fullname}
+                            style={{
+                              width: "25px",
+                              height: "25px",
+                              marginRight: "5px",
+                            }}
+                          />
                         </td>
+                        <td className="middle nowrap">{v.fullname}</td>
                         <td className="middle nowrap">{v.mobile_no}</td>
                         <td className="middle nowrap">{v.referral}</td>
                         <td className="middle nowrap">

@@ -13,12 +13,6 @@ import {
   ToastQ,
   dateIndo,
 } from "../../../../helper";
-import moment from "moment";
-import {
-  getDataReportTransaksi,
-  getDetailReportTransaksi,
-  getExcelReportTransaksi,
-} from "../../../../redux/actions/laporan/report_transaksi_member.action";
 import { getLaporanPenjualan } from "../../../../redux/actions/laporan/laporan_penjualan.action";
 import DetailReportTransaksiMember from "../../modals/laporan/detail_report_transaksi_member";
 import HeaderGeneralCommon from "../../../common/HeaderGeneralCommon";
@@ -73,7 +67,6 @@ class LaporanTransaksiPenjualan extends Component {
   }
 
   getProps(props) {
-    console.log(props.data);
     if (props.data.length > 0) {
       let datas = [];
       props.data.map((val) => {
@@ -180,7 +173,11 @@ class LaporanTransaksiPenjualan extends Component {
                             style={{ width: "130px" }}
                             type="text"
                             name="res"
-                            value={this.state.data[i].resi}
+                            value={
+                              this.state.data.length > 0
+                                ? this.state.data[i].resi
+                                : "-"
+                            }
                             onKeyDown={(e) => {
                               if (e.keyCode === 13) {
                                 ToastQ.fire({

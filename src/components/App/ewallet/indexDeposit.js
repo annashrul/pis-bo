@@ -8,14 +8,11 @@ import {
   toRp,
   generateNo,
   noData,
-  isEmptyOrUndefined,
   swallOption,
   DEFAULT_WHERE,
   getFetchWhere,
-  getPeriode,
 } from "../../../helper";
 import { ModalToggle, ModalType } from "../../../redux/actions/modal.action";
-import moment from "moment";
 import {
   getDeposit,
   getExcelDeposit,
@@ -25,7 +22,6 @@ import * as Swal from "sweetalert2";
 import { getConfigWallet } from "../../../redux/actions/ewallet/config_wallet.action";
 import HeaderGeneralCommon from "../../common/HeaderGeneralCommon";
 import TableCommon from "../../common/TableCommon";
-import ButtonActionTableCommon from "../../common/ButtonActionTableCommon";
 class IndexDeposit extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +29,6 @@ class IndexDeposit extends Component {
       detail: {},
       any: "",
       where_data: DEFAULT_WHERE,
-
       kolom_data: [
         { value: "kd_trx", label: "kode transaksi" },
         { value: "fullname", label: "nama" },
@@ -253,7 +248,7 @@ class IndexDeposit extends Component {
                         <td className="middle nowrap text-center">
                           <button
                             style={{ marginRight: "5px" }}
-                            className={"btn btn-primary"}
+                            className={"btn btn-primary btn-sm"}
                             disabled={v.status === 1 || v.status === 2}
                             onClick={(e) => this.handleApproval(v.kd_trx, 1)}
                           >
@@ -261,14 +256,14 @@ class IndexDeposit extends Component {
                           </button>
                           <button
                             style={{ marginRight: "5px" }}
-                            className={"btn btn-primary"}
+                            className={"btn btn-primary btn-sm"}
                             disabled={v.status === 1 || v.status === 2}
                             onClick={(e) => this.handleApproval(v.kd_trx, 2)}
                           >
                             <i className={"fa fa-close"} />
                           </button>
                           <button
-                            className={"btn btn-primary"}
+                            className={"btn btn-primary btn-sm"}
                             onClick={(e) => this.handlePaymentSlip(i)}
                           >
                             <i className={"fa fa-image"} />
@@ -285,7 +280,7 @@ class IndexDeposit extends Component {
                         </td>
                         <td className="middle nowrap text-right poin">
                           {" "}
-                          {toCurrency(`${v.amount}`)}
+                          {toCurrency(parseFloat(v.amount).toFixed(0))}
                         </td>
                         <td className="middle nowrap text-right poin">
                           {v.unique_code}
@@ -313,7 +308,7 @@ class IndexDeposit extends Component {
                 },
                 {
                   colSpan: 1,
-                  label: toRp(totAmountRp),
+                  label: toCurrency(parseFloat(totAmountRp).toFixed(0)),
                   className: `text-right poin`,
                 },
                 { colSpan: 3, label: "" },

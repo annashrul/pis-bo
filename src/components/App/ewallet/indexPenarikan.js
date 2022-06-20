@@ -10,7 +10,7 @@ import {
   swallOption,
   getFetchWhere,
   DEFAULT_WHERE,
-  getPeriode,
+  toCurrency,
 } from "../../../helper";
 import moment from "moment";
 import {
@@ -206,7 +206,7 @@ class IndexPenarikan extends Component {
                         <td className="middle nowrap text-center">
                           <button
                             style={{ marginRight: "5px" }}
-                            className={"btn btn-primary"}
+                            className={"btn btn-primary btn-sm"}
                             disabled={v.status === 1 || v.status === 2}
                             onClick={(e) => this.handleApproval(e, v.id, 1)}
                           >
@@ -214,7 +214,7 @@ class IndexPenarikan extends Component {
                           </button>
                           <button
                             style={{ marginRight: "5px" }}
-                            className={"btn btn-primary"}
+                            className={"btn btn-primary btn-sm"}
                             disabled={v.status === 1 || v.status === 2}
                             onClick={(e) => this.handleApproval(e, v.id, 2)}
                           >
@@ -260,7 +260,7 @@ class IndexPenarikan extends Component {
                 },
                 {
                   colSpan: 1,
-                  label: toRp(round(`${totAmountRp}`)),
+                  label: toCurrency(parseFloat(totAmountRp).toFixed(0)),
                   className: `text-right poin`,
                 },
                 { colSpan: 4, label: "" },
