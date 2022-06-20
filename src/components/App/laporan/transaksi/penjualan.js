@@ -8,7 +8,9 @@ import {
   getPeriode,
   noData,
   toCurrency,
+  toDate,
   toExcel,
+  ToastQ,
 } from "../../../../helper";
 import moment from "moment";
 import {
@@ -30,6 +32,7 @@ class LaporanTransaksiPenjualan extends Component {
       any: "",
       periode: "",
       where_data: DEFAULT_WHERE,
+      data: [],
       status_data: [
         { value: "", label: "semua status" },
         { value: "0", label: "Belum Bayar" },
@@ -44,6 +47,7 @@ class LaporanTransaksiPenjualan extends Component {
       ],
       kolom: "",
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   handleGet(res, page = 1) {
     if (res !== undefined) {
@@ -61,9 +65,28 @@ class LaporanTransaksiPenjualan extends Component {
     this.handleGet(this.state.where_data, pageNumber);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.getProps(nextProps);
+  }
+
+  getProps(props) {
+    console.log(props.data);
+    if (props.data.length > 0) {
+      let datas = [];
+      props.data.map((val) => {
+        datas.push(val);
+      });
+      this.setState({ data: datas });
+    }
+  }
+
+  handleChange(e, i) {
+    let data = this.state.data;
+    data[i].resi = e.target.value;
+    this.setState({ data: data });
+  }
+
   render() {
-    let totKodeUnik = 0;
-    let totHarga = 0;
     let totOngkir = 0;
     let totGrand = 0;
 
@@ -72,29 +95,27 @@ class LaporanTransaksiPenjualan extends Component {
     const head = [
       { label: "No", width: "1%", rowSpan: 2, className: "text-center" },
       { label: "#", width: "1%", rowSpan: 2, className: "text-center" },
-      { label: "Tanggal", width: "1%", rowSpan: 2, className: "text-center" },
-      { label: "Status", width: "1%", rowSpan: 2, className: "text-center" },
-      { label: "Kode", width: "1%", colSpan: 3 },
+      { label: "Tanggal", width: "1%", rowSpan: 2 },
+      { label: "Status", width: "1%", rowSpan: 2 },
+      { label: "Kode", width: "1%", colSpan: 2 },
       { label: "Produk", width: "1%", colSpan: 2 },
-      { label: "Pembeli", width: "1%", colSpan: 4 },
-      { label: "Total", width: "1%", colSpan: 3 },
+      { label: "Total", width: "1%", colSpan: 2 },
+      { label: "Pembeli", width: "1%", colSpan: 2 },
+
       { label: "Pembayaran", width: "1%", colSpan: 2 },
     ];
     const rowSpan = [
-      { label: "Transaksi", className: "text-center", width: "1%" },
-      { label: "Resi", className: "text-center", width: "1%" },
-      { label: "Unik", className: "text-center", width: "1%" },
-      { label: "Nama", className: "text-center", width: "1%" },
-      { label: "Harga", className: "text-center", width: "1%" },
-      { label: "Nama", className: "text-center", width: "1%" },
-      { label: "Alamat", className: "text-center" },
-      { label: "No Handphone", className: "text-center", width: "1%" },
-      { label: "Penerima", className: "text-center", width: "1%" },
-      { label: "Harga", className: "text-center", width: "1%" },
-      { label: "Ongkir", className: "text-center", width: "1%" },
-      { label: "Bayar", className: "text-center", width: "1%" },
-      { label: "Metode", className: "text-center", width: "1%" },
-      { label: "Layanan", className: "text-center", width: "1%" },
+      { label: "Transaksi", width: "1%" },
+      { label: "Resi" },
+      { label: "Nama", width: "1%" },
+      { label: "Harga", width: "1%" },
+
+      { label: "Ongkir", width: "1%" },
+      { label: "Bayar", width: "1%" },
+      { label: "Alamat" },
+      { label: "Penerima", width: "1%" },
+      { label: "Metode", width: "1%" },
+      { label: "Layanan", width: "1%" },
     ];
 
     return (
@@ -131,10 +152,8 @@ class LaporanTransaksiPenjualan extends Component {
             typeof data === "object"
               ? data.length > 0
                 ? data.map((v, i) => {
-                    totKodeUnik = totKodeUnik + parseFloat(v.plafon);
-                    totHarga = totHarga + parseFloat(v.saldo_awal);
-                    totOngkir = totOngkir + parseFloat(v.saldo_akhir);
-                    totGrand = totGrand + parseFloat(v.trx_in);
+                    totOngkir = totOngkir + parseFloat(v.ongkir);
+                    totGrand = totGrand + parseFloat(v.grand_total);
                     return (
                       <tr key={i}>
                         <td className="middle nowrap text-center">
@@ -148,21 +167,48 @@ class LaporanTransaksiPenjualan extends Component {
                             }}
                           />
                         </td>
-                        {/* <td className="middle nowrap">{v.fullname}</td>
-                        <td className={"middle nowrap text-right poin"}>
-                          {toCurrency(`${parseFloat(v.saldo_awal).toFixed(2)}`)}
+                        <td className="middle nowrap">
+                          {toDate(v.created_at)}&nbsp;
+                          {toDate(v.created_at, "/", true)}
                         </td>
-                        <td className={"middle nowrap text-right poin"}>
-                          {toCurrency(`${parseFloat(v.trx_in).toFixed(2)}`)}
+                        <td className="middle nowrap">{v.status_st}</td>
+                        <td className="middle nowrap">{v.kd_trx}</td>
+                        <td className="middle nowrap">
+                          <input
+                            style={{ width: "130px" }}
+                            type="text"
+                            name="res"
+                            value={this.state.data[i].resi}
+                            onKeyDown={(e) => {
+                              if (e.keyCode === 13) {
+                                ToastQ.fire({
+                                  icon: "success",
+                                  title: `resi berhasil disimpan`,
+                                });
+                              }
+                            }}
+                            onChange={(e) => this.handleChange(e, i)}
+                            className="form-control"
+                          />
                         </td>
-                        <td className={"middle nowrap text-right poin"}>
-                          {toCurrency(`${parseFloat(v.trx_out).toFixed(2)}`)}
+                        <td className="middle nowrap">{v.title}</td>
+                        <td className="middle nowrap text-right poin">
+                          {toCurrency(parseFloat(v.subtotal).toFixed(0))}
                         </td>
-                        <td className={"middle nowrap text-right poin"}>
-                          {toCurrency(
-                            `${parseFloat(v.saldo_akhir).toFixed(2)}`
-                          )}
-                        </td> */}
+
+                        <td className="middle nowrap text-right poin">
+                          {toCurrency(parseFloat(v.ongkir).toFixed(0))}
+                        </td>
+                        <td className="middle nowrap text-right poin">
+                          {toCurrency(parseFloat(v.grand_total).toFixed(0))}
+                        </td>
+                        <td className="middle nowrap">{v.main_address}</td>
+                        <td className="middle nowrap">{v.fullname}</td>
+
+                        <td className="middle nowrap">{v.metode_pembayaran}</td>
+                        <td className="middle nowrap">
+                          {v.layanan_pengiriman}
+                        </td>
                       </tr>
                     );
                   })
@@ -173,26 +219,11 @@ class LaporanTransaksiPenjualan extends Component {
             {
               data: [
                 {
-                  colSpan: 6,
+                  colSpan: 8,
                   label: "Total perhalaman",
                   className: "text-left",
                 },
 
-                {
-                  colSpan: 1,
-                  label: toCurrency(`${totKodeUnik.toFixed(0)}`),
-                  className: `text-right poin`,
-                },
-                {
-                  colSpan: 6,
-                  label: "",
-                  className: "text-left",
-                },
-                {
-                  colSpan: 1,
-                  label: toCurrency(`${totHarga.toFixed(0)}`),
-                  className: `text-right poin`,
-                },
                 {
                   colSpan: 1,
                   label: toCurrency(`${totOngkir.toFixed(0)}`),
@@ -202,6 +233,11 @@ class LaporanTransaksiPenjualan extends Component {
                   colSpan: 1,
                   label: toCurrency(`${totGrand.toFixed(0)}`),
                   className: `text-right poin`,
+                },
+                {
+                  colSpan: 4,
+                  label: "",
+                  className: "",
                 },
               ],
             },
