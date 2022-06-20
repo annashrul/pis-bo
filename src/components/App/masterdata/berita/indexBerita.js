@@ -75,8 +75,7 @@ class IndexBerita extends Component {
     this.props.dispatch(ModalType("formBerita"));
   }
 
-  handleDelete(e, id) {
-    e.preventDefault();
+  handleDelete(id) {
     this.props.dispatch(deleteContent(id, "berita"));
   }
 
@@ -159,7 +158,9 @@ class IndexBerita extends Component {
                                         </DropdownItem>
                                         <DropdownItem
                                           onClick={(e) =>
-                                            this.handleDelete(v.id)
+                                            this.props.dispatch(
+                                              deleteContent(v.id, "berita")
+                                            )
                                           }
                                         >
                                           Hapus

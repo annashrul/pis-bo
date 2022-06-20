@@ -27,9 +27,11 @@ import truck from "assets/status/truck_y_non.svg";
 import confirmY from "assets/status/confirmation.svg";
 import confirmWhite from "assets/status/confirmation_white.svg";
 import confirm from "assets/status/confirmation_non.svg";
+import logo from "assets/logo.png";
 import { LinkMenu } from "./linkMenu";
 moment.locale("id");
 
+export const imgDefault = logo;
 export const CURRENT_DATE = moment(new Date()).format("yyyy-MM-DD");
 export const DEFAULT_WHERE = `page=1&datefrom=${CURRENT_DATE}&dateto=${CURRENT_DATE}`;
 
