@@ -1,64 +1,43 @@
-import {
-    GENERAL
-} from "../../actions/_constants";
+import { SETTING_SITE } from "../../actions/_constants";
 
 const initialState = {
-    isLoading: true,
-    isError: false,
-    status: "",
-    msg: "",
-    data: [],
-    plafon: [],
-    karir: [],
-    landing: [],
-    detail: []
-}
+  isLoadingGeneral: true,
+  isLoadingAlokasi: true,
+  isLoadingLanding: true,
+  alokasi: [],
+  general: [],
+  landing: [],
+};
 
 export const generalReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case GENERAL.SUCCESS:
-            return Object.assign({}, state, {
-                status: action.data.status,
-                msg: action.data.msg,
-                data: action.data.result,
-            });
-        case GENERAL.LANDING:
-            return Object.assign({}, state, {
-                status: action.data.status,
-                msg: action.data.msg,
-                landing: action.data.result,
-            });
-        case GENERAL.PLAFON:
-            return Object.assign({}, state, {
-                status: action.data.status,
-                msg: action.data.msg,
-                plafon: action.data.result,
-            });
-         case GENERAL.KARIR:
-            return Object.assign({}, state, {
-                status: action.data.status,
-                msg: action.data.msg,
-                karir: action.data.result,
-            });
-        case GENERAL.FAILED:
-            return Object.assign({}, state, {
-                status: action.data.status,
-                msg: action.data.msg,
-                data: action.data.data,
-            });
-        case GENERAL.LOADING:
-            return Object.assign({}, state, {
-                isLoading: action.load
-            });
-        case GENERAL.LOADING_DETAIL:
-            return Object.assign({}, state, {
-                isLoadingDetail: action.load
-            });
-        case GENERAL.IS_ERROR:
-            return Object.assign({}, state, {
-                isError: action.load
-            });
-        default:
-            return state
-    }
-}
+  switch (action.type) {
+    case SETTING_SITE.ALOKASI:
+      return Object.assign({}, state, {
+        alokasi: action.data.data,
+      });
+    case SETTING_SITE.GENERAL:
+      return Object.assign({}, state, {
+        general: action.data.data,
+      });
+
+    case SETTING_SITE.LOADING_GENERAL:
+      return Object.assign({}, state, {
+        isLoadingGeneral: action.load,
+      });
+    case SETTING_SITE.LOADING_ALOKASI:
+      return Object.assign({}, state, {
+        isLoadingAlokasi: action.load,
+      });
+    case SETTING_SITE.LANDING:
+      return Object.assign({}, state, {
+        landing: action.data.data,
+      });
+
+    case SETTING_SITE.LOADING_LANDING:
+      return Object.assign({}, state, {
+        isLoadingLanding: action.load,
+      });
+    default:
+      return state;
+  }
+};

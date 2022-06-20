@@ -33,6 +33,12 @@ moment.locale("id");
 export const CURRENT_DATE = moment(new Date()).format("yyyy-MM-DD");
 export const DEFAULT_WHERE = `page=1&datefrom=${CURRENT_DATE}&dateto=${CURRENT_DATE}`;
 
+export const filterObject = (obj) => {
+  const asArray = Object.entries(obj);
+  const filtered = asArray.filter(([key, value]) => typeof value === "string");
+  return Object.fromEntries(filtered);
+};
+
 export const compareObjectResAndState = (res, state) => {
   let result = {};
   Object.keys(res).forEach((val) => {

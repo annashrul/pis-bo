@@ -254,18 +254,15 @@ export const REPORT_BARANG = {
      SETTING
      *****************/
 let generalSetting = "GENERAL_SETTING";
-export const GENERAL = {
-  LOADING: `SET_${generalSetting}_LOADING`,
-  LOADING_DETAIL: `SET_${generalSetting}_LOADING_DETAIL`,
-  LOADING_POST: `SET_${generalSetting}_LOADING_POST`,
-  IS_ERROR: `SET_${generalSetting}_IS_ERROR`,
-  SUCCESS: `SUCCESS_${generalSetting}`,
-  FAILED: `FAILED_${generalSetting}`,
-  DETAIL: `DETAIL_${generalSetting}`,
-  EDIT: `EDIT_${generalSetting}`,
-  PLAFON: `PLAFON_${generalSetting}`,
-  KARIR: `KARIR_${generalSetting}`,
+export const SETTING_SITE = {
   LANDING: `LANDING_${generalSetting}`,
+  LOADING_LANDING: `SET_${generalSetting}_LOADING_LANDING`,
+
+  ALOKASI: `ALOKASI_${generalSetting}`,
+  LOADING_ALOKASI: `SET_${generalSetting}_LOADING_ALOKASI`,
+
+  GENERAL: `GENERAL_${generalSetting}`,
+  LOADING_GENERAL: `SET_${generalSetting}_LOADING_GENERAL`,
 };
 
 let bonusSetting = "BONUS_SETTING";

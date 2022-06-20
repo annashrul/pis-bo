@@ -12,8 +12,8 @@ import IndexLaporanPenjualan from "./components/App/laporan/transaksi/penjualan"
 import IndexLaporanMember from "./components/App/laporan/transaksi/member";
 import IndexPengaturaBank from "./components/App/setting/bank";
 import IndexPengaturanUmum from "./components/App/setting/umum";
-import IndexPengaturanKurir from "./components/App/setting/kurir";
-import IndexPengaturanLanding from "./components/App/setting/website";
+// import IndexPengaturanKurir from "./components/App/setting/kurir";
+// import IndexPengaturanLanding from "./components/App/setting/website";
 
 export const LinkMenu = {
   dashboard: "/",
@@ -42,6 +42,7 @@ export const menuItem = [
   { link: LinkMenu.indexPaket, component: IndexPaket },
   { link: LinkMenu.indexKategoriPaket, component: IndexKategoriPaket },
   { link: LinkMenu.indexBerita, component: IndexBerita },
+  { link: LinkMenu.indexKategoriBerita, component: IndexKategoriBerita },
   { link: LinkMenu.indexTestimoni, component: IndexTestimoni },
   { link: LinkMenu.indexDeposit, component: IndexDeposit },
   { link: LinkMenu.indexPenarikan, component: IndexPenarikan },
@@ -49,8 +50,8 @@ export const menuItem = [
   { link: LinkMenu.indexLaporanPenjualan, component: IndexLaporanPenjualan },
   { link: LinkMenu.indexPengaturanUmum, component: IndexPengaturanUmum },
   { link: LinkMenu.indexPengaturanBank, component: IndexPengaturaBank },
-  { link: LinkMenu.indexPengaturanKurir, component: IndexPengaturanKurir },
-  { link: LinkMenu.indexPengaturanLanding, component: IndexPengaturanLanding },
+  // { link: LinkMenu.indexPengaturanKurir, component: IndexPengaturanKurir },
+  // { link: LinkMenu.indexPengaturanLanding, component: IndexPengaturanLanding },
 ];
 
 export const menu = () => {
@@ -221,20 +222,20 @@ export const menu = () => {
           parent: "pengaturan",
           isChecked: false,
         },
-        {
-          id: 18,
-          label: "kurir",
-          path: LinkMenu.indexPengaturanKurir,
-          parent: "pengaturan",
-          isChecked: false,
-        },
-        {
-          id: 19,
-          label: "landing",
-          path: LinkMenu.indexPengaturanLanding,
-          parent: "pengaturan",
-          isChecked: false,
-        },
+        // {
+        //   id: 18,
+        //   label: "kurir",
+        //   path: LinkMenu.indexPengaturanKurir,
+        //   parent: "pengaturan",
+        //   isChecked: false,
+        // },
+        // {
+        //   id: 19,
+        //   label: "landing",
+        //   path: LinkMenu.indexPengaturanLanding,
+        //   parent: "pengaturan",
+        //   isChecked: false,
+        // },
       ],
       otherSub: true,
     },

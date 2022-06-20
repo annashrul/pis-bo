@@ -5,7 +5,10 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import moment from "moment";
 import General from "./general";
 import Alokasi from "./alokasi";
-import { fetchGeneral } from "../../../../redux/actions/setting/general.action";
+import {
+  getSiteAlokasi,
+  getSiteGeneral,
+} from "../../../../redux/actions/setting/general.action";
 class IndexSetting extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +22,8 @@ class IndexSetting extends Component {
     };
   }
   componentWillMount() {
-    this.props.dispatch(fetchGeneral());
+    this.props.dispatch(getSiteAlokasi());
+    this.props.dispatch(getSiteGeneral());
   }
 
   render() {
@@ -34,10 +38,10 @@ class IndexSetting extends Component {
               </TabList>
 
               <TabPanel>
-                <Alokasi res_alokasi={this.props.resData} />
+                <Alokasi res_alokasi={this.props.alokasi} />
               </TabPanel>
               <TabPanel>
-                <General res_general={this.props.resData.general} />
+                <General res_general={this.props.general} />
               </TabPanel>
             </Tabs>
           </div>
@@ -49,7 +53,8 @@ class IndexSetting extends Component {
 const mapStateToProps = (state) => {
   return {
     isOpen: state.modalReducer,
-    resData: state.generalReducer.data,
+    alokasi: state.generalReducer.alokasi,
+    general: state.generalReducer.general,
   };
 };
 
