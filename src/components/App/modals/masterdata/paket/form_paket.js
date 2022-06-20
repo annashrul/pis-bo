@@ -5,6 +5,8 @@ import { ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { ModalToggle } from "../../../../../redux/actions/modal.action";
 import {
   compareObjectResAndState,
+  filterObject,
+  imgToStrip,
   rmComma,
   ToastQ,
   toRp,
@@ -58,8 +60,8 @@ class FormPaket extends Component {
     }
     if (props.detail.id !== "") {
       props.detail.val.status = `${props.detail.val.status}`.toString();
-      props.detail.val.gambar = "-";
       const compare = compareObjectResAndState(props.detail.val, this.state);
+      console.log("compare", compare);
       Object.assign(state, compare);
     }
     this.setState(state);
@@ -89,9 +91,9 @@ class FormPaket extends Component {
   handleSubmit(e) {
     e.preventDefault();
     let state = this.state;
-    state.stock = rmComma(state.stock);
-    state.price = rmComma(state.price);
+    const justStrings = filterObject(this.state);
     let keyState = Object.keys(state);
+    justStrings.gambar = imgToStrip(justStrings.gambar);
     for (let i = 0; i < keyState.length; i++) {
       if (state[keyState[i]] === "") {
         ToastQ.fire({
@@ -101,12 +103,10 @@ class FormPaket extends Component {
         return;
       }
     }
-    delete state.status_data;
-    delete state.category_data;
     if (this.props.detail.id === "") {
-      this.props.dispatch(postPaket(state, this.props.detail.where));
+      this.props.dispatch(postPaket(justStrings, this.props.detail.where));
     } else {
-      this.props.dispatch(putPaket(state, this.props.detail));
+      this.props.dispatch(putPaket(justStrings, this.props.detail));
     }
   }
 

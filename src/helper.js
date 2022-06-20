@@ -35,6 +35,15 @@ export const imgDefault = logo;
 export const CURRENT_DATE = moment(new Date()).format("yyyy-MM-DD");
 export const DEFAULT_WHERE = `page=1&datefrom=${CURRENT_DATE}&dateto=${CURRENT_DATE}`;
 
+export const imgToStrip = (img) => {
+  let str = img;
+  if (str.includes("http")) {
+    str = "-";
+  }
+
+  return str;
+};
+
 export const filterObject = (obj) => {
   const asArray = Object.entries(obj);
   const filtered = asArray.filter(([key, value]) => typeof value === "string");

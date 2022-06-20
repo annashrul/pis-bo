@@ -41,7 +41,6 @@ class FormBerita extends Component {
   }
 
   getProps(props) {
-    console.log("props", props);
     if (props.kategori !== undefined) {
       if (props.kategori.length > 0) {
         let dataKategori = [];
@@ -53,7 +52,6 @@ class FormBerita extends Component {
       }
     }
     if (props.detail.id !== "") {
-      console.log(this.props.detail);
       this.setState({
         caption: props.detail.caption,
         id_category: props.detail.id_category,

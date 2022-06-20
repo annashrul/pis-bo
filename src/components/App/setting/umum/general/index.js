@@ -61,7 +61,6 @@ class Index extends Component {
     event.preventDefault();
     const justStrings = filterObject(this.state);
     this.props.dispatch(putSiteGeneral(justStrings));
-    console.log(justStrings);
   };
 
   handleChange = (event, e = null) => {
