@@ -299,14 +299,20 @@ export const toExcel = (
   content = [],
   foot = []
 ) => {
-  let header = [[title.toUpperCase()], [`PERIODE : ${periode}`], [""], head];
+  let header = [
+    [title.toUpperCase()],
+    [`PERIODE : ${periode}`],
+    [""],
+    head,
+    [""],
+  ];
   let footer = foot;
   let body = header.concat(content);
   let data = footer === undefined || footer === [] ? body : body.concat(footer);
   let ws = XLSX.utils.json_to_sheet(data, { skipHeader: true });
   let merge = [
     { s: { r: 0, c: 0 }, e: { r: 0, c: head.length } },
-    { s: { r: 1, c: 0 }, e: { r: 1, c: head.length } },
+    { s: { r: 0, c: 0 }, e: { r: 0, c: head.length } },
   ];
   if (!ws["!merges"]) ws["!merges"] = [];
   ws["!merges"] = merge;

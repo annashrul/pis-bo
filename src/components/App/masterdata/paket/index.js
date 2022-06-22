@@ -68,6 +68,8 @@ class IndexPaket extends Component {
     const head = [
       { label: "No", className: "text-center", width: "1%" },
       { label: "#", className: "text-center", width: "1%" },
+      { label: "Gambar", width: "1%" },
+
       { label: "Nama" },
       { label: "Kategori", width: "1%" },
       { label: "Harga", width: "1%" },
@@ -123,10 +125,13 @@ class IndexPaket extends Component {
                         <td className="middle nowrap">
                           <img
                             src={v.gambar}
-                            style={{ width: "20px", marginRight: "5px" }}
-                          />{" "}
-                          {v.title}
+                            style={{
+                              width: "100%",
+                              height: "40px",
+                            }}
+                          />
                         </td>
+                        <td className="middle nowrap">{v.title}</td>
                         <td className="middle nowrap">{v.category}</td>
                         <td className="middle nowrap text-right poin">
                           {toCurrency(v.price)}

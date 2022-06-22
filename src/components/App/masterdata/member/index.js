@@ -7,6 +7,7 @@ import {
   noData,
   statusQ,
   toCurrency,
+  toRp,
 } from "../../../../helper";
 import { ModalToggle, ModalType } from "../../../../redux/actions/modal.action";
 import HeaderGeneralCommon from "../../../common/HeaderGeneralCommon";
@@ -89,11 +90,13 @@ class IndexMember extends Component {
   render() {
     const { pagination, data } = this.props;
     const { where, detail } = this.state;
+    let totalSaldoPendingPerPage = 0;
     const head = [
       { label: "No", className: "text-center", width: "1%" },
       { label: "#", className: "text-center", width: "1%" },
-      { label: "Foto" },
+      { label: "Foto", width: "1%" },
       { label: "Nama" },
+      { label: "Username", width: "1%" },
       { label: "No.Handphone", width: "1%" },
       { label: "Referral", width: "1%" },
       { label: "Sponsor", width: "1%" },
@@ -132,6 +135,8 @@ class IndexMember extends Component {
             typeof data === "object"
               ? data.length > 0
                 ? data.map((v, i) => {
+                    totalSaldoPendingPerPage =
+                      totalSaldoPendingPerPage + parseFloat(v.saldo_pending);
                     return (
                       <tr key={i}>
                         <td className="middle nowrap text-center">
@@ -156,11 +161,11 @@ class IndexMember extends Component {
                             style={{
                               width: "25px",
                               height: "25px",
-                              marginRight: "5px",
                             }}
                           />
                         </td>
                         <td className="middle nowrap">{v.fullname}</td>
+                        <td className="middle nowrap">{v.uid}</td>
                         <td className="middle nowrap">{v.mobile_no}</td>
                         <td className="middle nowrap">{v.referral}</td>
                         <td className="middle nowrap">
@@ -171,7 +176,7 @@ class IndexMember extends Component {
                         <td className="middle nowrap text-right poin">
                           {toCurrency(parseFloat(v.saldo_pending).toFixed(0))}
                         </td>
-                        <td className="middle nowrap text-center">
+                        <td className="middle nowrap">
                           {v.status === 0
                             ? "Belum Bayar"
                             : v.status === 1
@@ -179,7 +184,7 @@ class IndexMember extends Component {
                             : "Recycle"}
                         </td>
                         <td className="middle nowrap">
-                          {myDate(v.recycle_date)}
+                          {v.status === 3 ? myDate(v.recycle_date) : "-"}
                         </td>
                         <td className="middle nowrap">
                           {myDate(v.created_at)}
@@ -190,6 +195,22 @@ class IndexMember extends Component {
                 : noData(head.length)
               : noData(head.length)
           }
+          footer={[
+            {
+              data: [
+                {
+                  colSpan: 8,
+                  label: "Total perhalaman",
+                  className: "text-left",
+                },
+                {
+                  colSpan: 1,
+                  label: toCurrency(`${totalSaldoPendingPerPage.toFixed(0)}`),
+                  className: `text-right poin`,
+                },
+              ],
+            },
+          ]}
         />
         {this.props.isOpen && this.state.isModalFormMember ? (
           <FormMember detail={detail} />

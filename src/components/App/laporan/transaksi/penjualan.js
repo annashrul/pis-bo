@@ -13,7 +13,10 @@ import {
   ToastQ,
   dateIndo,
 } from "../../../../helper";
-import { getLaporanPenjualan } from "../../../../redux/actions/laporan/laporan_penjualan.action";
+import {
+  getExcelLaporanPenjualan,
+  getLaporanPenjualan,
+} from "../../../../redux/actions/laporan/laporan_penjualan.action";
 import DetailReportTransaksiMember from "../../modals/laporan/detail_report_transaksi_member";
 import HeaderGeneralCommon from "../../../common/HeaderGeneralCommon";
 import ButtonActionTableCommon from "../../../common/ButtonActionTableCommon";
@@ -46,6 +49,83 @@ class LaporanTransaksiPenjualan extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.dataExcel !== this.props.dataExcel) {
+      this.getExcel(this.props);
+    }
+  }
+  getExcel(props) {
+    if (props.dataExcel !== undefined) {
+      if (props.dataExcel.length > 0) {
+        let totOngkir = 0;
+        let totBayar = 0;
+        let content = [];
+        props.dataExcel.forEach((v, i) => {
+          totOngkir = totOngkir + parseFloat(v.ongkir);
+          totBayar = totBayar + parseFloat(v.grand_total);
+          content.push([
+            dateIndo(v.created_at),
+            v.status_st,
+            v.kd_trx,
+            v.title,
+            toCurrency(parseFloat(v.subtotal).toFixed(0)),
+            toCurrency(parseFloat(v.ongkir).toFixed(0)),
+            toCurrency(parseFloat(v.grand_total).toFixed(0)),
+            v.fullname,
+            v.metode_pembayaran,
+            v.layanan_pengiriman,
+            v.main_address,
+          ]);
+        });
+        toExcel(
+          "LAPORAN TRASANSAKSI PENJUALAN",
+          `${this.state.periode.split("-")[0]} - ${
+            this.state.periode.split("-")[1]
+          }`,
+          [
+            "TANGGAL",
+            "STATUS",
+            "KODE",
+            "NAMA BARANG",
+            "HARGA",
+            "ONGKIR",
+            "TOTAL",
+            "PENERIMA",
+            "METODE PEMBAYARAN",
+            "LAYANAN",
+            "ALAMAT",
+          ],
+          content,
+          [
+            [""],
+            [""],
+            [
+              "TOTAL",
+              "",
+              "",
+              "",
+              "",
+              toCurrency(`${totOngkir.toFixed(0)}`),
+              toCurrency(`${totBayar.toFixed(0)}`),
+            ],
+          ]
+        );
+      }
+    }
+  }
+  printDocumentXLsx = (param) => {
+    let datefrom = this.state.where_data.split("&")[1];
+    let dateto = this.state.where_data.split("&")[2];
+    let where = `page=1&perpage=${param}&${datefrom}&${dateto}`;
+    if (
+      this.state.any !== null &&
+      this.state.any !== undefined &&
+      this.state.any !== ""
+    ) {
+      where += `&q=${this.state.any}`;
+    }
+    this.props.dispatch(getExcelLaporanPenjualan(where));
+  };
   handleGet(res, page = 1) {
     if (res !== undefined) {
       let where = getFetchWhere(res, page);
@@ -263,6 +343,7 @@ const mapStateToProps = (state) => {
     isOpen: state.modalReducer,
     data: state.reportTransaksiPenjualanReducer.data,
     pagination: state.reportTransaksiPenjualanReducer.pagination,
+    dataExcel: state.reportTransaksiPenjualanReducer.excel,
   };
 };
 

@@ -107,7 +107,7 @@ class Dashboard extends Component {
                           <div className="author-info d-flex align-items-center">
                             <div className="author-img mr-3">
                               <img
-                                style={{ height: "40px" }}
+                                style={{ height: "40px", width: "100%" }}
                                 src={item.foto}
                                 onError={(e) => {
                                   e.target.onerror = null;
@@ -148,7 +148,7 @@ class Dashboard extends Component {
                           <div className="author-info d-flex align-items-center">
                             <div className="author-img mr-3">
                               <img
-                                style={{ height: "40px" }}
+                                style={{ height: "40px", width: "100%" }}
                                 src={item.foto}
                                 onError={(e) => {
                                   e.target.onerror = null;

@@ -116,7 +116,13 @@ class IndexTestimoni extends Component {
                           />
                         </td>
                         <td className="middle nowrap">
-                          <img src={v.photo} style={{ width: "20px" }} />
+                          <img
+                            src={v.photo}
+                            style={{
+                              width: "25px",
+                              height: "25px",
+                            }}
+                          />
                         </td>
                         <td className="middle nowrap">{v.title}</td>
                         <td className="middle nowrap">{v.caption}</td>

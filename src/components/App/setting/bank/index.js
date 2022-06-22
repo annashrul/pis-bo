@@ -68,7 +68,8 @@ class IndexBankPerusahaan extends Component {
     const head = [
       { label: "No", className: "text-center", width: "1%" },
       { label: "#", className: "text-center", width: "1%" },
-      { label: "Bank" },
+      { label: "Logo", width: "10%" },
+      { label: "Nama" },
       { label: "Akun", width: "1%" },
       { label: "Status", width: "1%" },
       { label: "Tanggal", width: "1%" },
@@ -128,6 +129,8 @@ class IndexBankPerusahaan extends Component {
                               marginRight: "10px",
                             }}
                           />
+                        </td>
+                        <td className="middle nowrap">
                           {v.name}
                           <br />
                           <small>{v.kode}</small>
