@@ -20,6 +20,7 @@ import {
 } from "../../../../redux/actions/masterdata/member.action";
 import FormMember from "../../modals/masterdata/member/form_member";
 import FormBankMember from "../../modals/masterdata/member/form_bank_member";
+import FormPin from "../../modals/masterdata/member/form_pin";
 import { getGeneralBank } from "../../../../redux/actions/masterdata/bank.action";
 
 class IndexMember extends Component {
@@ -31,6 +32,7 @@ class IndexMember extends Component {
       where: "",
       isModalFormMember: false,
       isModalFormBankMember: false,
+      isModalFormPin:false,
       status_data: [
         { value: "", label: "semua status" },
         { value: "0", label: "Belum Bayar" },
@@ -74,13 +76,25 @@ class IndexMember extends Component {
     }
 
     if (type === "formMember") {
-      this.setState({ isModalFormMember: true, isModalFormBankMember: false });
+      this.setState({
+        isModalFormMember: true,
+        isModalFormPin: false,
+        isModalFormBankMember: false
+      });
+    } else if (type === 'formMemberPin') {
+      this.setState({
+        isModalFormBankMember: false,
+        isModalFormMember: false,
+        isModalFormPin: true,
+      });
+
     } else {
       this.props.dispatch(getMemberDetail(par.id));
       this.props.dispatch(getGeneralBank());
       this.setState({
         isModalFormBankMember: true,
         isModalFormMember: false,
+        isModalFormPin: false,
       });
     }
     this.props.dispatch(ModalToggle(bool));
@@ -147,11 +161,13 @@ class IndexMember extends Component {
                             action={[
                               { label: "Ubah Data Diri" },
                               { label: "Ubah Data Bank" },
+                              { label: "Ubah PIN Transaksi" },
                             ]}
                             callback={(e) => {
                               if (e === 0) this.handleModal(v, "formMember");
-                              if (e === 1)
-                                this.handleModal(v, "formBankMember");
+                              if (e === 1) this.handleModal(v, "formBankMember");
+                              if (e === 2) this.handleModal(v, "formMemberPin");
+                              
                             }}
                           />
                         </td>
@@ -218,6 +234,12 @@ class IndexMember extends Component {
         {this.props.isOpen && this.state.isModalFormBankMember ? (
           <FormBankMember detail={detail} />
         ) : null}
+
+        {this.props.isOpen && this.state.isModalFormPin ? (
+          <FormPin detail={detail}/>
+        ) : null}
+
+        
       </Layout>
     );
   }

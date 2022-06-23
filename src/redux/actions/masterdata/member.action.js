@@ -61,6 +61,17 @@ export const postMember = (data, where) => {
   };
 };
 
+export const putMemberPin = (data, detail) => {
+  return (dispatch) => {
+    handlePut(`${folder}/pin/${detail.id}`, data, (res, msg, status) => {
+      dispatch(getMember(null));
+      if (status) {
+        dispatch(ModalToggle(false));
+      }
+    });
+  };
+};
+
 export const putMember = (data, detail) => {
   return (dispatch) => {
     handlePut(`${folder}/${detail.id}`, data, (res, msg, status) => {
@@ -71,6 +82,7 @@ export const putMember = (data, detail) => {
     });
   };
 };
+
 export const putBankMember = (data, detail, idBank) => {
   return (dispatch) => {
     console.log(`${folder}/bank/${idBank}`);
@@ -82,6 +94,7 @@ export const putBankMember = (data, detail, idBank) => {
     });
   };
 };
+
 export const deleteMember = (data) => {
   return (dispatch) => {
     handleDelete(`${folder}/${data.id}`, () => {
