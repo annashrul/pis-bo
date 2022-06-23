@@ -20,6 +20,7 @@ const myState = {
   bank_admin: "",
   wa_admin: "",
   msg_bonus: "",
+  msg_sps: "",
 };
 
 class Index extends Component {
@@ -60,7 +61,6 @@ class Index extends Component {
     event.preventDefault();
     const justStrings = filterObject(this.state);
     this.props.dispatch(putSiteGeneral(justStrings));
-    console.log(justStrings);
   };
 
   handleChange = (event, e = null) => {
@@ -113,8 +113,6 @@ class Index extends Component {
                   value={toRp(parseFloat(this.state.bank_admin))}
                 />
               </div>
-            </div>
-            <div className="col-md-6">
               <div className="form-group">
                 <label>No Whatsapp Admin</label>
                 <input
@@ -125,14 +123,26 @@ class Index extends Component {
                   value={this.state.wa_admin}
                 />
               </div>
+            </div>
+            <div className="col-md-6">
               <div className="form-group">
                 <label>Pesan Bonus</label>
                 <textarea
-                  style={{ height: "152px" }}
+                  style={{ height: "135px" }}
                   onChange={this.handleChange}
                   name="msg_bonus"
                   className="form-control"
                   defaultValue={this.state.msg_bonus}
+                />
+              </div>
+              <div className="form-group">
+                <label>Pesan Bonus Sponsor</label>
+                <textarea
+                  style={{ height: "135px" }}
+                  onChange={this.handleChange}
+                  name="msg_sps"
+                  className="form-control"
+                  defaultValue={this.state.msg_sps}
                 />
               </div>
               <div className="form-group">

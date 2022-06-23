@@ -7,12 +7,14 @@ import { getDetailReportTransaksi } from "../../../../redux/actions/laporan/repo
 import moment from "moment";
 import { NOTIF_ALERT } from "../../../../redux/actions/_constants";
 import Paginationq, {
+  dateIndo,
   generateNo,
   noData,
   toCurrency,
   toDate,
 } from "../../../../helper";
 import TableCommon from "../../../common/TableCommon";
+import localization from "moment/locale/id";
 
 class DetailReportTransaksiMember extends Component {
   constructor(props) {
@@ -88,7 +90,7 @@ class DetailReportTransaksiMember extends Component {
                           </td>
                           <td className="middle nowrap">{v.note}</td>
                           <td className="middle nowrap">
-                            {toDate(v.created_at)}
+                            {dateIndo(v.created_at)}
                           </td>
                         </tr>
                       );

@@ -11,14 +11,12 @@ import {
   toDate,
   toExcel,
   ToastQ,
+  dateIndo,
 } from "../../../../helper";
-import moment from "moment";
 import {
-  getDataReportTransaksi,
-  getDetailReportTransaksi,
-  getExcelReportTransaksi,
-} from "../../../../redux/actions/laporan/report_transaksi_member.action";
-import { getLaporanPenjualan } from "../../../../redux/actions/laporan/laporan_penjualan.action";
+  getExcelLaporanPenjualan,
+  getLaporanPenjualan,
+} from "../../../../redux/actions/laporan/laporan_penjualan.action";
 import DetailReportTransaksiMember from "../../modals/laporan/detail_report_transaksi_member";
 import HeaderGeneralCommon from "../../../common/HeaderGeneralCommon";
 import ButtonActionTableCommon from "../../../common/ButtonActionTableCommon";
@@ -35,20 +33,99 @@ class LaporanTransaksiPenjualan extends Component {
       data: [],
       status_data: [
         { value: "", label: "semua status" },
-        { value: "0", label: "Belum Bayar" },
-        { value: "1", label: "Dikemas" },
-        { value: "2", label: "Dikirim" },
-        { value: "2", label: "Selesai" },
+        { value: "0", label: "Menunggu Pembayaran" },
+        { value: "1", label: "Diproses" },
+        { value: "2", label: "Berhasil" },
+        { value: "3", label: "Diterima" },
+        { value: "4", label: "Ditolak" },
       ],
       status: "",
       kolom_data: [
-        { value: "kd_trx", label: "kode transaksi" },
-        { value: "fullname", label: "nama" },
+        { value: "kd_trx", label: "Kode Transaksi" },
+        { value: "resi", label: "Resi" },
+        { value: "penerima", label: "Penerima" },
       ],
       kolom: "",
     };
     this.handleChange = this.handleChange.bind(this);
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.dataExcel !== this.props.dataExcel) {
+      this.getExcel(this.props);
+    }
+  }
+  getExcel(props) {
+    if (props.dataExcel !== undefined) {
+      if (props.dataExcel.length > 0) {
+        let totOngkir = 0;
+        let totBayar = 0;
+        let content = [];
+        props.dataExcel.forEach((v, i) => {
+          totOngkir = totOngkir + parseFloat(v.ongkir);
+          totBayar = totBayar + parseFloat(v.grand_total);
+          content.push([
+            dateIndo(v.created_at),
+            v.status_st,
+            v.kd_trx,
+            v.title,
+            toCurrency(parseFloat(v.subtotal).toFixed(0)),
+            toCurrency(parseFloat(v.ongkir).toFixed(0)),
+            toCurrency(parseFloat(v.grand_total).toFixed(0)),
+            v.fullname,
+            v.metode_pembayaran,
+            v.layanan_pengiriman,
+            v.main_address,
+          ]);
+        });
+        toExcel(
+          "LAPORAN TRASANSAKSI PENJUALAN",
+          `${this.state.periode.split("-")[0]} - ${
+            this.state.periode.split("-")[1]
+          }`,
+          [
+            "TANGGAL",
+            "STATUS",
+            "KODE",
+            "NAMA BARANG",
+            "HARGA",
+            "ONGKIR",
+            "TOTAL",
+            "PENERIMA",
+            "METODE PEMBAYARAN",
+            "LAYANAN",
+            "ALAMAT",
+          ],
+          content,
+          [
+            [""],
+            [""],
+            [
+              "TOTAL",
+              "",
+              "",
+              "",
+              "",
+              toCurrency(`${totOngkir.toFixed(0)}`),
+              toCurrency(`${totBayar.toFixed(0)}`),
+            ],
+          ]
+        );
+      }
+    }
+  }
+  printDocumentXLsx = (param) => {
+    let datefrom = this.state.where_data.split("&")[1];
+    let dateto = this.state.where_data.split("&")[2];
+    let where = `page=1&perpage=${param}&${datefrom}&${dateto}`;
+    if (
+      this.state.any !== null &&
+      this.state.any !== undefined &&
+      this.state.any !== ""
+    ) {
+      where += `&q=${this.state.any}`;
+    }
+    this.props.dispatch(getExcelLaporanPenjualan(where));
+  };
   handleGet(res, page = 1) {
     if (res !== undefined) {
       let where = getFetchWhere(res, page);
@@ -70,7 +147,6 @@ class LaporanTransaksiPenjualan extends Component {
   }
 
   getProps(props) {
-    console.log(props.data);
     if (props.data.length > 0) {
       let datas = [];
       props.data.map((val) => {
@@ -168,8 +244,7 @@ class LaporanTransaksiPenjualan extends Component {
                           />
                         </td>
                         <td className="middle nowrap">
-                          {toDate(v.created_at)}&nbsp;
-                          {toDate(v.created_at, "/", true)}
+                          {dateIndo(v.created_at)}
                         </td>
                         <td className="middle nowrap">{v.status_st}</td>
                         <td className="middle nowrap">{v.kd_trx}</td>
@@ -178,7 +253,11 @@ class LaporanTransaksiPenjualan extends Component {
                             style={{ width: "130px" }}
                             type="text"
                             name="res"
-                            value={this.state.data[i].resi}
+                            value={
+                              this.state.data.length > 0
+                                ? this.state.data[i].resi
+                                : "-"
+                            }
                             onKeyDown={(e) => {
                               if (e.keyCode === 13) {
                                 ToastQ.fire({
@@ -202,7 +281,15 @@ class LaporanTransaksiPenjualan extends Component {
                         <td className="middle nowrap text-right poin">
                           {toCurrency(parseFloat(v.grand_total).toFixed(0))}
                         </td>
-                        <td className="middle nowrap">{v.main_address}</td>
+                        <td
+                          className="middle nowrap"
+                          dataToggle="tooltip"
+                          title={v.main_address}
+                        >
+                          {v.main_address.length > 20
+                            ? v.main_address.substr(0, 20) + "..."
+                            : v.main_address}
+                        </td>
                         <td className="middle nowrap">{v.fullname}</td>
 
                         <td className="middle nowrap">{v.metode_pembayaran}</td>
@@ -256,6 +343,7 @@ const mapStateToProps = (state) => {
     isOpen: state.modalReducer,
     data: state.reportTransaksiPenjualanReducer.data,
     pagination: state.reportTransaksiPenjualanReducer.pagination,
+    dataExcel: state.reportTransaksiPenjualanReducer.excel,
   };
 };
 

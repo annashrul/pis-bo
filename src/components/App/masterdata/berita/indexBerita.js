@@ -75,8 +75,7 @@ class IndexBerita extends Component {
     this.props.dispatch(ModalType("formBerita"));
   }
 
-  handleDelete(e, id) {
-    e.preventDefault();
+  handleDelete(id) {
     this.props.dispatch(deleteContent(id, "berita"));
   }
 
@@ -94,95 +93,87 @@ class IndexBerita extends Component {
           callbackAdd={() => this.handleModal(null)}
         />
         <div className="row">
-          <div className="col-md-12">
-            <main>
-              {typeof data === "object" ? (
-                data.length > 0 ? (
-                  data.map((v, i) => {
-                    let desc = rmHtml(v.caption);
-                    if (desc.length > 100) {
-                      desc = desc.substr(0, 100);
-                    }
-                    return (
-                      <article key={i}>
-                        <div className="box-margin">
-                          <div
-                            className="coupon"
-                            style={{
-                              borderRadius: "15px",
-                              margin: "0 auto",
-                              breakInside: "avoid-column",
+          {typeof data === "object" ? (
+            data.length > 0 ? (
+              data.map((v, i) => {
+                let desc = rmHtml(v.caption);
+                if (desc.length > 100) {
+                  desc = desc.substr(0, 100);
+                }
+                return (
+                  <div className="col-md-4" key={i}>
+                    <div className="box-margin">
+                      <div
+                        className="coupon"
+                        style={{
+                          borderRadius: "15px",
+                          margin: "0 auto",
+                          breakInside: "avoid-column",
+                        }}
+                      >
+                        <div className="ribbon-wrapper bgWithOpacity">
+                          <div className="ribbon ribbon-bookmark ribbon-success">
+                            {v.category}
+                          </div>
+                          <img
+                            alt="example"
+                            src={v.picture}
+                            onError={({ currentTarget }) => {
+                              currentTarget.onerror = null; // prevents looping
+                              currentTarget.src = noImage();
                             }}
-                          >
-                            <div className="ribbon-wrapper bgWithOpacity">
-                              <div className="ribbon ribbon-bookmark ribbon-success">
-                                {v.category}
-                              </div>
-                              <img
-                                alt="example"
-                                src={v.picture}
-                                onError={({ currentTarget }) => {
-                                  currentTarget.onerror = null; // prevents looping
-                                  currentTarget.src = noImage();
-                                }}
-                              />
+                          />
+                          <br />
+                          <div className="row">
+                            <div className="col-md-12" style={{ padding: "5" }}>
                               <br />
-                              <div className="row">
-                                <div
-                                  className="col-md-12"
-                                  style={{ padding: "5" }}
-                                >
-                                  <br />
-                                  <p className="text-muted">
-                                    {myDate(v.created_at)}
-                                  </p>
-                                  <h4 className="text-white">{v.title}</h4>
-                                  <p className="text-muted">{rmHtml(desc)}</p>
-                                </div>
-                                <div className="col-md-12">
-                                  <div
-                                    className="btn-group btn-block"
-                                    style={{ textAlign: "right" }}
-                                  >
-                                    <UncontrolledButtonDropdown nav>
-                                      <DropdownToggle
-                                        caret
-                                        className="myDropdown"
-                                      >
-                                        Pilihan
-                                      </DropdownToggle>
-                                      <DropdownMenu>
-                                        <DropdownItem
-                                          onClick={(e) => this.handleModal(i)}
-                                        >
-                                          Ubah
-                                        </DropdownItem>
-                                        <DropdownItem
-                                          onClick={(e) =>
-                                            this.handleDelete(v.id)
-                                          }
-                                        >
-                                          Hapus
-                                        </DropdownItem>
-                                      </DropdownMenu>
-                                    </UncontrolledButtonDropdown>
-                                  </div>
-                                </div>
+                              <p className="text-muted">
+                                {myDate(v.created_at)}
+                              </p>
+                              <h4 className="text-white">{v.title}</h4>
+                              <p className="text-muted">{rmHtml(desc)}</p>
+                            </div>
+                            <div className="col-md-12">
+                              <div
+                                className="btn-group btn-block"
+                                style={{ textAlign: "right" }}
+                              >
+                                <UncontrolledButtonDropdown nav>
+                                  <DropdownToggle caret className="myDropdown">
+                                    Pilihan
+                                  </DropdownToggle>
+                                  <DropdownMenu>
+                                    <DropdownItem
+                                      onClick={(e) => this.handleModal(i)}
+                                    >
+                                      Ubah
+                                    </DropdownItem>
+                                    <DropdownItem
+                                      onClick={(e) =>
+                                        this.props.dispatch(
+                                          deleteContent(v.id, "berita")
+                                        )
+                                      }
+                                    >
+                                      Hapus
+                                    </DropdownItem>
+                                  </DropdownMenu>
+                                </UncontrolledButtonDropdown>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </article>
-                    );
-                  })
-                ) : (
-                  <img src={NOTIF_ALERT.NO_DATA} alt="member" />
-                )
-              ) : (
-                <img src={NOTIF_ALERT.NO_DATA} alt="member" />
-              )}
-            </main>
-          </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <img src={NOTIF_ALERT.NO_DATA} alt="member" />
+            )
+          ) : (
+            <img src={NOTIF_ALERT.NO_DATA} alt="member" />
+          )}
         </div>
 
         {this.props.isOpen === true ? (

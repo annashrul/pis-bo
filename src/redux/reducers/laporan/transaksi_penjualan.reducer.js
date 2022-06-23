@@ -6,6 +6,7 @@ const initialState = {
   total: [],
   data: [],
   pagination: [],
+  excel: [],
 };
 
 export const reportTransaksiPenjualanReducer = (
@@ -19,6 +20,10 @@ export const reportTransaksiPenjualanReducer = (
         msg: action.data.msg,
         data: action.data.data,
         pagination: action.data.pagination,
+      });
+    case REPORT_TRANSAKSI_PENJUALAN.EXCEL:
+      return Object.assign({}, state, {
+        excel: action.data.data,
       });
     case REPORT_TRANSAKSI_PENJUALAN.LOADING:
       return Object.assign({}, state, {

@@ -27,11 +27,26 @@ import truck from "assets/status/truck_y_non.svg";
 import confirmY from "assets/status/confirmation.svg";
 import confirmWhite from "assets/status/confirmation_white.svg";
 import confirm from "assets/status/confirmation_non.svg";
+import logo from "assets/logo.png";
 import { LinkMenu } from "./linkMenu";
-moment.locale("id");
+import localization from "moment/locale/id";
 
+export const dateIndo = (tgl) => {
+  return moment(tgl).locale("id", localization).format("LLL");
+};
+
+export const imgDefault = logo;
 export const CURRENT_DATE = moment(new Date()).format("yyyy-MM-DD");
 export const DEFAULT_WHERE = `page=1&datefrom=${CURRENT_DATE}&dateto=${CURRENT_DATE}`;
+
+export const imgToStrip = (img) => {
+  let str = img;
+  if (str.includes("http")) {
+    str = "-";
+  }
+
+  return str;
+};
 
 export const filterObject = (obj) => {
   const asArray = Object.entries(obj);
@@ -264,12 +279,11 @@ export const noData = (colSpan = 1) => {
   return (
     <tr>
       <td colSpan={colSpan} className="middle text-center">
-        <span
+        {/* <span
           className="badge badge-warning"
           style={{ fontSize: "18px", padding: "10px" }}
-        >
-          Data tidak tersedia
-        </span>
+        ></span> */}
+        Data tidak tersedia
       </td>
     </tr>
   );
@@ -285,14 +299,20 @@ export const toExcel = (
   content = [],
   foot = []
 ) => {
-  let header = [[title.toUpperCase()], [`PERIODE : ${periode}`], [""], head];
+  let header = [
+    [title.toUpperCase()],
+    [`PERIODE : ${periode}`],
+    [""],
+    head,
+    [""],
+  ];
   let footer = foot;
   let body = header.concat(content);
   let data = footer === undefined || footer === [] ? body : body.concat(footer);
   let ws = XLSX.utils.json_to_sheet(data, { skipHeader: true });
   let merge = [
     { s: { r: 0, c: 0 }, e: { r: 0, c: head.length } },
-    { s: { r: 1, c: 0 }, e: { r: 1, c: head.length } },
+    { s: { r: 0, c: 0 }, e: { r: 0, c: head.length } },
   ];
   if (!ws["!merges"]) ws["!merges"] = [];
   ws["!merges"] = merge;

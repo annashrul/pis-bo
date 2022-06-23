@@ -81,7 +81,7 @@ export const menu = () => {
       path: "",
       isChecked: false,
       isToggle: false,
-      icons: "fa fa-credit-card",
+      icons: "fa fa-users",
       sub: [
         {
           id: 21,
@@ -106,7 +106,7 @@ export const menu = () => {
       path: "",
       isChecked: false,
       isToggle: false,
-      icons: "fa fa-credit-card",
+      icons: "fa fa-diamond",
       sub: [
         {
           id: 501,

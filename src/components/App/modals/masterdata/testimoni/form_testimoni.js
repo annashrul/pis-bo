@@ -75,6 +75,13 @@ class FormTestimoni extends Component {
         return;
       }
     }
+    if (state.rating > 5) {
+      ToastQ.fire({
+        icon: "error",
+        title: `Rating Maksimal 5`,
+      });
+      return;
+    }
     if (this.props.detail.id === "") {
       this.props.dispatch(postTestimoni(state, this.props.detail.where));
     } else {
