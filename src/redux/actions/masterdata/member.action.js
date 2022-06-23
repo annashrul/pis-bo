@@ -64,7 +64,7 @@ export const postMember = (data, where) => {
 export const putMemberPin = (data, detail) => {
   return (dispatch) => {
     handlePut(`${folder}/pin/${detail.id}`, data, (res, msg, status) => {
-      dispatch(getMember(null));
+      dispatch(getMember("page=1"));
       if (status) {
         dispatch(ModalToggle(false));
       }

@@ -4,20 +4,9 @@ import connect from "react-redux/es/connect/connect";
 import { ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { ModalToggle } from "../../../../../redux/actions/modal.action";
 import {
-  compareObjectResAndState,
-  rmComma,
   ToastQ,
-  toRp,
 } from "../../../../../helper";
 import {
-  postPaket,
-  putPaket,
-} from "../../../../../redux/actions/masterdata/paket.action";
-import SelectCommon from "../../../../common/SelectCommon";
-import Select from "react-select";
-import File64 from "../../../../common/File64";
-import {
-  postMember,
   putMemberPin,
 } from "../../../../../redux/actions/masterdata/member.action";
 const myState = {
