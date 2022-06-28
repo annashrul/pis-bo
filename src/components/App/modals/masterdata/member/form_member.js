@@ -23,6 +23,7 @@ import {
 const myState = {
   fullname: "",
   password: "",
+  mobile_no: "",
   confirm_password: "",
   foto: "-",
   status: "1",
@@ -57,6 +58,7 @@ class FormMember extends Component {
     if (props.detail.id !== "") {
       Object.assign(state, {
         fullname: props.detail.val.fullname,
+        mobile_no: props.detail.val.mobile_no,
         status: props.detail.val.status,
         foto: "-",
       });
@@ -89,12 +91,20 @@ class FormMember extends Component {
       fullname: state.fullname,
       foto: state.foto,
       status: state.status,
+      mobile_no: state.mobile_no,
     };
 
     if (state.fullname === "") {
       ToastQ.fire({
         icon: "error",
         title: `nama tidak boleh kosong`,
+      });
+      return;
+    }
+    if (state.mobile_no === "") {
+      ToastQ.fire({
+        icon: "error",
+        title: `no handphone tidak boleh kosong`,
       });
       return;
     }
@@ -139,7 +149,7 @@ class FormMember extends Component {
   }
 
   render() {
-    console.log(this.props.dataBank);
+    console.log(this.props);
     return (
       <WrapperModal
         isOpen={this.props.isOpen && this.props.type === "formMember"}
@@ -157,6 +167,16 @@ class FormMember extends Component {
                 className="form-control"
                 name="fullname"
                 value={this.state.fullname}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>No Handphone</label>
+              <input
+                type="text"
+                className="form-control"
+                name="mobile_no"
+                value={this.state.mobile_no}
                 onChange={this.handleChange}
               />
             </div>
