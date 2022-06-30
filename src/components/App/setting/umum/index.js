@@ -5,6 +5,8 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import moment from "moment";
 import General from "./general";
 import Alokasi from "./alokasi";
+import Adjusment from "./adjusment";
+
 import {
   getSiteAlokasi,
   getSiteGeneral,
@@ -27,6 +29,8 @@ class IndexSetting extends Component {
   }
 
   render() {
+    console.log(this.props);
+
     return (
       <Layout page={"Pengaturan Umum"}>
         <div className="row">
@@ -35,6 +39,7 @@ class IndexSetting extends Component {
               <TabList style={{ margin: "0px" }}>
                 <Tab>Alokasi</Tab>
                 <Tab>General</Tab>
+                <Tab>Adjusment</Tab>
               </TabList>
 
               <TabPanel>
@@ -42,6 +47,9 @@ class IndexSetting extends Component {
               </TabPanel>
               <TabPanel>
                 <General res_general={this.props.general} />
+              </TabPanel>
+              <TabPanel>
+                <Adjusment res_alokasi={this.props.alokasi} />
               </TabPanel>
             </Tabs>
           </div>

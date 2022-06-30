@@ -1,7 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { SETTING_SITE, HEADERS } from "../_constants";
-import { handleGet, handlePut } from "../../handle_http";
+import { handleGet, handlePost, handlePut } from "../../handle_http";
 
 export function setLoadingAlokasi(load) {
   return {
@@ -73,6 +73,16 @@ export const getSiteGeneral = (where) => {
 export const putSiteGeneral = (data) => {
   return (dispatch) => {
     handlePut(`site/config`, data, (res, msg, status) => {
+      if (status) {
+        dispatch(getSiteGeneral());
+      }
+    });
+  };
+};
+
+export const storeAdjusment = (data) => {
+  return (dispatch) => {
+    handlePost(`transaction/adjust`, data, (res, msg, status) => {
       if (status) {
         dispatch(getSiteGeneral());
       }
