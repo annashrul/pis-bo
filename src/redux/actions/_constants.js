@@ -106,6 +106,15 @@ export const KATEGORI_PAKET = {
 };
 
 /****************
+ TIPE PAKET
+ *****************/
+let prefTipePaket = "TIPE_PAKET";
+export const TIPE_PAKET = {
+  LOADING: `SET_${prefTipePaket}_LOADING`,
+  SUCCESS: `SUCCESS_${prefTipePaket}`,
+};
+
+/****************
  KATEGORI
  *****************/
 let prefKategori = "KATEGORI";

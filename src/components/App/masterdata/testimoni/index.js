@@ -74,6 +74,7 @@ class IndexTestimoni extends Component {
     return (
       <Layout page={"Daftar Testimoni"}>
         <HeaderGeneralCommon
+          col="col-md-12"
           pathName="daftarTestimoni"
           callbackGet={(res) => {
             this.setState({ any: res });

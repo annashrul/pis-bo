@@ -1,24 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Layout from "components/Layout";
-import {
-  generateNo,
-  myDate,
-  noData,
-  statusQ,
-  toCurrency,
-} from "../../../../helper";
+import { generateNo, myDate, noData, toRp } from "../../../../helper";
 import { ModalToggle, ModalType } from "../../../../redux/actions/modal.action";
 import HeaderGeneralCommon from "../../../common/HeaderGeneralCommon";
 import TableCommon from "../../../common/TableCommon";
 import ButtonActionTableCommon from "../../../common/ButtonActionTableCommon";
-import FormKategoriPaket from "../../modals/masterdata/paket/form_kategori_paket";
+import FormTipePaket from "../../modals/masterdata/paket/form_tipe_paket";
 import {
-  getKategoriPaket,
-  deleteKategoriPaket,
-} from "../../../../redux/actions/masterdata/kategori_paket.action";
+  getTipePaket,
+  deleteTipePaket,
+} from "../../../../redux/actions/masterdata/tipe_paket.action";
 
-class IndexKategori extends Component {
+class IndexTipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +30,7 @@ class IndexKategori extends Component {
     if (res !== undefined) {
       let whereLocal = `page=${page}${res}`;
       this.setState({ where: whereLocal });
-      this.props.dispatch(getKategoriPaket(whereLocal));
+      this.props.dispatch(getTipePaket(whereLocal));
     }
   }
 
@@ -55,7 +49,7 @@ class IndexKategori extends Component {
     }
     const bool = !this.props.isOpen;
     this.props.dispatch(ModalToggle(bool));
-    this.props.dispatch(ModalType("formKategoriPaket"));
+    this.props.dispatch(ModalType("formTipePaket"));
   }
 
   render() {
@@ -64,7 +58,11 @@ class IndexKategori extends Component {
     const head = [
       { label: "No", className: "text-center", width: "1%" },
       { label: "#", className: "text-center", width: "1%" },
-      { label: "Nama" },
+      { label: "Title" },
+      { label: "Bonus Sponsor", width: "1%" },
+      { label: "Limit Bonus Nasional", width: "1%" },
+      { label: "Minimal WD", width: "1%" },
+      { label: "Max WD", width: "1%" },
       { label: "Tanggal", width: "1%" },
     ];
 
@@ -104,7 +102,7 @@ class IndexKategori extends Component {
                               if (e === 0) this.handleModal(v);
                               if (e === 1)
                                 this.props.dispatch(
-                                  deleteKategoriPaket({
+                                  deleteTipePaket({
                                     total: data.length,
                                     id: v.id,
                                     where: where,
@@ -114,6 +112,18 @@ class IndexKategori extends Component {
                           />
                         </td>
                         <td className="middle nowrap">{v.title}</td>
+                        <td className="middle nowrap text-right poin">
+                          {toRp(v.bonus_sponsor)}
+                        </td>
+                        <td className="middle nowrap text-right poin">
+                          {toRp(v.limit_bonus_nasional)}
+                        </td>
+                        <td className="middle nowrap text-right poin">
+                          {toRp(v.minimal_wd)}
+                        </td>
+                        <td className="middle nowrap text-right poin">
+                          {toRp(v.max_wd)}
+                        </td>
                         <td className="middle nowrap">
                           {myDate(v.created_at)}
                         </td>
@@ -124,20 +134,18 @@ class IndexKategori extends Component {
               : noData(head.length)
           }
         />
-        {this.props.isOpen === true ? (
-          <FormKategoriPaket detail={detail} />
-        ) : null}
+        {this.props.isOpen === true ? <FormTipePaket detail={detail} /> : null}
       </Layout>
     );
   }
 }
 const mapStateToProps = (state) => {
   return {
-    isLoading: state.kategoriPaketReducer.isLoading,
+    isLoading: state.tipePaketReducer.isLoading,
     isOpen: state.modalReducer,
-    data: state.kategoriPaketReducer.data,
-    pagination: state.kategoriPaketReducer.pagination,
+    data: state.tipePaketReducer.data,
+    pagination: state.tipePaketReducer.pagination,
   };
 };
 
-export default connect(mapStateToProps)(IndexKategori);
+export default connect(mapStateToProps)(IndexTipe);

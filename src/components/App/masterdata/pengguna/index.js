@@ -74,6 +74,7 @@ class IndexUserList extends Component {
     return (
       <Layout page={"Daftar Pengguna"}>
         <HeaderGeneralCommon
+          col="col-md-12"
           pathName="daftarPengguna"
           callbackGet={(res) => {
             this.handleGet(res);

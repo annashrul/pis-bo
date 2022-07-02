@@ -36,11 +36,11 @@ class FormUserLevel extends Component {
   getProps(param) {
     console.log(this.state.menu);
     if (param.detail.id !== "") {
-      this.setState({
-        lvl: param.detail.val.level,
-        menu: param.detail.val.access_level,
-      });
-      // this.setState({ lvl: param.detail.val.level, menu: this.state.menu });
+      // this.setState({
+      //   lvl: param.detail.val.level,
+      //   menu: param.detail.val.access_level,
+      // });
+      this.setState({ lvl: param.detail.val.level, menu: this.state.menu });
     } else {
       this.clearState();
     }
@@ -134,7 +134,6 @@ class FormUserLevel extends Component {
             </div>
 
             {menu.map((val, key) => {
-              console.log(val);
               return val.sub === undefined ? (
                 <div style={{ zoom: "80%" }} className="col-md-12" key={key}>
                   <div className="form-group">
@@ -162,7 +161,9 @@ class FormUserLevel extends Component {
                       return (
                         <div
                           className={`${
-                            row.sub !== undefined ? "col-md-12" : "col-md-3"
+                            row.sub !== undefined
+                              ? "col-md-12"
+                              : "col-4 col-xs-4 col-md-3"
                           }`}
                           key={idx}
                           style={{
@@ -210,7 +211,11 @@ class FormUserLevel extends Component {
                       );
                     })}
                   </div>
-                  <hr style={{ borderColor: "white" }} />
+                  <hr
+                    style={{
+                      borderColor: menu.length - 1 === key ? "" : "white",
+                    }}
+                  />
                 </div>
               );
             })}

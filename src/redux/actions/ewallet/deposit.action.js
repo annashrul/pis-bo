@@ -31,6 +31,7 @@ export const getExcelDeposit = (where = "") => {
     let url = "transaction/deposit";
     if (where !== "") url += `?${where}`;
     handleGet(url, (res) => {
+      // console.log(res);
       dispatch(setDataExcel(res));
       if (res.result.length === 0)
         Swal.fire("Informasi", "Data Tidak Tersedia", "info");

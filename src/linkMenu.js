@@ -3,6 +3,7 @@ import IndexUser from "./components/App/masterdata/pengguna/index";
 import IndexUserLevel from "./components/App/masterdata/pengguna/level";
 import IndexPaket from "./components/App/masterdata/paket/index";
 import IndexKategoriPaket from "./components/App/masterdata/paket/kategori";
+import IndexTipePaket from "./components/App/masterdata/paket/tipe";
 import IndexBerita from "./components/App/masterdata/berita/indexBerita";
 import IndexKategoriBerita from "./components/App/masterdata/berita/kategoriBerita";
 import IndexTestimoni from "./components/App/masterdata/testimoni/index";
@@ -22,6 +23,7 @@ export const LinkMenu = {
   indexUserLevel: "/masterdata/pengguna/akses",
   indexPaket: "/masterdata/paket",
   indexKategoriPaket: "/masterdata/paket/kategori",
+  indexTipePaket: "/masterdata/paket/tipe",
   indexBerita: "/masterdata/berita",
   indexKategoriBerita: "/masterdata/berita/kategori",
   indexTestimoni: "/masterdata/testimoni",
@@ -41,6 +43,7 @@ export const menuItem = [
   { link: LinkMenu.indexUserLevel, component: IndexUserLevel },
   { link: LinkMenu.indexPaket, component: IndexPaket },
   { link: LinkMenu.indexKategoriPaket, component: IndexKategoriPaket },
+  { link: LinkMenu.indexTipePaket, component: IndexTipePaket },
   { link: LinkMenu.indexBerita, component: IndexBerita },
   { link: LinkMenu.indexKategoriBerita, component: IndexKategoriBerita },
   { link: LinkMenu.indexTestimoni, component: IndexTestimoni },
@@ -119,6 +122,13 @@ export const menu = () => {
           id: 502,
           label: "kategori",
           path: LinkMenu.indexKategoriPaket,
+          parent: "paket",
+          isChecked: false,
+        },
+        {
+          id: 503,
+          label: "tipe",
+          path: LinkMenu.indexTipePaket,
           parent: "paket",
           isChecked: false,
         },

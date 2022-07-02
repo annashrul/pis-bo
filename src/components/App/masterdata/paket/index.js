@@ -68,8 +68,7 @@ class IndexPaket extends Component {
     const head = [
       { label: "No", className: "text-center", width: "1%" },
       { label: "#", className: "text-center", width: "1%" },
-      { label: "Gambar", width: "1%" },
-
+      { label: "Foto", width: "1%" },
       { label: "Nama" },
       { label: "Kategori", width: "1%" },
       { label: "Harga", width: "1%" },
@@ -81,6 +80,7 @@ class IndexPaket extends Component {
     return (
       <Layout page={"Daftar Paket"}>
         <HeaderGeneralCommon
+          col="col-md-12"
           pathName="daftarPaket"
           callbackGet={(res) => {
             this.setState({ any: res });
@@ -126,8 +126,8 @@ class IndexPaket extends Component {
                           <img
                             src={v.gambar}
                             style={{
-                              width: "100%",
-                              height: "40px",
+                              width: "25px",
+                              height: "25px",
                             }}
                           />
                         </td>

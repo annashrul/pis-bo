@@ -66,6 +66,7 @@ class IndexUserLevel extends Component {
     return (
       <Layout page={"Akses Pengguna"}>
         <HeaderGeneralCommon
+          col="col-md-12"
           pathName="daftarLevelPengguna"
           callbackGet={(res) => {
             this.setState({ any: res });

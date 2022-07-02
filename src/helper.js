@@ -150,7 +150,6 @@ export const dateRange = (
       <label
         style={{ display: isLabel || isLabel === undefined ? "block" : "none" }}
       >
-        {" "}
         Periode{" "}
       </label>
       <DateRangePicker
@@ -301,7 +300,7 @@ export const toExcel = (
 ) => {
   let header = [
     [title.toUpperCase()],
-    [`PERIODE : ${periode}`],
+    [`PERIODE  ${periode}`],
     [""],
     head,
     [""],

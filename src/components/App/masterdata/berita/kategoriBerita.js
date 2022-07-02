@@ -57,6 +57,7 @@ class KategoriBerita extends Component {
     return (
       <Layout page={`Kategori berita`}>
         <HeaderGeneralCommon
+          col="col-md-12"
           pathName="kategoriBerita"
           callbackGet={(res) => {
             this.setState({ any: res });

@@ -11,6 +11,7 @@ import {
   getFetchWhere,
   DEFAULT_WHERE,
   toCurrency,
+  getPeriode,
 } from "../../../helper";
 import moment from "moment";
 import {
@@ -27,6 +28,7 @@ class IndexPenarikan extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      periode: "",
       where_data: DEFAULT_WHERE,
       detail: {},
       any: "",
@@ -50,7 +52,8 @@ class IndexPenarikan extends Component {
   handleGet(res, page = 1) {
     if (res !== undefined) {
       let where = getFetchWhere(res, page);
-      this.setState({ where_data: where });
+      let periode = getPeriode(where.split("&"));
+      this.setState({ where_data: where, periode: periode });
       this.props.dispatch(getPenarikan(where));
     }
   }
@@ -74,18 +77,19 @@ class IndexPenarikan extends Component {
     );
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.dataExcel.data !== this.props.dataExcel.data) {
+    console.log("excel", this.props.dataExcel);
+
+    if (prevProps.dataExcel !== this.props.dataExcel) {
       this.getExcel(this.props);
     }
   }
   getExcel(props) {
-    if (props.dataExcel.data !== undefined) {
-      if (props.dataExcel.data.length > 0) {
+    if (props.dataExcel !== undefined) {
+      if (props.dataExcel.length > 0) {
         let content = [];
         let total = 0;
-        props.dataExcel.data.forEach((v, i) => {
-          let konv = parseFloat(this.props.configWallet.konversi_poin);
-          total = total + parseFloat(v.amount) * konv;
+        props.dataExcel.forEach((v, i) => {
+          total = total + parseFloat(v.amount);
 
           let status = "";
           if (v.status === 0) {
@@ -103,15 +107,17 @@ class IndexPenarikan extends Component {
             v.bank_name,
             v.acc_name,
             v.acc_no,
-            round(parseFloat(v.amount) * konv),
-            parseFloat(v.charge) * konv,
+            round(parseFloat(v.amount)),
+            parseFloat(v.charge),
             status,
             myDate(v.created_at),
           ]);
         });
         toExcel(
           "LAPORAN PENARIKAN",
-          `${this.state.dateFrom} - ${this.state.dateTo}`,
+          `${this.state.periode.split("-")[0]} - ${
+            this.state.periode.split("-")[1]
+          }`,
           [
             "KODE TRANSAKSI",
             "NAMA",
@@ -129,8 +135,18 @@ class IndexPenarikan extends Component {
       }
     }
   }
-  printDocumentXLsx = (e, param) => {
-    this.props.dispatch(getExcelPenarikan(this.state.where_data));
+  printDocumentXLsx = (param) => {
+    let datefrom = this.state.where_data.split("&")[1];
+    let dateto = this.state.where_data.split("&")[2];
+    let where = `page=1&perpage=${param}&${datefrom}&${dateto}`;
+    if (
+      this.state.any !== null &&
+      this.state.any !== undefined &&
+      this.state.any !== ""
+    ) {
+      where += `&q=${this.state.any}`;
+    }
+    this.props.dispatch(getExcelPenarikan(where));
   };
   render() {
     let totAmountPoint = 0;
@@ -163,7 +179,7 @@ class IndexPenarikan extends Component {
           otherData={this.state.status_data}
           columnData={this.state.kolom_data}
           callbackGet={(res) => this.handleGet(res)}
-          callbackExcel={() =>
+          callbackExport={() =>
             this.printDocumentXLsx(pagination.per_page * pagination.last_page)
           }
         />

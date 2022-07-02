@@ -11,6 +11,7 @@ import {
   swallOption,
   DEFAULT_WHERE,
   getFetchWhere,
+  getPeriode,
 } from "../../../helper";
 import { ModalToggle, ModalType } from "../../../redux/actions/modal.action";
 import {
@@ -27,6 +28,7 @@ class IndexDeposit extends Component {
     super(props);
     this.state = {
       detail: {},
+      periode: "",
       any: "",
       where_data: DEFAULT_WHERE,
       kolom_data: [
@@ -52,7 +54,8 @@ class IndexDeposit extends Component {
   handleGet(res, page = 1) {
     if (res !== undefined) {
       let where = getFetchWhere(res, page);
-      this.setState({ where_data: where });
+      let periode = getPeriode(where.split("&"));
+      this.setState({ where_data: where, periode: periode });
       this.props.dispatch(getDeposit(where));
     }
   }
@@ -63,21 +66,19 @@ class IndexDeposit extends Component {
     this.props.dispatch(getConfigWallet());
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.dataExcel.data !== this.props.dataExcel.data) {
+    console.log(this.props.dataExcel);
+    if (prevProps.dataExcel !== this.props.dataExcel) {
       this.getExcel(this.props);
     }
   }
 
   getExcel(props) {
-    if (props.dataExcel.data !== undefined) {
-      if (props.dataExcel.data.length > 0) {
+    if (props.dataExcel !== undefined) {
+      if (props.dataExcel.length > 0) {
         let content = [];
-        let total = 0;
-        props.dataExcel.data.forEach((v) => {
-          let konv =
-            parseInt(v.amount, 10) *
-            parseInt(this.props.configWallet.konversi_poin, 10);
-          total = total + konv;
+        let totAmountRp = 0;
+        props.dataExcel.forEach((v) => {
+          totAmountRp = totAmountRp + parseInt(v.amount, 10);
           let status = "";
           if (v.status === 0) {
             status = "Pending";
@@ -91,37 +92,60 @@ class IndexDeposit extends Component {
           content.push([
             v.kd_trx,
             v.fullname,
-            v.downline,
+            v.bank_name,
             v.acc_name,
             v.acc_no,
-            konv,
-            parseInt(v.unique_code, 10),
+            toCurrency(parseFloat(v.amount).toFixed(0)),
+            v.unique_code,
             status,
             myDate(v.created_at),
           ]);
         });
         toExcel(
           "LAPORAN DEPOSIT",
-          `${this.state.dateFrom} - ${this.state.dateTo}`,
+          `${this.state.periode.split("-")[0]} - ${
+            this.state.periode.split("-")[1]
+          }`,
           [
-            "KODE TRANSAKSI",
-            "NAMA",
-            "DOWNLINE",
-            "BANK TUJUAN",
-            "NO REKENING",
-            "JUMLAH",
-            "KODE UNIK",
-            "STATUS",
-            "TANGGAL",
+            "Kode transaksi".toUpperCase(),
+            "Nama".toUpperCase(),
+            "Bank tujuan".toUpperCase(),
+            "Atas Nama".toUpperCase(),
+            "No Rekening".toUpperCase(),
+            "Jumlah".toUpperCase(),
+            "Kode unik".toUpperCase(),
+            "Status".toUpperCase(),
+            "Tanggal".toUpperCase(),
           ],
           content,
-          [[""], [""], ["TOTAL", "", "", "", "", total]]
+          [
+            [""],
+            [""],
+            [
+              "TOTAL",
+              "",
+              "",
+              "",
+              "",
+              toCurrency(parseFloat(totAmountRp).toFixed(0)),
+            ],
+          ]
         );
       }
     }
   }
   printDocumentXLsx = (param) => {
-    this.props.dispatch(getExcelDeposit(this.state.where_data));
+    let datefrom = this.state.where_data.split("&")[1];
+    let dateto = this.state.where_data.split("&")[2];
+    let where = `page=1&perpage=${param}&${datefrom}&${dateto}`;
+    if (
+      this.state.any !== null &&
+      this.state.any !== undefined &&
+      this.state.any !== ""
+    ) {
+      where += `&q=${this.state.any}`;
+    }
+    this.props.dispatch(getExcelDeposit(where));
   };
 
   handleModal(e, kode) {
@@ -184,30 +208,10 @@ class IndexDeposit extends Component {
           otherData={this.state.status_data}
           columnData={this.state.kolom_data}
           callbackGet={(res) => this.handleGet(res)}
-          callbackExcel={() =>
+          callbackExport={() =>
             this.printDocumentXLsx(pagination.per_page * pagination.last_page)
           }
         />
-
-        {/* <HeaderGeneralCommon
-          col="col-md-3"
-          callbackGet={(res) => {
-            this.handleGet(res);
-            this.setState();
-          }}
-          isColumn={true}
-          columnData={this.state.kolom_data}
-          isPeriode={true}
-          pathName="laporanDeposit"
-          isOther={true}
-          otherName="status"
-          otherData={this.state.status_data}
-          other={this.state.status}
-          otherState="status"
-          callbackExcel={() =>
-            this.printDocumentXLsx(pagination.per_page * pagination.last_page)
-          }
-        /> */}
         <TableCommon
           head={head}
           rowSpan={rowSpan}

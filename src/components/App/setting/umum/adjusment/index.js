@@ -1,16 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Skeleton from "react-loading-skeleton";
-import {
-  getSiteAlokasi,
-  putSiteAlokasi,
-  storeAdjusment,
-  updateGeneral,
-} from "../../../../../redux/actions/setting/general.action";
-import Switch from "react-switch";
+import { storeAdjusment } from "../../../../../redux/actions/setting/general.action";
 import { filterObject, rmComma, toRp } from "../../../../../helper";
-import { getPaket } from "../../../../../redux/actions/masterdata/paket.action";
-import Select from "react-select";
 
 const myState = {
   trx_in: "0",
@@ -62,7 +53,6 @@ class Index extends Component {
   };
 
   render() {
-    console.log(this.props.dataPaket);
     return (
       <div className="card bg-transparent">
         <div className="card-body">
@@ -115,8 +105,6 @@ class Index extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    isLoading: state.generalReducer.isLoadingAlokasi,
-    dataPaket: state.paketReducer.data,
     isOpen: state.modalReducer,
   };
 };

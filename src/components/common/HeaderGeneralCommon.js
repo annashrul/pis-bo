@@ -131,6 +131,7 @@ class HeaderGeneralCommon extends Component {
     if (this.props.col) {
       col = this.props.col;
     }
+
     const { dateFrom, dateTo, column, any, column_data, other_data, other } =
       this.state;
 
@@ -175,67 +176,68 @@ class HeaderGeneralCommon extends Component {
         ) : null}
 
         <div className={`col-12 col-xs-12 ${col}`}>
-          {this.props.callbackSearch === "hide" ? "" : <label>Cari</label>}
-          <div className="input-group" style={{ marginTop: "-2px" }}>
-            {this.props.callbackSearch === "hide" ? (
-              ""
-            ) : (
-              <input
-                type="search"
-                name="any"
-                className="form-control"
-                placeholder="tulis sesuatu disini"
-                value={any}
-                onChange={this.handleChange}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") this.handleSearch(e);
-                }}
-              />
-            )}
-            <span className="input-group-append">
+          <div className="form-group">
+            {this.props.callbackSearch === "hide" ? "" : <label>Cari</label>}
+            <div className="input-group" style={{ marginTop: "-3px" }}>
               {this.props.callbackSearch === "hide" ? (
                 ""
               ) : (
-                <button
-                  type="button"
-                  className={`btn btn-primary ${
-                    this.props.callbackExport === undefined && "mr-2"
-                  }`}
-                  onClick={this.handleSearch}
-                >
-                  <i className="fa fa-search" />
-                </button>
-              )}
-              {this.props.callbackAdd && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    this.props.callbackAdd();
+                <input
+                  type="search"
+                  name="any"
+                  className="form-control"
+                  placeholder="tulis sesuatu disini"
+                  value={any}
+                  onChange={this.handleChange}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") this.handleSearch(e);
                   }}
-                  className={`btn btn-primary`}
-                >
-                  {this.props.callbackAddText === "" ||
-                  this.props.callbackAddText === null ||
-                  this.props.callbackAddText === undefined
-                    ? ""
-                    : this.props.callbackAddText}{" "}
-                  <i className="fa fa-plus" />
-                </button>
+                />
               )}
-              {this.props.callbackExport && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    this.props.callbackExport();
-                  }}
-                  className="btn btn-primary mr-2"
-                >
-                  <i className="fa fa-print" />
-                </button>
-              )}
-            </span>
+              <span className="input-group-append">
+                {this.props.callbackSearch === "hide" ? (
+                  ""
+                ) : (
+                  <button
+                    type="button"
+                    className={`btn btn-primary`}
+                    onClick={this.handleSearch}
+                  >
+                    <i className="fa fa-search" />
+                  </button>
+                )}
+                {this.props.callbackAdd && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.props.callbackAdd();
+                    }}
+                    className={`btn btn-primary`}
+                  >
+                    {this.props.callbackAddText === "" ||
+                    this.props.callbackAddText === null ||
+                    this.props.callbackAddText === undefined
+                      ? ""
+                      : this.props.callbackAddText}{" "}
+                    <i className="fa fa-plus" />
+                  </button>
+                )}
+                {this.props.callbackExport && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.props.callbackExport();
+                    }}
+                    className="btn btn-primary"
+                    style={{ marginLeft: "2px" }}
+                  >
+                    <i className="fa fa-print" />
+                  </button>
+                )}
+              </span>
+            </div>
           </div>
         </div>
       </div>
